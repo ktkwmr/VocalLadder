@@ -25,7 +25,7 @@ export default {
     heading: "How to use Vocal Ladder",
     nav: "How to use (guide)",
     description:
-      "Step-by-step guide to Vocal Ladder: choose a warm-up pattern, the start and end keys, and the tempo, play it a half step higher each time, build practice sets, save your own patterns, and share sets with students.",
+      "Step-by-step guide to Vocal Ladder: choose a warm-up pattern, the start and end keys, and the tempo, play it a half step higher each time, build practice sets, save your own patterns, and share sets as a file.",
     body: () => `
 <p class="lead">Vocal Ladder plays the piano part of a vocal warm-up for you. It plays an exercise such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, then moves it up (or down) a half step and plays it again, until it reaches the key you chose. This guide walks through every part of the screen.</p>
 
@@ -36,7 +36,7 @@ export default {
   <li><a href="#settings">Pattern, start and end, tempo, piano</a></li>
   <li><a href="#sets">Practice sets</a></li>
   <li><a href="#mine">Saving your own patterns</a></li>
-  <li><a href="#share">Sharing sets with students</a></li>
+  <li><a href="#share">Sharing sets as a file</a></li>
   <li><a href="#phone">On a phone</a></li>
   <li><a href="#offline">Saving, installing, and offline use</a></li>
 </ol></nav>
@@ -54,7 +54,7 @@ export default {
   <figcaption>The numbers match the list below. Tap the image to enlarge it.</figcaption>
 </figure>
 <ol>
-  <li><b>Choose a set</b> – Switch between practice sets, for example one per student. The set name is in the box below it.</li>
+  <li><b>Choose a set</b> – Switch between practice sets, for example by purpose or voice type. The set name is in the box below it.</li>
   <li><b>Exercises</b> – The exercises of the set, in the order they play. Each shows its keys and tempo. Tap one to select it.</li>
   <li><b>Exercise buttons</b> – Add an exercise after the selected one, duplicate it, move it up or down, or delete it.</li>
   <li><b>Title</b> – The exercise's name. If you leave it empty, the name of its pattern is shown.</li>
@@ -101,7 +101,7 @@ export default {
 
 <h2 id="sets">Practice sets</h2>
 <ul>
-  <li>A practice set is a list of exercises. Make one per student, voice type, or day with <b>+ New set</b>, and type its name in the set name box.</li>
+  <li>A practice set is a list of exercises. Make as many as you like, by purpose, voice type, or day, with <b>+ New set</b>, and type its name in the set name box.</li>
   <li><b>+ Add exercise</b> adds one after the selected exercise, with the same keys and tempo, so a series is quick to build.</li>
   <li>To delete a set, tap <b>Delete set</b> twice within 4 seconds.</li>
 </ul>
@@ -113,12 +113,13 @@ export default {
   <li>Choose a saved pattern to <b>Rename</b> it or <b>Delete pattern</b> (tap twice). Exercises that use a deleted pattern keep their notes.</li>
 </ul>
 
-<h2 id="share">Sharing sets with students</h2>
+<h2 id="share">Sharing sets as a file</h2>
 <ol>
   <li>Open ⚙ and choose <b>Export all sets</b>. All your sets and saved patterns are saved in one small file (a .json file). On an iPhone, the share menu opens instead.</li>
   <li>Send the file by email or a chat app.</li>
-  <li>The student opens Vocal Ladder, opens ⚙, chooses <b>Import sets</b>, and picks the file. The sets and patterns are added; nothing they already have is replaced, and sets they already have are skipped.</li>
+  <li>Whoever receives it opens Vocal Ladder, opens ⚙, chooses <b>Import sets</b>, and picks the file. The sets and patterns are added; nothing they already have is replaced, and sets they already have are skipped.</li>
 </ol>
+<p>The same steps move your sets to another device of your own. As one example of sharing, a voice teacher can put a week's warm-ups in a set and send the file to students.</p>
 
 <h2 id="phone">On a phone</h2>
 <figure class="shot phone">
@@ -140,7 +141,7 @@ export default {
     heading: "Vocal Ladder の使い方",
     nav: "使い方ガイド",
     description:
-      "Vocal Ladder の使い方。練習パターン・開始と終了のキー・テンポを選んで半音ずつ上げながら再生する方法、練習セットの作り方、マイパターンの保存、生徒とのセットの共有を、画面写真付きで説明します。",
+      "Vocal Ladder の使い方。練習パターン・開始と終了のキー・テンポを選んで半音ずつ上げながら再生する方法、練習セットの作り方、マイパターンの保存、ファイルでのセットの共有を、画面写真付きで説明します。",
     body: () => `
 <p class="lead">Vocal Ladder は、発声練習のピアノ伴奏を代わりに弾くアプリです。「ドレミファソファミレド」などの練習を弾き、半音ずつ上げて（または下げて）、選んだキーまで繰り返します。このガイドでは、画面の各部分を順に説明します。</p>
 
@@ -151,7 +152,7 @@ export default {
   <li><a href="#settings">パターン・開始と終了・テンポ・ピアノ</a></li>
   <li><a href="#sets">練習セット</a></li>
   <li><a href="#mine">オリジナルのパターンを保存する</a></li>
-  <li><a href="#share">生徒とセットを共有する</a></li>
+  <li><a href="#share">セットをファイルで共有する</a></li>
   <li><a href="#phone">スマホで使う</a></li>
   <li><a href="#offline">保存・インストール・オフライン</a></li>
 </ol></nav>
@@ -169,7 +170,7 @@ export default {
   <figcaption>番号は下の一覧と対応しています。画像を押すと拡大できます。</figcaption>
 </figure>
 <ol>
-  <li><b>セットを選ぶ</b> – 練習セットを切り替えます（生徒ごとなど）。下の欄がセットの名前です。</li>
+  <li><b>セットを選ぶ</b> – 練習セットを切り替えます（目的ごと・声種ごとなど）。下の欄がセットの名前です。</li>
   <li><b>練習</b> – セットの練習を、再生する順に並べています。それぞれのキーとテンポも表示します。押すと選択します。</li>
   <li><b>練習のボタン</b> – 選択中の練習の後ろに追加、複製、上下に移動、削除します。</li>
   <li><b>タイトル</b> – 練習の名前です。空欄なら、パターンの名前を表示します。</li>
@@ -216,7 +217,7 @@ export default {
 
 <h2 id="sets">練習セット</h2>
 <ul>
-  <li>練習セットは、練習を並べたものです。生徒ごと・声種ごと・日ごとに <b>＋ 新しいセット</b> で作り、セットの名前の欄に名前を入れます。</li>
+  <li>練習セットは、練習を並べたものです。目的ごと・声種ごと・日ごとなど、<b>＋ 新しいセット</b> でいくつでも作れます。セットの名前の欄に名前を入れます。</li>
   <li><b>＋ 練習の追加</b> は、選択中の練習の後ろに、同じキーとテンポで練習を足します。続けて作るときに便利です。</li>
   <li>セットを削除するときは、<b>セットを削除</b> を 4 秒以内に 2 回押します。</li>
 </ul>
@@ -228,12 +229,13 @@ export default {
   <li>マイパターンを選ぶと <b>名前を変更</b> と <b>パターンを削除</b>（2 回押す）が出ます。削除しても、そのパターンを使っていた練習の音は残ります。</li>
 </ul>
 
-<h2 id="share">生徒とセットを共有する</h2>
+<h2 id="share">セットをファイルで共有する</h2>
 <ol>
   <li>⚙ の <b>セットをエクスポート</b> を選びます。すべてのセットとマイパターンが、1 つの小さなファイル（.json）に保存されます。iPhone では共有メニューが開きます。</li>
   <li>ファイルをメールやチャットアプリで送ります。</li>
   <li>受け取った人は Vocal Ladder を開き、⚙ の <b>セットをインポート</b> でファイルを選びます。セットとマイパターンが追加されます。今あるものは置き換えず、同じセットがすでにあれば読み込みません。</li>
 </ol>
+<p>自分の別の端末にセットを移すときも同じ手順です。共有の使い方の一例として、ボーカルレッスンの先生がその週の発声練習をセットにして、生徒にファイルで渡すこともできます。</p>
 
 <h2 id="phone">スマホで使う</h2>
 <figure class="shot phone">

@@ -22,8 +22,8 @@ const EN = [
     a: 'Yes. Type the notes as numbers in the notes box (1 to 7 are Do to Ti, 8 is Do an octave up), and save it with “Save this pattern” to use it again. See <a href="../patterns/">writing your own patterns</a>.',
   },
   {
-    q: "How do I give a set to a student?",
-    a: 'Open ⚙ → Export all sets and send the file. The student opens ⚙ → Import sets in their own Vocal Ladder. The file holds all your sets and saved patterns; importing only adds, and skips sets that are already there. See the <a href="../guide/#share">guide</a>.',
+    q: "How do I share sets with someone?",
+    a: 'Open ⚙ → Export all sets and send the file. The other person opens ⚙ → Import sets in their own Vocal Ladder. The file holds all your sets and saved patterns; importing only adds, and skips sets that are already there. See the <a href="../guide/#share">guide</a>.',
   },
   {
     q: "Can I play only one exercise, or the whole set?",
@@ -77,8 +77,8 @@ const JA = [
     a: '作れます。音の欄に数字で入力し（1〜7 がド〜シ、8 が 1 オクターブ上のド）、「このパターンを保存」で保存すると、くり返し使えます。<a href="../patterns/">練習パターンの書き方</a>をご覧ください。',
   },
   {
-    q: "生徒にセットを渡すには？",
-    a: '⚙ の「セットをエクスポート」でファイルを保存して送ります。生徒は自分の Vocal Ladder の ⚙ →「セットをインポート」で読み込みます。ファイルにはすべてのセットとマイパターンが入っています。インポートは追加だけで、すでにあるセットは読み込みません。<a href="../guide/#share">使い方ガイド</a>もご覧ください。',
+    q: "セットをほかの人と共有するには？",
+    a: '⚙ の「セットをエクスポート」でファイルを保存して送ります。受け取った人は自分の Vocal Ladder の ⚙ →「セットをインポート」で読み込みます。ファイルにはすべてのセットとマイパターンが入っています。インポートは追加だけで、すでにあるセットは読み込みません。<a href="../guide/#share">使い方ガイド</a>もご覧ください。',
   },
   {
     q: "1 つの練習だけ、またはセット全体を続けて再生できますか？",
@@ -120,7 +120,7 @@ export default {
     heading: "Frequently asked questions",
     nav: "FAQ",
     description:
-      "Answers to common questions about Vocal Ladder: what the start and end keys mean, keys for low voices, your own patterns, sharing sets with students, playing a whole set, sound on iPhone, offline use, and privacy.",
+      "Answers to common questions about Vocal Ladder: what the start and end keys mean, keys for low voices, your own patterns, sharing sets as a file, playing a whole set, sound on iPhone, offline use, and privacy.",
     faq: EN,
     body: () => `<p class="lead">Short answers to common questions. For step-by-step instructions, see the <a href="../guide/">guide</a>.</p>\n${list(EN)}`,
   },
@@ -129,7 +129,7 @@ export default {
     heading: "よくある質問",
     nav: "よくある質問",
     description:
-      "Vocal Ladder についてのよくある質問。開始キー・終了キーの意味、低い声のキーの選び方、オリジナルのパターン、生徒とのセットの共有、セットの連続再生、iPhone の音、オフライン、プライバシーについて。",
+      "Vocal Ladder についてのよくある質問。開始キー・終了キーの意味、低い声のキーの選び方、オリジナルのパターン、ファイルでのセットの共有、セットの連続再生、iPhone の音、オフライン、プライバシーについて。",
     faq: JA,
     body: () => `<p class="lead">よくある質問への短い回答です。詳しい手順は<a href="../guide/">使い方ガイド</a>をご覧ください。</p>\n${list(JA)}`,
   },
