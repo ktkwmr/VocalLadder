@@ -8,8 +8,8 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
 
 ## Features / 機能
 
-- **Exercises**: 11 built-in patterns (3- and 5-note scales, Do-Mi-Sol, arpeggio to the octave, one-octave and 9-note scales, Sol down to Do, octave leap, staccato, long tone, minor) or your own written as numbers
-  パターン 11 種（3音・5音、ドミソ、オクターブのアルペジオ、1オクターブ・9度の音階、下降、オクターブの跳躍、スタッカート、ロングトーン、短調）と、数字で書くオリジナル
+- **Exercises**: 9 built-in patterns (Do-Re-Mi-Fa-Sol, Do-Re-Mi, Do-Mi-Sol, Do-Mi-Sol-Do, one octave, Sol-Fa-Mi-Re-Do, one-octave leap, 1.5-octave leap, staccato Do-Mi-Sol) or your own written as numbers
+  パターン 9 種（ドレミファソ、ドレミ、ドミソ、ドミソド、1オクターブ、ソファミレド、1オクターブ跳躍、1.5オクターブ変則跳躍、スタッカートのドミソ）と、数字で書くオリジナル
 - **Start and end**: any keys from C2 to C6, half or whole steps, up or down, optionally back to the start. Shows the range you will sing
   開始・終了のキー（C2〜C6）、半音・全音、上り・下り、開始まで戻るも可。歌う音域を表示
 - **Piano**: chord before each key, melody on/off, rest between keys, tempo 30–240. Synthesized piano or a soft held tone (Web Audio API)
