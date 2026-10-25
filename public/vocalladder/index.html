@@ -295,6 +295,17 @@
               <button type="button" class="chip" id="delBtn" data-i18n="del">Delete</button>
             </div>
           </div>
+          <div class="group sep">
+            <span class="label" data-i18n="all">For all exercises</span>
+            <div class="chips">
+              <button type="button" class="chip" id="throughBtn" data-i18n="through">Continue to the next exercise</button>
+            </div>
+            <div class="chips" id="sounds"></div>
+          </div>
+          <div class="group sep">
+            <label class="label" for="vol"><span data-i18n="vol">Volume</span> <span class="val" id="volVal"></span></label>
+            <input type="range" id="vol" min="0" max="100" step="1">
+          </div>
         </div>
       </aside>
 
@@ -342,7 +353,7 @@
               <button type="button" class="chip" id="patNameOk" data-i18n="pattern.ok">Save</button>
               <button type="button" class="chip" id="patNameCancel" data-i18n="cancel">Cancel</button>
             </div>
-            <p class="hint" data-i18n-html="pattern.hint"><code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up, <code>5,</code> = Sol below Do, <code>b3</code> / <code>#4</code> = flat / sharp, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.</p>
+            <p class="hint" data-i18n-html="pattern.hint"><code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up. Put <code>b</code> before a number to lower it a half step, or <code>#</code> to raise it (<code>b3</code> = Mi lowered a half step). <code>5,</code> = Sol an octave lower, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.</p>
           </div>
           <div class="group">
             <span class="label" data-i18n="range">Start and end</span>
@@ -383,17 +394,6 @@
               <span class="hint" data-i18n="rest.unit">beats</span>
             </div>
           </div>
-          <div class="group sep">
-            <span class="label" data-i18n="all">For all exercises</span>
-            <div class="chips">
-              <button type="button" class="chip" id="throughBtn" data-i18n="through">Continue to the next exercise</button>
-            </div>
-            <div class="chips" id="sounds"></div>
-          </div>
-          <div class="group sep">
-            <label class="label" for="vol"><span data-i18n="vol">Volume</span> <span class="val" id="volVal"></span></label>
-            <input type="range" id="vol" min="0" max="100" step="1">
-          </div>
         </div>
         <p class="keys" data-i18n-html="keys"><kbd>Space</kbd> start / stop　<kbd>←</kbd><kbd>→</kbd> previous / next key　<kbd>↑</kbd><kbd>↓</kbd> previous / next exercise</p>
       </section>
@@ -421,7 +421,7 @@
         <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>
         <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>
         <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Send it to a student, who opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>
-        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>
+        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b</code> before a number lowers it a half step and <code>#</code> raises it (<code>b3</code> = Mi lowered a half step), <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>
         <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>
       </ol>
     </div>
@@ -540,12 +540,13 @@
           "pattern.ok": "Save",
           "cancel": "Cancel",
           "pattern.saved": "Saved “{name}” at the top of the pattern list.",
+          "pattern.overwritten": "Overwrote “{name}” with these notes.",
           "pattern.confirmDel": "Tap “Delete pattern” again to delete “{name}”. Exercises that use it keep their notes.",
           "pattern.deleted": "Deleted “{name}”. Exercises that used it keep their notes.",
           "pat.imported": "Added {n} patterns to My patterns.",
           "pat.imported.one": "Added 1 pattern to My patterns.",
           "pattern.edit": "Notes (edit to make your own)",
-          "pattern.hint": "<code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up, <code>5,</code> = Sol below Do, <code>b3</code> / <code>#4</code> = flat / sharp, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.",
+          "pattern.hint": "<code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up. Put <code>b</code> before a number to lower it a half step, or <code>#</code> to raise it (<code>b3</code> = Mi lowered a half step). <code>5,</code> = Sol an octave lower, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.",
           "pattern.err": "Cannot read “{tok}”. Use numbers 1–15 with b, #, “,”, -, / or r.",
           "pattern.errEmpty": "Enter at least one note.",
           "pattern.errRange": "“{tok}” is too far from Do (up to 2 octaves above or below).",
@@ -608,7 +609,7 @@
           "reset.body": "This deletes all your practice sets, My patterns, and settings saved in this browser, and returns the app to how it looks when first opened. This cannot be undone. To keep your sets, use “Export all sets” first.",
           "reset.ok": "Delete everything",
           "reset.done": "Deleted all saved data.",
-          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Send it to a student, who opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
+          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Send it to a student, who opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b</code> before a number lowers it a half step and <code>#</code> raises it (<code>b3</code> = Mi lowered a half step), <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
           "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\">privacy policy</a> and <a href=\"/vocalladder/about/\">about this site</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a> · <a href=\"/vocalladder/about/\">About this site</a>",
           "close": "Close",
@@ -674,12 +675,13 @@
           "pattern.ok": "保存",
           "cancel": "キャンセル",
           "pattern.saved": "「{name}」をパターンの一番上に保存しました。",
+          "pattern.overwritten": "「{name}」をこの音で上書き保存しました。",
           "pattern.confirmDel": "もう一度「パターンを削除」を押すと「{name}」を削除します。このパターンを使っている練習の音はそのまま残ります。",
           "pattern.deleted": "「{name}」を削除しました。使っていた練習の音はそのまま残ります。",
           "pat.imported": "マイパターンを{n}個追加しました。",
           "pat.imported.one": "マイパターンを1個追加しました。",
           "pattern.edit": "音（書き換えるとオリジナルのパターンに）",
-          "pattern.hint": "<code>1</code>〜<code>7</code> = ド〜シ、<code>8</code> = 1オクターブ上のド、<code>5,</code> = ドの下のソ、<code>b3</code>／<code>#4</code> = ♭／♯、<code>-</code> = 1拍のばす、<code>/</code> = 半分の長さ、<code>r</code> = 休み。",
+          "pattern.hint": "<code>1</code>〜<code>7</code> = ド〜シ、<code>8</code> = 1オクターブ上のド。数字の前に <code>b</code> を付けると半音下がり、<code>#</code> を付けると半音上がります（<code>b3</code> = 半音下げたミ）。<code>5,</code> = 1オクターブ下のソ、<code>-</code> = 1拍のばす、<code>/</code> = 半分の長さ、<code>r</code> = 休み。",
           "pattern.err": "「{tok}」が読めません。1〜15の数字と b・#・,・-・/・r を使ってください。",
           "pattern.errEmpty": "音を1つ以上入力してください。",
           "pattern.errRange": "「{tok}」はドから離れすぎています（上下2オクターブまで）。",
@@ -742,7 +744,7 @@
           "reset.body": "このブラウザに保存している練習セット・マイパターン・設定をすべて削除して、初めて開いたときの状態に戻します。元に戻せません。残しておきたいセットは、先に「セットをエクスポート」で保存してください。",
           "reset.ok": "すべて削除",
           "reset.done": "保存した情報をすべて削除しました。",
-          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、<code>b3</code>・<code>#4</code> が♭・♯、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
+          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、数字の前の <code>b</code> で半音下がり <code>#</code> で半音上がり（<code>b3</code> = 半音下げたミ）、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
           "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\">運営者情報</a>をご覧ください。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a> · <a href=\"/vocalladder/ja/about/\">運営者情報</a>",
           "close": "閉じる",
@@ -883,7 +885,7 @@
           end: note(o.end, 67),
           step: +o.step === 2 ? 2 : 1,
           round: bool(o.roundTrip != null ? o.roundTrip : o.round, false),
-          bpm: clamp(Math.round(+o.bpm || 100), 30, 240),
+          bpm: clamp(Math.round(+o.bpm || 120), 30, 240),
           rest: clamp(Math.round(+o.rest || 0), 0, 8),
           cue: bool(o.chord != null ? o.chord : o.cue, true),
           guide: bool(o.melody != null ? o.melody : o.guide, true),
@@ -901,13 +903,9 @@
           current: items.some((x) => x.id === o.current) ? o.current : items[0].id,
         };
       }
-      // A first set to start from: three common exercises
+      // A first set to start from: one exercise, Do-Re-Mi-Fa-Sol from C4 to G4 at the default tempo
       function demoSet() {
-        return sanitizeSet({ name: t("set.default"), exercises: [
-          { pattern: PRESETS[0].text, start: "C4", end: "G4", bpm: 100 },
-          { pattern: PRESETS[2].text, start: "C4", end: "A4", bpm: 96, round: true },
-          { pattern: PRESETS[3].text, start: "C4", end: "F4", bpm: 88 },
-        ] });
+        return sanitizeSet({ name: t("set.default"), exercises: [{ pattern: PRESETS[0].text, start: "C4", end: "G4" }] });
       }
       const SOUNDS = ["piano", "soft"];
       // My patterns: the user's own notes saved with a name, shown at the top of the pattern list (newest first)
@@ -1353,10 +1351,10 @@
           const q = store.patterns.find((x) => x.id === patEdit.id);
           if (q) q.name = uniquePatName(typed || q.name, q.id);
         } else if (!parsePattern(text).error && !myPattern(text)) {
-          // New patterns go to the top of the list
-          const name = uniquePatName(typed || autoName(text).slice(0, 40));
-          store.patterns.unshift({ id: uid(), name: name, text: text });
-          toast(t("pattern.saved", { name: name }));
+          const name = typed || autoName(text).slice(0, 40), same = store.patterns.find((x) => x.name === name);
+          // The same name overwrites that pattern's notes (it keeps its place); a new name goes to the top of the list
+          if (same) { same.text = text; toast(t("pattern.overwritten", { name: name })); }
+          else { store.patterns.unshift({ id: uid(), name: name, text: text }); toast(t("pattern.saved", { name: name })); }
         }
         patEdit = null; saveState(); render(["list", "settings"]);
       };
