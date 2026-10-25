@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<!-- Generated from ../index.html by scripts/build-ja.mjs. Do not edit. -->
+<html lang="ja" data-page-lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <base href="/vocalladder/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Vocal Ladder" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <title>発声練習の音階を半音ずつ自動で｜ピアノ伴奏の無料ツール – Vocal Ladder</title>
+  <meta name="description" content="発声練習のピアノ伴奏を自動で弾く無料ツール。ドレミファソファミレド・ドミソ・スケール・オリジナルのパターンを、開始の音から終了の音まで半音ずつ上げ下げして連続再生。テンポも自由。練習セットを並べて通しで練習でき、エクスポート・インポートで生徒と共有できます。登録不要・オフライン対応。" />
+  <link rel="canonical" href="https://ktkwmr.com/vocalladder/ja/" />
+  <link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/" />
+  <link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/" />
+  <link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vocal Ladder" />
+  <meta property="og:title" content="発声練習の音階を半音ずつ自動で｜ピアノ伴奏の無料ツール – Vocal Ladder" />
+  <meta property="og:description" content="ドレミファソファミレドなどの発声練習を、ピアノが半音ずつ上げ下げして伴奏。開始・終了の音とテンポを指定でき、練習セットはファイルで共有できます。無料・登録不要・オフライン対応。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:url" content="https://ktkwmr.com/vocalladder/ja/" />
+  <meta property="og:image" content="https://ktkwmr.com/vocalladder/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Vocal Ladder：C4からG4まで半音ずつ上がる発声練習" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Vocal Ladder",
+    "url": "https://ktkwmr.com/vocalladder/ja/",
+    "description": "発声練習のパターンをピアノで弾き、指定した音の間を半音ずつ上げ下げする発声練習ツール。練習セットのエクスポート・インポートに対応。",
+    "applicationCategory": "MultimediaApplication",
+    "inLanguage": "ja",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires a modern web browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "ktkwmr" }
+  }
+  </script>
+  <style>
+    /* Layout: same as the other apps on ktkwmr.com. White toolbar, grey canvas with white panels (left: practice set / right: player) */
+    :root {
+      color-scheme: light;
+      --ink: #000; --paper: #fff; --muted: #525252; --subtle: #737373; --line: #e5e5e5; --line-strong: #d4d4d4;
+      --hover-fill: #f5f5f5; --canvas: #f5f5f5; --press: #404040; --press-hover: #262626;
+      --paper-shadow: 0 1px 3px rgba(0,0,0,.08), 0 6px 20px rgba(0,0,0,.08);
+      --shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+      --radius: 8px; --ctl-h: 34px;
+      --mono: "Cascadia Mono", "Consolas", "SF Mono", Menlo, "MS Gothic", monospace;
+      --sans: "Segoe UI Variable Text", "Segoe UI", "Yu Gothic UI", "Meiryo UI", "Meiryo", system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      --pad-x: 20px;
+      /* Notch / home bar in landscape (0 where unsupported) */
+      --gl: max(var(--pad-x), env(safe-area-inset-left, 0px)); --gr: max(var(--pad-x), env(safe-area-inset-right, 0px));
+    }
+    @media (max-width: 900px) { :root { --pad-x: 16px; } }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body { margin: 0; min-height: 100dvh; color: var(--ink); background: var(--canvas); font-family: var(--sans); font-size: 13px; line-height: 1.6; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+    button, select, input { font-family: inherit; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+    /* Toolbar */
+    .topbar { background: var(--paper); border-bottom: 1px solid var(--line); padding: calc(10px + env(safe-area-inset-top, 0px)) var(--gr) 10px var(--gl); }
+    .toolbar { display: flex; align-items: center; gap: 12px 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 14px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
+    .brand svg { width: 28px; height: 28px; flex: 0 0 auto; }
+    .toolbar .end { margin-left: auto; display: flex; align-items: center; }
+    #settingsBtn { appearance: none; width: var(--ctl-h); height: var(--ctl-h); padding: 0; border: 1px solid transparent; border-radius: 50%; background: var(--paper); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+    #settingsBtn svg { flex: none; width: 28px; height: 28px; }
+    #settingsBtn:active { background: var(--line); }
+    @media (hover: hover) { #settingsBtn:hover { background: var(--hover-fill); } }
+
+    /* Settings menu (below the gear button) */
+    .menu { position: fixed; z-index: 1000; min-width: 168px; padding: 4px; border: 1px solid var(--ink); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .menu button, .menu a { display: block; width: 100%; height: 40px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: var(--ink); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+    .menu a { line-height: 40px; text-decoration: none; white-space: nowrap; }
+    .menu button:active, .menu a:active { background: var(--line); }
+    .menu button:focus-visible, .menu a:focus-visible { outline-offset: -2px; }
+    @media (hover: hover) { .menu button:hover, .menu a:hover { background: var(--hover-fill); } }
+
+    /* Canvas and panels */
+    .canvas { padding: 16px var(--gr) calc(16px + env(safe-area-inset-bottom, 0px)) var(--gl); display: flex; flex-direction: column; gap: 12px; }
+    .layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 16px; align-items: start; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .layout .out { order: -1; } }
+    .panel { min-width: 0; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .panel.out { border-color: transparent; box-shadow: var(--paper-shadow); }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px 12px; min-height: 40px; padding: 0 6px 0 16px; border-bottom: 1px solid var(--line); font-size: 13px; font-weight: 700; flex-wrap: wrap; }
+    .panel-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 18px; }
+    .foot { color: var(--subtle); font-size: 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .foot svg { flex: 0 0 auto; }
+
+    /* Explanation below the app (for people arriving from search) */
+    .intro { max-width: 760px; margin: 20px 0 8px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .intro h1 { margin: 0 0 10px; color: var(--ink); font-size: 20px; line-height: 1.4; }
+    .intro h2 { margin: 22px 0 6px; color: var(--ink); font-size: 15px; }
+    .intro p { margin: 0 0 10px; }
+    .intro ul { margin: 0 0 10px; padding-left: 20px; }
+    .intro b { color: var(--ink); }
+    .intro code { font-family: var(--mono); font-size: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+
+    /* Shared controls */
+    .group { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .label { font-size: 12px; font-weight: 700; color: var(--ink); display: flex; justify-content: space-between; gap: 8px; }
+    .label .val { font-family: var(--mono); color: var(--muted); font-weight: 700; }
+    .hint { font-size: 12px; color: var(--subtle); margin: 0; }
+    .hint code { font-family: var(--mono); color: var(--ink); }
+    .err { font-size: 12px; color: #b91c1c; margin: 0; font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { appearance: none; height: var(--ctl-h); padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; touch-action: manipulation; }
+    .chip.mono { font-family: var(--mono); min-width: 42px; padding: 0 8px; }
+    .chip.sq { width: var(--ctl-h); padding: 0; }
+    .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .chip:active:not(:disabled) { background: var(--line); }
+    .chip[aria-pressed="true"]:active { background: var(--press); }
+    .chip:disabled { opacity: .4; cursor: default; }
+    @media (hover: hover) {
+      .chip:hover:not(:disabled) { border-color: var(--ink); background: var(--hover-fill); }
+      .chip[aria-pressed="true"]:hover { background: var(--press-hover); }
+    }
+    .field { width: 100%; min-width: 0; height: var(--ctl-h); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font-size: 14px; padding: 0 10px; }
+    .field:focus { border-color: var(--ink); outline: none; }
+    .field.mono { font-family: var(--mono); font-size: 14px; }
+    .field[aria-invalid="true"] { border-color: #b91c1c; }
+    select.field { padding-right: 4px; }
+    .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .row2 label { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+    input[type=range] { width: 100%; accent-color: var(--ink); margin: 0; height: 24px; }
+    .stepper { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .stepper .num { font-family: var(--mono); font-weight: 700; font-size: 15px; min-width: 2.4ch; text-align: center; }
+
+    /* Practice set and its exercises */
+    .songs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+    /* The number sits outside the card so it stays in place when exercises are reordered */
+    .songs li { display: flex; align-items: center; gap: 8px; }
+    .songs .no { flex: none; font-family: var(--mono); font-size: 12px; color: var(--subtle); min-width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
+    .song { appearance: none; flex: 1; min-width: 0; text-align: left; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); padding: 8px 12px; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr); }
+    .song .nm { font-weight: 700; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-height: 1.6em; }
+    .song .mt { font-family: var(--mono); font-size: 11px; color: var(--subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .song[aria-current="true"] .mt { color: var(--line-strong); }
+    @media (hover: hover) { .song:hover { border-color: var(--ink); } .song:not([aria-current="true"]):hover { background: var(--hover-fill); } }
+    .list-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+    .list-actions .grow { flex: 1 1 100%; }
+    .set-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+    .count { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--subtle); padding-right: 10px; }
+    .sep { border-top: 1px solid var(--line); padding-top: 16px; }
+
+    /* Player */
+    .name-wrap { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
+    .song-no { font-family: var(--mono); font-size: 15px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .name-input { flex: 1; min-width: 0; height: 32px; border: 1px solid transparent; border-radius: var(--radius); background: transparent; color: var(--ink); font-size: 15px; font-weight: 700; padding: 0 8px; margin-left: -8px; }
+    .name-input:hover { border-color: var(--line-strong); }
+    .name-input:focus { border-color: var(--ink); outline: none; }
+    .name-input::placeholder { color: var(--subtle); font-weight: 600; }
+    /* Phones and tablets: the title gets a full row with a visible box, the buttons go to the next row */
+    @media (max-width: 900px) {
+      .out .panel-head { padding: 8px 12px; gap: 8px; }
+      .name-wrap { flex: 1 1 100%; }
+      .name-input { height: 40px; margin-left: 0; border-color: var(--line-strong); background: var(--paper); }
+      .nav { flex: 1 1 100%; padding: 0; }
+      .nav .chip { flex: 1 1 auto; }
+    }
+    .nav { display: flex; gap: 4px; padding: 4px 0; flex-wrap: wrap; }
+    .display { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px 16px; border-bottom: 1px solid var(--line); }
+    .keybox { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .keybig { font-family: var(--mono); font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+    .keysub { font-size: 12px; color: var(--muted); text-align: center; }
+    .keysub b { color: var(--ink); font-family: var(--mono); }
+    @media (max-width: 480px) { .keybig { font-size: 52px; } }
+
+    /* The exercise as boxes at the height of each note (wider = longer) */
+    .pat { display: flex; align-items: stretch; gap: 3px; width: 100%; max-width: 640px; height: 96px; }
+    .pt { flex: 1 1 0; min-width: 0; position: relative; }
+    .pt .nb { position: absolute; left: 0; right: 0; height: 26px; border: 1.5px solid var(--ink); border-radius: 6px; background: var(--paper); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; line-height: 1; overflow: hidden; white-space: nowrap; letter-spacing: -.02em; transition: background-color .06s, color .06s; }
+    .pt.rest .nb { border-style: dashed; border-color: var(--line-strong); color: var(--subtle); }
+    .pt.on .nb { background: var(--ink); color: var(--paper); }
+    .pat.cue .pt .nb { border-color: var(--subtle); }
+    .cue-tag { font-size: 12px; font-weight: 700; color: var(--subtle); min-height: 1.6em; }
+    .cue-tag.on { color: var(--ink); }
+
+    /* The keys the exercise moves through */
+    .ladder { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 640px; }
+    .lk { appearance: none; min-width: 40px; height: 28px; padding: 0 4px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--paper); color: var(--ink); font: 600 11px var(--mono); cursor: pointer; touch-action: manipulation; }
+    .lk.done { color: var(--subtle); background: var(--hover-fill); }
+    .lk[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    @media (hover: hover) { .lk:hover { border-color: var(--ink); } }
+
+    .transport { display: flex; gap: 8px; justify-content: center; width: 100%; max-width: 520px; }
+    .play { appearance: none; flex: 1 1 220px; height: 52px; border: 0; border-radius: 10px; background: var(--ink); color: var(--paper); font-size: 16px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; touch-action: manipulation; }
+    .play svg { width: 18px; height: 18px; }
+    .play:disabled { opacity: .4; cursor: default; }
+    @media (hover: hover) { .play:hover:not(:disabled) { background: var(--press-hover); } }
+    .play:active:not(:disabled) { background: var(--press); }
+    .transport .chip { flex: 0 1 96px; height: 52px; font-size: 13px; }
+
+    .settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; padding: 16px 16px 20px; }
+    @media (max-width: 640px) { .settings { grid-template-columns: 1fr; } }
+    .bpm-row { display: flex; align-items: center; gap: 6px; }
+    .bpm-input { appearance: textfield; -moz-appearance: textfield; width: 4.5ch; height: var(--ctl-h); border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--paper); color: var(--ink); font-family: var(--mono); font-size: 18px; font-weight: 700; text-align: center; padding: 0; }
+    .bpm-input::-webkit-outer-spin-button, .bpm-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .bpm-input:focus { outline: none; border-color: var(--ink); }
+    .keys { font-size: 12px; color: var(--subtle); padding: 0 16px 16px; margin: 0; }
+    kbd { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; color: var(--muted); background: var(--paper); }
+    @media (pointer: coarse) { .keys { display: none; } }
+
+    /* Dialogs */
+    .primary { appearance: none; height: var(--ctl-h); padding: 0 16px; border: 1px solid transparent; border-radius: var(--radius); color: var(--paper); background: var(--ink); font-weight: 600; cursor: pointer; }
+    .primary:active { background: var(--press); }
+    @media (hover: hover) { .primary:hover { background: var(--press-hover); } }
+
+    /* Tap feedback for one-shot buttons: shrink and darken briefly, like a mobile app.
+       .is-pressed is held for a moment by JS so even a quick tap shows it. */
+    .chip, .play, .primary, #settingsBtn, .song, .lk { transition: background-color .12s, border-color .12s, color .12s, transform .1s ease-out; }
+    .chip.is-pressed:not(:disabled), .song.is-pressed, #settingsBtn.is-pressed, .lk.is-pressed { background: var(--line); transform: scale(.94); }
+    .song.is-pressed { transform: scale(.98); }
+    .song[aria-current="true"].is-pressed, .lk[aria-current="true"].is-pressed, .play.is-pressed:not(:disabled), .primary.is-pressed { background: var(--press); transform: scale(.97); }
+    @media (prefers-reduced-motion: reduce) { .is-pressed { transform: none !important; } }
+    dialog.msg { width: min(420px, calc(100vw - 32px)); border: 1px solid var(--ink); border-radius: 12px; padding: 24px 24px 20px; box-shadow: var(--shadow); background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    dialog.msg:focus { outline: none; }
+    dialog.msg::backdrop { background: rgba(0, 0, 0, 0.55); }
+    dialog.msg h2 { margin: 0 0 8px; font-size: 16px; font-weight: 700; }
+    dialog.msg .dlg-actions { display: flex; justify-content: flex-end; }
+    dialog.help { width: min(480px, calc(100vw - 32px)); max-height: calc(100% - 32px); }
+    dialog.help[open] { display: flex; flex-direction: column; }
+    .help-body { flex: 0 1 auto; min-height: 0; overflow-y: auto; margin-bottom: 16px; -webkit-overflow-scrolling: touch; }
+    .help-list { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+    .help-list li { margin-bottom: 10px; }
+    .help-list li:last-child { margin-bottom: 0; }
+    .help-list b { color: var(--ink); }
+    .help-list code { font-family: var(--mono); color: var(--ink); }
+    ul.help-list { list-style: disc; }
+    .help-list a { color: inherit; }
+    dialog.about { width: min(560px, calc(100vw - 32px)); height: min(640px, calc(100% - 32px)); }
+    dialog.about[open] { display: flex; flex-direction: column; }
+    dialog.msg p.about-license { margin: 0 0 12px; color: var(--subtle); font-size: 12px; }
+    .about-license a { color: inherit; }
+    .about-body { flex: 1 1 auto; min-height: 0; overflow: auto; margin-bottom: 16px; border: 1px solid var(--line); border-radius: var(--radius); -webkit-overflow-scrolling: touch; }
+    .about-body pre { margin: 0; padding: 12px; color: var(--muted); font-family: var(--mono); font-size: 11px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+    @media (prefers-reduced-motion: reduce) { *, ::before, ::after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="toolbar">
+      <div class="brand">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#000"></rect><path d="M3.5 23.5H9V18H14.5V12.5H20V7H24.5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path><circle cx="6.1" cy="20.6" r="1.8" fill="#fff"></circle><circle cx="11.6" cy="15.1" r="1.8" fill="#fff"></circle><circle cx="17.1" cy="9.6" r="1.8" fill="#fff"></circle><circle cx="22.4" cy="4.1" r="1.8" fill="#fff"></circle></svg>
+        <span>Vocal Ladder</span>
+      </div>
+      <div class="end">
+        <button id="settingsBtn" type="button" aria-label="設定" data-i18n-attr="aria-label:settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="canvas">
+    <div class="layout">
+      <aside class="panel" aria-label="練習セット" data-i18n-attr="aria-label:set">
+        <div class="panel-head"><span data-i18n="set">練習セット</span><span class="count" id="setCount"></span></div>
+        <div class="panel-body">
+          <div class="group">
+            <label class="label" for="setSel" data-i18n="set.choose">セットを選ぶ</label>
+            <select id="setSel" class="field"></select>
+            <label class="label" for="setName" data-i18n="set.name">セットの名前</label>
+            <input id="setName" class="field" type="text" maxlength="60" autocomplete="off" placeholder="例：生徒の名前や声種" data-i18n-attr="placeholder:set.name.ph">
+            <div class="set-actions">
+              <button type="button" class="chip" id="newSetBtn" data-i18n="set.new">＋ 新しいセット</button>
+              <button type="button" class="chip" id="delSetBtn" data-i18n="set.del">セットを削除</button>
+              <button type="button" class="chip" id="exportBtn" data-i18n="set.export">エクスポート</button>
+              <button type="button" class="chip" id="importBtn" data-i18n="set.import">インポート</button>
+            </div>
+            <input type="file" id="importFile" accept=".json,application/json" hidden>
+            <p class="hint" id="notice" aria-live="polite" data-i18n="set.hint">エクスポートでこのセットをファイルに保存して、ほかの人に渡せます。インポートで、そのファイルからセットを追加します。</p>
+          </div>
+          <div class="group sep">
+            <span class="label"><span data-i18n="list">練習</span><span class="val" id="count"></span></span>
+            <ol class="songs" id="items"></ol>
+            <div class="list-actions">
+              <button type="button" class="chip grow" id="addBtn" data-i18n="add">＋ 練習の追加</button>
+              <button type="button" class="chip" id="dupBtn" data-i18n="dup">複製</button>
+              <button type="button" class="chip sq mono" id="upBtn" aria-label="選択中の練習を上へ" data-i18n-attr="aria-label:up">↑</button>
+              <button type="button" class="chip sq mono" id="downBtn" aria-label="選択中の練習を下へ" data-i18n-attr="aria-label:down">↓</button>
+              <button type="button" class="chip" id="delBtn" data-i18n="del">削除</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="panel out" aria-label="プレーヤー" data-i18n-attr="aria-label:player">
+        <div class="panel-head">
+          <div class="name-wrap">
+            <label for="nameInput" class="song-no" id="itemNo"></label>
+            <input id="nameInput" class="name-input" type="text" maxlength="60" autocomplete="off" aria-label="練習の名前" data-i18n-attr="aria-label:name">
+          </div>
+          <div class="nav">
+            <button type="button" class="chip" id="prevBtn" aria-label="前の練習" data-i18n="prev" data-i18n-attr="aria-label:prev.aria">← 前</button>
+            <button type="button" class="chip" id="nextBtn" aria-label="次の練習" data-i18n="next" data-i18n-attr="aria-label:next.aria">次 →</button>
+          </div>
+        </div>
+
+        <div class="display">
+          <div class="keybox">
+            <div class="keybig" id="keyName" aria-live="off"></div>
+            <div class="keysub" id="keySub"></div>
+          </div>
+          <div class="cue-tag" id="cueTag" aria-hidden="true"></div>
+          <div class="pat" id="patView" aria-hidden="true"></div>
+          <div class="ladder" id="ladder" role="group" aria-label="キーの一覧（押すとそのキーから再生）" data-i18n-attr="aria-label:ladder"></div>
+          <div class="transport">
+            <button type="button" class="chip" id="keyDown" aria-label="前のキー" data-i18n="key.prev" data-i18n-attr="aria-label:key.prev.aria">◀ キー</button>
+            <button type="button" class="play" id="playBtn"></button>
+            <button type="button" class="chip" id="keyUp" aria-label="次のキー" data-i18n="key.next" data-i18n-attr="aria-label:key.next.aria">キー ▶</button>
+          </div>
+        </div>
+
+        <div class="settings">
+          <div class="group">
+            <label class="label" for="presetSel" data-i18n="pattern">練習パターン</label>
+            <select id="presetSel" class="field"></select>
+            <label class="label" for="patInput" data-i18n="pattern.edit">音（書き換えるとオリジナルのパターンに）</label>
+            <input id="patInput" class="field mono" type="text" maxlength="200" autocomplete="off" spellcheck="false" autocapitalize="off">
+            <p class="err" id="patErr" hidden></p>
+            <p class="hint" data-i18n-html="pattern.hint"><code>1</code>〜<code>7</code> = ド〜シ、<code>8</code> = 1オクターブ上のド、<code>5,</code> = ドの下のソ、<code>b3</code>／<code>#4</code> = ♭／♯、<code>-</code> = 1拍のばす、<code>/</code> = 半分の長さ、<code>r</code> = 休み。</p>
+          </div>
+          <div class="group">
+            <span class="label" data-i18n="range">開始と終了</span>
+            <div class="row2">
+              <label><span data-i18n="start.key">開始キー（ド）</span><select id="startSel" class="field mono"></select></label>
+              <label><span data-i18n="end">終了キー（ド）</span><select id="endSel" class="field mono"></select></label>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip" id="stepHalf" data-i18n="step.1">半音ずつ</button>
+              <button type="button" class="chip" id="stepWhole" data-i18n="step.2">全音ずつ</button>
+              <button type="button" class="chip" id="roundBtn" data-i18n="round">開始まで戻る</button>
+            </div>
+            <p class="hint" id="rangeHint"></p>
+          </div>
+          <div class="group">
+            <label class="label" for="bpmSlider"><span data-i18n="tempo">テンポ</span> <span class="val" id="bpmVal"></span></label>
+            <div class="bpm-row">
+              <button type="button" class="chip mono" data-bpm="-5" aria-label="テンポを5下げる" data-i18n-attr="aria-label:bpm.m5">−5</button>
+              <button type="button" class="chip mono" data-bpm="-1" aria-label="テンポを1下げる" data-i18n-attr="aria-label:bpm.m1">−1</button>
+              <input id="bpmInput" class="bpm-input" type="number" inputmode="numeric" min="30" max="240" aria-label="テンポ（BPM）" data-i18n-attr="aria-label:bpm">
+              <button type="button" class="chip mono" data-bpm="1" aria-label="テンポを1上げる" data-i18n-attr="aria-label:bpm.p1">+1</button>
+              <button type="button" class="chip mono" data-bpm="5" aria-label="テンポを5上げる" data-i18n-attr="aria-label:bpm.p5">+5</button>
+            </div>
+            <input id="bpmSlider" type="range" min="30" max="240" step="1">
+            <p class="hint" data-i18n="tempo.hint">1分あたりの拍数。パターンの数字1つが1拍です。</p>
+          </div>
+          <div class="group">
+            <span class="label" data-i18n="piano">ピアノ</span>
+            <div class="chips">
+              <button type="button" class="chip" id="cueBtn" data-i18n="cue">キーごとに最初に和音</button>
+              <button type="button" class="chip" id="guideBtn" data-i18n="guide">メロディーも弾く</button>
+            </div>
+            <span class="label"><span data-i18n="rest">キーの間の休み</span></span>
+            <div class="stepper">
+              <button type="button" class="chip sq mono" id="restDown" aria-label="休みを短く" data-i18n-attr="aria-label:rest.down">−</button>
+              <span class="num" id="restVal"></span>
+              <button type="button" class="chip sq mono" id="restUp" aria-label="休みを長く" data-i18n-attr="aria-label:rest.up">+</button>
+              <span class="hint" data-i18n="rest.unit">拍</span>
+            </div>
+          </div>
+          <div class="group sep">
+            <span class="label" data-i18n="all">すべての練習に共通</span>
+            <div class="chips">
+              <button type="button" class="chip" id="throughBtn" data-i18n="through">次の練習へ続けて再生</button>
+            </div>
+            <div class="chips" id="sounds"></div>
+          </div>
+          <div class="group sep">
+            <label class="label" for="vol"><span data-i18n="vol">音量</span> <span class="val" id="volVal"></span></label>
+            <input type="range" id="vol" min="0" max="100" step="1">
+          </div>
+        </div>
+        <p class="keys" data-i18n-html="keys"><kbd>Space</kbd> スタート/ストップ　<kbd>←</kbd><kbd>→</kbd> 前/次のキー　<kbd>↑</kbd><kbd>↓</kbd> 前/次の練習</p>
+      </section>
+    </div>
+    <footer class="foot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><span id="saveState" data-i18n="foot">練習セットはこのブラウザに自動で保存され、閉じても残ります。アカウント登録や通信は不要です。</span></footer>
+
+    <section class="intro" aria-labelledby="introTitle">
+      <h1 id="introTitle" data-i18n="intro.title">半音ずつ上がる発声練習の音階をピアノで</h1>
+      <div data-i18n-html="intro.body"><p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>
+        <p>パターンは、3音・5音のスケール、ドミソのアルペジオ、1オクターブの音階、9度の音階、オクターブの跳躍、スタッカート、ロングトーン、短調などを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1--</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>
+        <p>複数の練習を<b>練習セット</b>に並べると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、<b>エクスポート</b>と<b>インポート</b>でセットを小さなファイルにして、ほかの人に渡せます。</p>
+        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p></div>
+    </section>
+  </main>
+
+  <dialog class="msg help" id="helpDlg" tabindex="-1" aria-labelledby="helpTitle">
+    <h2 id="helpTitle" data-i18n="menu.help">使い方</h2>
+    <div class="help-body">
+      <ol class="help-list" data-i18n-html="help.body"><li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>
+        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>
+        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>
+        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>
+        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>
+        <li><b>共有</b> – 「エクスポート」でセットをファイルに保存します。受け取った人は、このアプリの「インポート」で読み込みます。</li>
+        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、<code>b3</code>・<code>#4</code> が♭・♯、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li></ol>
+    </div>
+    <div class="dlg-actions">
+      <button class="primary" id="helpClose" type="button" data-i18n="close">閉じる</button>
+    </div>
+  </dialog>
+
+  <dialog class="msg help" id="privacyDlg" tabindex="-1" aria-labelledby="privacyTitle">
+    <h2 id="privacyTitle" data-i18n="menu.privacy">プライバシー</h2>
+    <div class="help-body">
+      <ul class="help-list" data-i18n-html="privacy.body"><li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>
+        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）と音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>
+        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>
+        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href="https://github.com/ktkwmr/VocalLadder/issues" target="_blank" rel="noopener">GitHub の Issues</a> へ。</li>
+        <li><b>詳しくは</b> – <a href="/vocalladder/ja/privacy/">プライバシーポリシー</a>と<a href="/vocalladder/ja/about/">運営者情報</a>をご覧ください。</li></ul>
+    </div>
+    <div class="dlg-actions">
+      <button class="primary" id="privacyClose" type="button" data-i18n="close">閉じる</button>
+    </div>
+  </dialog>
+
+  <div class="menu" id="settingsMenu" role="menu" aria-label="設定" data-i18n-attr="aria-label:settings" hidden>
+    <button type="button" role="menuitem" id="menuHelp" data-i18n="menu.help">使い方</button>
+    <button type="button" role="menuitem" id="menuPrivacy" data-i18n="menu.privacy">プライバシー</button>
+    <button type="button" role="menuitem" id="menuAbout" data-i18n="menu.about">このアプリについて</button>
+  </div>
+
+  <dialog class="msg about" id="aboutDlg" tabindex="-1" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle" data-i18n="menu.about">このアプリについて</h2>
+    <p class="about-license" data-i18n-html="about.license">© 2026 ktkwmr · <a href="https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE" target="_blank" rel="noopener">MIT ライセンス</a> · <a href="/vocalladder/ja/about/">運営者情報</a></p>
+    <div class="about-body"><pre id="licenseText">Loading…</pre></div>
+    <div class="dlg-actions">
+      <button class="primary" id="aboutClose" type="button" data-i18n="close">閉じる</button>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      // ---------- English / Japanese ----------
+      // Text is set with data-i18n (textContent) / data-i18n-html (innerHTML, fixed strings below only) / data-i18n-attr (attributes)
+      const I18N = {
+        en: {
+          "settings": "Settings",
+          "set": "Practice set",
+          "set.choose": "Choose a set",
+          "set.name": "Set name",
+          "set.name.ph": "e.g. a student's name or a voice type",
+          "set.new": "+ New set",
+          "set.del": "Delete set",
+          "set.export": "Export",
+          "set.import": "Import",
+          "set.hint": "Export saves this set as a file to send to someone else. Import adds a set from such a file.",
+          "set.untitled": "Untitled set",
+          "set.newName": "Set {n}",
+          "set.count": "{n} sets",
+          "set.count.one": "1 set",
+          "set.confirmDel": "Delete the set “{name}” and its {n} exercises? This cannot be undone. Export it first if you may need it again.",
+          "set.exported": "Saved “{file}”.",
+          "set.imported": "Imported “{name}” ({n} exercises).",
+          "set.importFail": "This file could not be imported. Choose a file exported from Vocal Ladder (.json).",
+          "set.default": "Daily warm-up",
+          "list": "Exercises",
+          "player": "Player",
+          "count": "{n}",
+          "add": "+ Add exercise",
+          "dup": "Duplicate",
+          "up": "Move the exercise up",
+          "down": "Move the exercise down",
+          "del": "Delete",
+          "name": "Exercise name",
+          "copyOf": "{name} (copy)",
+          "prev": "← Prev",
+          "next": "Next →",
+          "prev.aria": "Previous exercise",
+          "next.aria": "Next exercise",
+          "key.prev": "◀ Key",
+          "key.next": "Key ▶",
+          "key.prev.aria": "Previous key",
+          "key.next.aria": "Next key",
+          "ladder": "Keys (tap to play from that key)",
+          "key.of": "Key {i} of {n}",
+          "key.sing": "you sing",
+          "cue.on": "♪ Chord",
+          "start": "Start",
+          "stop": "Stop",
+          "pattern": "Exercise pattern",
+          "pattern.custom": "Your own (edit the notes below)",
+          "pattern.edit": "Notes (edit to make your own)",
+          "pattern.hint": "<code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up, <code>5,</code> = Sol below Do, <code>b3</code> / <code>#4</code> = flat / sharp, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.",
+          "pattern.err": "Cannot read “{tok}”. Use numbers 1–15 with b, #, “,”, -, / or r.",
+          "pattern.errEmpty": "Enter at least one note.",
+          "pattern.errRange": "“{tok}” is too far from Do (up to 2 octaves above or below).",
+          "range": "Start and end",
+          "start.key": "Start key (Do)",
+          "end": "End key (Do)",
+          "step.1": "Half step",
+          "step.2": "Whole step",
+          "round": "Then back to start",
+          "range.up": "Goes up {n} keys: {a} → {b}.",
+          "range.down": "Goes down {n} keys: {a} → {b}.",
+          "range.same": "Stays in one key: {a}.",
+          "range.round": "Then back to {a}.",
+          "range.notes": "Notes you sing: {lo}–{hi}.",
+          "middleC": "middle C",
+          "tempo": "Tempo",
+          "tempo.hint": "Beats per minute. One number in the pattern is one beat.",
+          "bpm": "Tempo (BPM)",
+          "bpm.m5": "Tempo −5",
+          "bpm.m1": "Tempo −1",
+          "bpm.p1": "Tempo +1",
+          "bpm.p5": "Tempo +5",
+          "piano": "Piano",
+          "cue": "Chord before each key",
+          "guide": "Play the melody",
+          "rest": "Rest between keys",
+          "rest.down": "Shorter rest",
+          "rest.up": "Longer rest",
+          "rest.unit": "beats",
+          "all": "For all exercises",
+          "through": "Continue to the next exercise",
+          "snd.piano": "Piano",
+          "snd.soft": "Soft (held)",
+          "vol": "Volume",
+          "keys": "<kbd>Space</kbd> start / stop　<kbd>←</kbd><kbd>→</kbd> previous / next key　<kbd>↑</kbd><kbd>↓</kbd> previous / next exercise",
+          "foot": "Your practice sets are saved in this browser and kept when you close it. No account or data upload.",
+          "foot.fail": "This browser cannot save your practice sets (check private browsing or blocked site data). Use Export to keep them.",
+          "solfa": "Do,Re,Mi,Fa,Sol,La,Ti",
+          "solfa.sep": " ",
+          "p.five": "Do-Re-Mi-Fa-Sol (5 notes)",
+          "p.three": "Do-Re-Mi (3 notes)",
+          "p.triad": "Do-Mi-Sol",
+          "p.arp8": "Do-Mi-Sol-Do (up to the octave)",
+          "p.scale8": "One-octave scale",
+          "p.scale9": "9-note scale",
+          "p.down5": "Sol-Fa-Mi-Re-Do (going down)",
+          "p.octave": "Octave leap",
+          "p.stacc": "Staccato Do-Mi-Sol",
+          "p.long": "Long tone",
+          "p.minor": "Minor 5 notes",
+          "intro.title": "Vocal warm-up scales that move up a half step at a time",
+          "intro.body": "<p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>\n        <p>Built-in exercises include 3-note and 5-note scales, Do-Mi-Sol arpeggios, a one-octave scale, the 9-note scale, octave leaps, staccato, long tones, and a minor scale. You can also write your own with numbers: <code>1 3 5 8 5 3 1--</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>\n        <p>Put several exercises in a <b>practice set</b> and they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> to send a set to someone else as a small file.</p>\n        <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>",
+          "menu.help": "How to use",
+          "menu.privacy": "Privacy",
+          "menu.about": "About",
+          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – “Export” saves the set as a file. Send it to a student, who opens this app and uses “Import”.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>",
+          "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing a set only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\">privacy policy</a> and <a href=\"/vocalladder/about/\">about this site</a>.</li>",
+          "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a> · <a href=\"/vocalladder/about/\">About this site</a>",
+          "close": "Close",
+          "loading": "Loading…",
+          "err.license": "Could not load the license information. Check your connection and try again."
+        },
+        ja: {
+          "settings": "設定",
+          "set": "練習セット",
+          "set.choose": "セットを選ぶ",
+          "set.name": "セットの名前",
+          "set.name.ph": "例：生徒の名前や声種",
+          "set.new": "＋ 新しいセット",
+          "set.del": "セットを削除",
+          "set.export": "エクスポート",
+          "set.import": "インポート",
+          "set.hint": "エクスポートでこのセットをファイルに保存して、ほかの人に渡せます。インポートで、そのファイルからセットを追加します。",
+          "set.untitled": "名前のないセット",
+          "set.newName": "セット {n}",
+          "set.count": "{n}セット",
+          "set.count.one": "1セット",
+          "set.confirmDel": "セット「{name}」（{n}個の練習）を削除しますか？元に戻せません。あとで使うかもしれない場合は、先にエクスポートしてください。",
+          "set.exported": "「{file}」を保存しました。",
+          "set.imported": "「{name}」（{n}個の練習）を読み込みました。",
+          "set.importFail": "このファイルは読み込めません。Vocal Ladder でエクスポートしたファイル（.json）を選んでください。",
+          "set.default": "毎日の発声練習",
+          "list": "練習",
+          "player": "プレーヤー",
+          "count": "{n}",
+          "add": "＋ 練習の追加",
+          "dup": "複製",
+          "up": "選択中の練習を上へ",
+          "down": "選択中の練習を下へ",
+          "del": "削除",
+          "name": "練習の名前",
+          "copyOf": "{name} のコピー",
+          "prev": "← 前",
+          "next": "次 →",
+          "prev.aria": "前の練習",
+          "next.aria": "次の練習",
+          "key.prev": "◀ キー",
+          "key.next": "キー ▶",
+          "key.prev.aria": "前のキー",
+          "key.next.aria": "次のキー",
+          "ladder": "キーの一覧（押すとそのキーから再生）",
+          "key.of": "{n}キー中 {i}番目",
+          "key.sing": "歌う音域",
+          "cue.on": "♪ 和音",
+          "start": "スタート",
+          "stop": "ストップ",
+          "pattern": "練習パターン",
+          "pattern.custom": "オリジナル（下の音を編集）",
+          "pattern.edit": "音（書き換えるとオリジナルのパターンに）",
+          "pattern.hint": "<code>1</code>〜<code>7</code> = ド〜シ、<code>8</code> = 1オクターブ上のド、<code>5,</code> = ドの下のソ、<code>b3</code>／<code>#4</code> = ♭／♯、<code>-</code> = 1拍のばす、<code>/</code> = 半分の長さ、<code>r</code> = 休み。",
+          "pattern.err": "「{tok}」が読めません。1〜15の数字と b・#・,・-・/・r を使ってください。",
+          "pattern.errEmpty": "音を1つ以上入力してください。",
+          "pattern.errRange": "「{tok}」はドから離れすぎています（上下2オクターブまで）。",
+          "range": "開始と終了",
+          "start.key": "開始キー（ド）",
+          "end": "終了キー（ド）",
+          "step.1": "半音ずつ",
+          "step.2": "全音ずつ",
+          "round": "開始まで戻る",
+          "range.up": "{a} → {b} まで {n} キー上がります。",
+          "range.down": "{a} → {b} まで {n} キー下がります。",
+          "range.same": "{a} のキーだけで練習します。",
+          "range.round": "そのあと {a} まで戻ります。",
+          "range.notes": "歌う音域：{lo}〜{hi}。",
+          "middleC": "真ん中のド",
+          "tempo": "テンポ",
+          "tempo.hint": "1分あたりの拍数。パターンの数字1つが1拍です。",
+          "bpm": "テンポ（BPM）",
+          "bpm.m5": "テンポを5下げる",
+          "bpm.m1": "テンポを1下げる",
+          "bpm.p1": "テンポを1上げる",
+          "bpm.p5": "テンポを5上げる",
+          "piano": "ピアノ",
+          "cue": "キーごとに最初に和音",
+          "guide": "メロディーも弾く",
+          "rest": "キーの間の休み",
+          "rest.down": "休みを短く",
+          "rest.up": "休みを長く",
+          "rest.unit": "拍",
+          "all": "すべての練習に共通",
+          "through": "次の練習へ続けて再生",
+          "snd.piano": "ピアノ",
+          "snd.soft": "やわらかい音（のばす）",
+          "vol": "音量",
+          "keys": "<kbd>Space</kbd> スタート/ストップ　<kbd>←</kbd><kbd>→</kbd> 前/次のキー　<kbd>↑</kbd><kbd>↓</kbd> 前/次の練習",
+          "foot": "練習セットはこのブラウザに自動で保存され、閉じても残ります。アカウント登録や通信は不要です。",
+          "foot.fail": "このブラウザでは練習セットを保存できません（プライベートモードやサイトデータのブロックを確認してください）。残すにはエクスポートしてください。",
+          "solfa": "ド,レ,ミ,ファ,ソ,ラ,シ",
+          "solfa.sep": "",
+          "p.five": "ドレミファソ（5音）",
+          "p.three": "ドレミ（3音）",
+          "p.triad": "ドミソ",
+          "p.arp8": "ドミソド（オクターブまで）",
+          "p.scale8": "1オクターブの音階",
+          "p.scale9": "9度の音階",
+          "p.down5": "ソファミレド（下降）",
+          "p.octave": "オクターブの跳躍",
+          "p.stacc": "スタッカートのドミソ",
+          "p.long": "ロングトーン",
+          "p.minor": "短調の5音",
+          "intro.title": "半音ずつ上がる発声練習の音階をピアノで",
+          "intro.body": "<p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>\n        <p>パターンは、3音・5音のスケール、ドミソのアルペジオ、1オクターブの音階、9度の音階、オクターブの跳躍、スタッカート、ロングトーン、短調などを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1--</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>\n        <p>複数の練習を<b>練習セット</b>に並べると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、<b>エクスポート</b>と<b>インポート</b>でセットを小さなファイルにして、ほかの人に渡せます。</p>\n        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>",
+          "menu.help": "使い方",
+          "menu.privacy": "プライバシー",
+          "menu.about": "このアプリについて",
+          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – 「エクスポート」でセットをファイルに保存します。受け取った人は、このアプリの「インポート」で読み込みます。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、<code>b3</code>・<code>#4</code> が♭・♯、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>",
+          "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）と音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\">運営者情報</a>をご覧ください。</li>",
+          "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a> · <a href=\"/vocalladder/ja/about/\">運営者情報</a>",
+          "close": "閉じる",
+          "loading": "読み込み中…",
+          "err.license": "ライセンス情報を読み込めませんでした。接続を確認して、もう一度お試しください。"
+        }
+      };
+
+      // Order: ?lang=ja|en in the URL → the page's fixed language (data-page-lang of ja/index.html) → the browser's first language (English unless Japanese)
+      function detectLang() {
+        const q = new URLSearchParams(location.search).get("lang");
+        if (q === "ja" || q === "en") return q;
+        const fixed = document.documentElement.dataset.pageLang;
+        if (fixed === "ja" || fixed === "en") return fixed;
+        const first = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^ja\b/i.test(first) ? "ja" : "en";
+      }
+      const lang = detectLang();
+
+      function t(key, vars) {
+        let str = I18N[lang][key];
+        if (str === undefined) str = I18N.en[key] !== undefined ? I18N.en[key] : key;
+        if (vars) str = str.replace(/\{(\w+)\}/g, function (m, k) { return k in vars ? String(vars[k]) : m; });
+        return str;
+      }
+
+      function applyI18n() {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll("[data-i18n-html]").forEach(function (el) { el.innerHTML = t(el.dataset.i18nHtml); });
+        document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
+          el.dataset.i18nAttr.split(";").forEach(function (pair) {
+            const parts = pair.split(":");
+            el.setAttribute(parts[0], t(parts[1]));
+          });
+        });
+      }
+
+      function isIOS() {
+        return /iP(hone|ad|od)/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      }
+      // iOS Safari zooms in when a control under 16px is tapped, so only on iOS add maximum-scale (pinch zoom still works)
+      if (isIOS()) {
+        const vp = document.querySelector('meta[name="viewport"]');
+        if (vp) vp.setAttribute("content", vp.getAttribute("content") + ", maximum-scale=1");
+      }
+
+      // ---------- Notes and exercise patterns ----------
+      // Keys are MIDI note numbers (60 = C4, middle C). The start and end key is the note that is Do.
+      const LOW = 36, HIGH = 84; // C2 – C6
+      const NAMES = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+      const noteName = (m) => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+      function parseNote(v) {
+        if (typeof v === "number" && isFinite(v)) return Math.round(v);
+        const m = /^([A-G])([#b♯♭]?)(-?\d)$/.exec(String(v).trim());
+        if (!m) return null;
+        const base = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 }[m[1]];
+        const acc = m[2] === "#" || m[2] === "♯" ? 1 : m[2] ? -1 : 0;
+        return (+m[3] + 1) * 12 + base + acc;
+      }
+      // Major scale steps from Do
+      const DEG = [0, 2, 4, 5, 7, 9, 11];
+      // A pattern is written as scale degrees: "1 2 3 4 5 4 3 2 1--"
+      //   1–7 = Do–Ti, 8–15 = the next octave, b / # = flat / sharp, "," = an octave lower, "'" = an octave higher,
+      //   each "-" adds a beat, each "/" halves the length, r = rest
+      function parsePattern(text) {
+        const tokens = String(text).trim().split(/\s+/).filter(Boolean);
+        if (!tokens.length) return { error: t("pattern.errEmpty") };
+        const notes = [];
+        for (const tok of tokens) {
+          const m = /^(?:([#b♯♭]?)(\d{1,2})([,']*)|([rR]))(-*)(\/*)$/.exec(tok);
+          const d = m && !m[4] ? +m[2] : 0;
+          if (!m || (!m[4] && (d < 1 || d > 15))) return { error: t("pattern.err", { tok: tok }) };
+          const beats = (1 + m[5].length) / Math.pow(2, m[6].length);
+          if (m[4]) { notes.push({ rest: true, beats: beats }); continue; }
+          const acc = m[1] === "#" || m[1] === "♯" ? 1 : m[1] ? -1 : 0;
+          const oct = Math.floor((d - 1) / 7) + (m[3].split("'").length - 1) - (m[3].split(",").length - 1);
+          const semis = 12 * oct + DEG[(d - 1) % 7] + acc;
+          if (Math.abs(semis) > 24) return { error: t("pattern.errRange", { tok: tok }) };
+          notes.push({ semis: semis, deg: (d - 1) % 7, acc: acc, oct: oct, beats: beats });
+        }
+        const sung = notes.filter((n) => !n.rest);
+        if (!sung.length) return { error: t("pattern.errEmpty") };
+        return {
+          notes: notes,
+          lo: Math.min.apply(null, sung.map((n) => n.semis)),
+          hi: Math.max.apply(null, sung.map((n) => n.semis)),
+          // Minor when the pattern has a minor third and no major third
+          minor: sung.some((n) => ((n.semis % 12) + 12) % 12 === 3) && !sung.some((n) => ((n.semis % 12) + 12) % 12 === 4),
+        };
+      }
+      const normPattern = (s) => String(s).trim().split(/\s+/).join(" ");
+      const solfa = (n) => (n.rest ? "–" : (n.acc > 0 ? "♯" : n.acc < 0 ? "♭" : "") + t("solfa").split(",")[n.deg]);
+      // Name made from the notes, e.g. "Do Re Mi Fa Sol Fa Mi Re Do" / "ドレミファソファミレド"
+      function autoName(pattern) {
+        const p = parsePattern(pattern);
+        if (p.error) return normPattern(pattern);
+        return p.notes.filter((n) => !n.rest).map(solfa).join(t("solfa.sep"));
+      }
+      const PRESETS = [
+        { id: "five", text: "1 2 3 4 5 4 3 2 1--" },
+        { id: "three", text: "1 2 3 2 1--" },
+        { id: "triad", text: "1 3 5 3 1--" },
+        { id: "arp8", text: "1 3 5 8 5 3 1--" },
+        { id: "scale8", text: "1 2 3 4 5 6 7 8 7 6 5 4 3 2 1--" },
+        { id: "scale9", text: "1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1--" },
+        { id: "down5", text: "5 4 3 2 1--" },
+        { id: "octave", text: "1- 8- 1--" },
+        { id: "stacc", text: "1/ r/ 3/ r/ 5/ r/ 3/ r/ 1--" },
+        { id: "long", text: "1-------" },
+        { id: "minor", text: "1 2 b3 4 5 4 b3 2 1--" },
+      ];
+
+      // ---------- Practice sets ----------
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+      const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+      const str = (v, n) => (typeof v === "string" ? v.slice(0, n) : "");
+      const bool = (v, d) => (v == null ? d : !!v);
+      // Every value read from storage or an imported file is checked, so a broken or old file cannot break the app.
+      // Exported files use readable names (note names, roundTrip, chord, melody); both forms are accepted.
+      function sanitizeItem(o) {
+        o = o && typeof o === "object" ? o : {};
+        const note = (v, d) => { const n = parseNote(v); return n == null ? d : clamp(n, LOW, HIGH); };
+        return {
+          id: typeof o.id === "string" && o.id ? o.id : uid(),
+          name: str(o.name, 60),
+          pattern: typeof o.pattern === "string" && o.pattern.trim() ? normPattern(o.pattern).slice(0, 200) : PRESETS[0].text,
+          start: note(o.start, 60),
+          end: note(o.end, 67),
+          step: +o.step === 2 ? 2 : 1,
+          round: bool(o.roundTrip != null ? o.roundTrip : o.round, false),
+          bpm: clamp(Math.round(+o.bpm || 100), 30, 240),
+          rest: clamp(Math.round(o.rest == null ? 1 : +o.rest || 0), 0, 8),
+          cue: bool(o.chord != null ? o.chord : o.cue, true),
+          guide: bool(o.melody != null ? o.melody : o.guide, true),
+        };
+      }
+      function sanitizeSet(o) {
+        o = o && typeof o === "object" ? o : {};
+        const src = Array.isArray(o.exercises) ? o.exercises : Array.isArray(o.items) ? o.items : [];
+        const items = src.slice(0, 200).map(sanitizeItem);
+        if (!items.length) items.push(sanitizeItem({}));
+        return {
+          id: typeof o.id === "string" && o.id ? o.id : uid(),
+          name: str(o.name, 60),
+          items: items,
+          current: items.some((x) => x.id === o.current) ? o.current : items[0].id,
+        };
+      }
+      // A first set to start from: three common exercises
+      function demoSet() {
+        return sanitizeSet({ name: t("set.default"), exercises: [
+          { pattern: PRESETS[0].text, start: "C4", end: "G4", bpm: 100 },
+          { pattern: PRESETS[2].text, start: "C4", end: "A4", bpm: 96, round: true },
+          { pattern: PRESETS[3].text, start: "C4", end: "F4", bpm: 88 },
+        ] });
+      }
+      const SOUNDS = ["piano", "soft"];
+
+      // ---------- Saved state ----------
+      // The practice sets are saved in the browser and restored next time
+      const STATE_KEY = "vocalladder-state";
+      let store = (function () {
+        try {
+          const s = JSON.parse(localStorage.getItem(STATE_KEY) || "null");
+          if (s && Array.isArray(s.sets) && s.sets.length) {
+            const sets = s.sets.slice(0, 100).map(sanitizeSet);
+            return {
+              sets: sets,
+              current: sets.some((x) => x.id === s.current) ? s.current : sets[0].id,
+              sound: SOUNDS.includes(s.sound) ? s.sound : "piano",
+              vol: clamp(s.vol == null ? .8 : +s.vol, 0, 1),
+              through: bool(s.through, true),
+            };
+          }
+        } catch (e) {}
+        const d = demoSet();
+        return { sets: [d], current: d.id, sound: "piano", vol: .8, through: true };
+      })();
+      function saveState() {
+        try { localStorage.setItem(STATE_KEY, JSON.stringify(store)); }
+        catch (e) { $("saveState").textContent = t("foot.fail"); }
+      }
+      const curSet = () => store.sets.find((s) => s.id === store.current) || store.sets[0];
+      const cur = () => { const s = curSet(); return s.items.find((x) => x.id === s.current) || s.items[0]; };
+      const findItem = (id) => { for (const s of store.sets) { const x = s.items.find((i) => i.id === id); if (x) return x; } return null; };
+      const setName = (s) => s.name || t("set.untitled");
+      const itemName = (x) => x.name || autoName(x.pattern);
+
+      // Keys (the note that is Do) the exercise goes through, from start to end, then back if round
+      function keysOf(x) {
+        const dir = x.end >= x.start ? 1 : -1, ks = [];
+        for (let k = x.start; dir > 0 ? k <= x.end : k >= x.end; k += dir * x.step) ks.push(k);
+        if (x.round) for (let i = ks.length - 2; i >= 0; i--) ks.push(ks[i]);
+        return ks;
+      }
+      // Root position chord of a key: bass note an octave below, then Do-Mi-Sol (Do-Me-Sol for minor patterns)
+      const chordOf = (root, minor) => [root - 12, root, root + (minor ? 3 : 4), root + 7];
+      // Everything the piano plays for one exercise, in order. Each event lasts `beats` beats.
+      function eventsOf(x) {
+        const p = parsePattern(x.pattern), ev = [];
+        if (p.error) return null;
+        keysOf(x).forEach(function (root, ki) {
+          if (x.cue) ev.push({ kind: "cue", ki: ki, beats: 2, midis: chordOf(root, p.minor) });
+          p.notes.forEach((n, ni) => ev.push({ kind: "note", ki: ki, ni: ni, beats: n.beats, midis: n.rest || !x.guide ? [] : [root + n.semis] }));
+          if (x.rest) ev.push({ kind: "rest", ki: ki, beats: x.rest, midis: [] });
+        });
+        return ev;
+      }
+
+      // ---------- Sound (Web Audio API; the piano is synthesized, no sample files) ----------
+      let ctx = null, master = null, bus = null, pianoWave = null;
+      function ensureCtx() {
+        if (!ctx) {
+          // iOS: play even when the ring / silent switch is set to silent (Safari 16.4+)
+          try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+          ctx = new (window.AudioContext || window.webkitAudioContext)();
+          master = ctx.createGain(); master.gain.value = store.vol;
+          const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+          master.connect(comp); comp.connect(ctx.destination);
+          // Harmonics of a soft piano tone
+          const h = [0, 1, 0.45, 0.25, 0.14, 0.09, 0.06, 0.04, 0.025];
+          pianoWave = ctx.createPeriodicWave(new Float32Array(h.length), new Float32Array(h));
+        }
+        if (ctx.state === "suspended") ctx.resume();
+      }
+      // All notes of one run go through a bus, so stopping or jumping to another key can silence them at once
+      function newBus() {
+        if (bus) { const old = bus; old.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => old.disconnect(), 400); }
+        bus = ctx.createGain(); bus.connect(master);
+      }
+      const freq = (m) => 440 * Math.pow(2, (m - 69) / 12);
+      function playNote(m, t0, dur, peak, dest) {
+        const f = freq(m), end = t0 + dur, g = ctx.createGain();
+        g.connect(dest || bus);
+        g.gain.setValueAtTime(0.0001, t0);
+        const oscs = [];
+        if (store.sound === "soft") {
+          // Held tone: rises gently, stays, and fades at the end of the note
+          g.gain.exponentialRampToValueAtTime(peak * 0.8, t0 + 0.04);
+          g.gain.setTargetAtTime(peak * 0.55, t0 + 0.04, 0.6);
+          const a = ctx.createOscillator(); a.type = "sine"; a.frequency.value = f;
+          const b = ctx.createOscillator(); b.type = "triangle"; b.frequency.value = f * 2;
+          const bg = ctx.createGain(); bg.gain.value = 0.12; b.connect(bg); bg.connect(g);
+          a.connect(g); oscs.push(a, b);
+        } else {
+          // Piano: fast attack, then dies away (faster for high notes), getting darker as it fades
+          g.gain.exponentialRampToValueAtTime(peak, t0 + 0.005);
+          g.gain.setTargetAtTime(0.0001, t0 + 0.005, clamp(1.6 - (m - 48) * 0.025, 0.35, 2));
+          const lp = ctx.createBiquadFilter(); lp.type = "lowpass";
+          lp.frequency.setValueAtTime(Math.min(f * 9, 12000), t0);
+          lp.frequency.setTargetAtTime(Math.min(f * 3, 8000), t0, 0.25);
+          lp.connect(g);
+          [0, 0.7].forEach(function (cents) {
+            const o = ctx.createOscillator(); o.setPeriodicWave(pianoWave); o.frequency.value = f; o.detune.value = cents;
+            o.connect(lp); oscs.push(o);
+          });
+        }
+        g.gain.setTargetAtTime(0.0001, end, 0.06);
+        oscs.forEach((o) => { o.start(t0); o.stop(end + 0.5); });
+      }
+      function preview(m) {
+        try {
+          ensureCtx(); master.gain.value = store.vol;
+          if (!playing) { if (!bus) newBus(); playNote(m, ctx.currentTime + 0.02, 0.6, 0.5); }
+        } catch (e) {}
+      }
+
+      // ---------- Player ----------
+      // Events are scheduled on the audio clock a little ahead of time. The timer runs in a worker
+      // (timer.js) because timers on the page itself slow down when the tab is in the background.
+      // plan: { itemId, evs, i } – the exercise being played and the next event to schedule
+      let playing = false, plan = null, nextTime = 0, visQ = [], wake = null, worker = null, intervalId = null;
+      // The key shown (and where Start begins), the note and the chord being played
+      let showKi = 0, showNi = -1, showCue = false;
+      try { worker = new Worker("timer.js"); worker.onmessage = tick; } catch (e) { worker = null; }
+      function makePlan(itemId, ki) {
+        const x = findItem(itemId), evs = x && eventsOf(x);
+        if (!evs || !evs.length) return null;
+        let i = evs.findIndex((e) => e.ki >= ki);
+        return { itemId: itemId, evs: evs, i: i < 0 ? 0 : i };
+      }
+      function nextItemOf(itemId) {
+        const s = curSet(), i = s.items.findIndex((x) => x.id === itemId);
+        for (let j = i + 1; j < s.items.length; j++) if (eventsOf(s.items[j])) return s.items[j];
+        return null;
+      }
+      function tick() {
+        if (!playing || !plan) return;
+        const now = ctx.currentTime;
+        // After the page was paused (e.g. in the background), do not play all the missed notes at once
+        if (nextTime < now - 0.05) nextTime = now + 0.02;
+        while (plan && nextTime < now + 0.15) {
+          const x = findItem(plan.itemId);
+          if (!x) { visQ.push({ t: nextTime, end: true }); plan = null; break; }
+          if (plan.i >= plan.evs.length) {
+            // End of this exercise: go on to the next one in the set, or finish
+            const nx = store.through ? nextItemOf(plan.itemId) : null;
+            if (nx) { plan = makePlan(nx.id, 0); visQ.push({ t: nextTime, item: nx.id }); continue; }
+            visQ.push({ t: nextTime, end: true }); plan = null; break;
+          }
+          const e = plan.evs[plan.i++], dur = e.beats * 60 / x.bpm;
+          e.midis.forEach((m) => playNote(m, nextTime, dur * (e.kind === "cue" ? 0.92 : 0.96), e.kind === "cue" ? 0.22 : 0.5));
+          visQ.push({ t: nextTime, item: plan.itemId, ki: e.ki, ni: e.kind === "note" ? e.ni : -1, cue: e.kind === "cue" });
+          nextTime += dur;
+        }
+      }
+      function requestWake() {
+        try { if (navigator.wakeLock) navigator.wakeLock.request("screen").then((w) => { wake = w; }).catch(() => {}); } catch (e) {}
+      }
+      // Start (or jump while playing) at key ki of the current exercise
+      function playFrom(ki) {
+        ensureCtx(); master.gain.value = store.vol;
+        const p = makePlan(cur().id, ki);
+        if (!p) return;
+        newBus();
+        plan = p; visQ = []; nextTime = ctx.currentTime + 0.08;
+        showKi = plan.evs[plan.i].ki; showNi = -1; showCue = false;
+        if (!playing) {
+          playing = true;
+          if (worker) worker.postMessage("start");
+          // Also tick from the page, in case the worker cannot start
+          intervalId = setInterval(tick, 25);
+          requestAnimationFrame(drawLoop);
+          requestWake();
+        }
+        tick();
+        renderPlay(); renderLadder(); renderPattern();
+      }
+      function stop(finished) {
+        playing = false; plan = null; visQ = [];
+        if (worker) worker.postMessage("stop");
+        clearInterval(intervalId);
+        if (ctx && bus) newBus();
+        try { if (wake) wake.release(); } catch (e) {}
+        wake = null;
+        if (finished) showKi = 0;
+        showNi = -1; showCue = false;
+        renderPlay(); renderLadder(); renderPattern();
+      }
+      function drawLoop() {
+        if (!playing) return;
+        const now = ctx.currentTime; let changed = false;
+        while (visQ.length && visQ[0].t <= now) {
+          const e = visQ.shift();
+          if (e.end) { stop(true); return; }
+          // Moved on to the next exercise in the set
+          if (e.item && e.item !== cur().id) { curSet().current = e.item; showKi = 0; saveState(); render(); }
+          if (e.ki != null) { showKi = e.ki; showNi = e.ni; showCue = e.cue; changed = true; }
+        }
+        if (changed) { renderLadder(); renderPattern(); }
+        requestAnimationFrame(drawLoop);
+      }
+      // The screen lock is released when the page is hidden; ask again when it comes back
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible" && playing) requestWake();
+      });
+      // After an edit that changes what is played, continue from the start of the key being played
+      function replan() {
+        const n = keysOf(cur()).length;
+        showKi = clamp(showKi, 0, n - 1);
+        if (playing) { if (eventsOf(cur())) playFrom(showKi); else stop(); }
+      }
+      function jumpKey(d) {
+        const n = keysOf(cur()).length, k = clamp(showKi + d, 0, n - 1);
+        if (playing) playFrom(k);
+        else { showKi = k; renderLadder(); renderPattern(); preview(keysOf(cur())[k]); }
+      }
+
+      // ---------- UI ----------
+      const $ = (id) => document.getElementById(id);
+      function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+      const metaText = (x) => {
+        const a = noteName(x.start), b = noteName(x.end);
+        return (x.start === x.end ? a : x.round ? `${a}→${b}→${a}` : `${a}→${b}`) + ` · ♩=${x.bpm}`;
+      };
+      function edit(fn, parts, again) { fn(cur()); saveState(); render(parts); if (again) replan(); }
+
+      function renderSets() {
+        const sel = $("setSel"); sel.innerHTML = "";
+        store.sets.forEach(function (s) {
+          const o = el("option", null, setName(s)); o.value = s.id; o.selected = s.id === store.current; sel.appendChild(o);
+        });
+        const s = curSet();
+        if (document.activeElement !== $("setName")) $("setName").value = s.name;
+        $("setCount").textContent = store.sets.length === 1 ? t("set.count.one") : t("set.count", { n: store.sets.length });
+      }
+      function renderList() {
+        const s = curSet(), box = $("items"); box.innerHTML = "";
+        s.items.forEach(function (x, i) {
+          const li = el("li"), b = el("button", "song");
+          b.type = "button"; b.setAttribute("aria-current", x.id === s.current);
+          const no = el("span", "no", i + 1); no.setAttribute("aria-hidden", "true");
+          b.append(el("span", "nm", itemName(x)), el("span", "mt", metaText(x)));
+          b.onclick = () => select(x.id);
+          li.append(no, b); box.appendChild(li);
+        });
+        const idx = s.items.findIndex((x) => x.id === s.current), n = s.items.length;
+        $("count").textContent = t("count", { n: n });
+        $("upBtn").disabled = idx <= 0; $("downBtn").disabled = idx >= n - 1;
+        $("prevBtn").disabled = idx <= 0; $("nextBtn").disabled = idx >= n - 1;
+      }
+      function renderHead() {
+        const x = cur();
+        if (document.activeElement !== $("nameInput")) $("nameInput").value = x.name;
+        $("nameInput").placeholder = autoName(x.pattern);
+        $("itemNo").textContent = (curSet().items.indexOf(x) + 1) + ".";
+      }
+      function renderLadder() {
+        const x = cur(), ks = keysOf(x), p = parsePattern(x.pattern), box = $("ladder");
+        showKi = clamp(showKi, 0, ks.length - 1);
+        box.innerHTML = "";
+        ks.forEach(function (k, i) {
+          const b = el("button", "lk" + (playing && i < showKi ? " done" : ""), noteName(k));
+          b.type = "button"; b.setAttribute("aria-current", i === showKi);
+          b.onclick = () => { if (eventsOf(cur())) playFrom(i); };
+          box.appendChild(b);
+        });
+        const root = ks[showKi];
+        $("keyName").textContent = noteName(root);
+        $("keySub").innerHTML = "";
+        $("keySub").append(t("key.of", { i: showKi + 1, n: ks.length }));
+        if (!p.error) {
+          $("keySub").append(" · " + t("key.sing") + " ", el("b", null, noteName(root + p.lo) + (p.hi > p.lo ? "–" + noteName(root + p.hi) : "")));
+        }
+        $("keyDown").disabled = showKi <= 0; $("keyUp").disabled = showKi >= ks.length - 1;
+      }
+      function renderPattern() {
+        const p = parsePattern(cur().pattern), box = $("patView");
+        box.innerHTML = ""; box.classList.toggle("cue", showCue);
+        $("cueTag").textContent = playing && showCue ? t("cue.on") : "";
+        $("cueTag").classList.toggle("on", playing && showCue);
+        if (p.error) return;
+        const span = Math.max(1, p.hi - p.lo);
+        p.notes.forEach(function (n, i) {
+          const c = el("div", "pt" + (n.rest ? " rest" : "") + (playing && i === showNi ? " on" : ""));
+          c.style.flexGrow = n.beats;
+          const nb = el("span", "nb", solfa(n));
+          const frac = n.rest ? 0 : (n.semis - p.lo) / span;
+          nb.style.bottom = `calc((100% - 26px) * ${frac.toFixed(3)})`;
+          c.appendChild(nb); box.appendChild(c);
+        });
+      }
+      function renderSettings() {
+        const x = cur(), p = parsePattern(x.pattern);
+        // Pattern
+        const ps = $("presetSel"); ps.innerHTML = "";
+        const match = PRESETS.find((q) => q.text === normPattern(x.pattern));
+        PRESETS.forEach(function (q) { const o = el("option", null, t("p." + q.id)); o.value = q.id; o.selected = q === match; ps.appendChild(o); });
+        const oc = el("option", null, t("pattern.custom")); oc.value = ""; oc.selected = !match; ps.appendChild(oc);
+        if (document.activeElement !== $("patInput")) $("patInput").value = x.pattern;
+        $("patInput").setAttribute("aria-invalid", !!p.error);
+        $("patErr").hidden = !p.error; $("patErr").textContent = p.error || "";
+        $("playBtn").disabled = !!p.error;
+        // Start and end
+        [["startSel", x.start], ["endSel", x.end]].forEach(function (pair) {
+          const sel = $(pair[0]); sel.innerHTML = "";
+          for (let m = HIGH; m >= LOW; m--) {
+            const o = el("option", null, noteName(m) + (m === 60 ? ` (${t("middleC")})` : "")); o.value = m; o.selected = m === pair[1]; sel.appendChild(o);
+          }
+        });
+        $("stepHalf").setAttribute("aria-pressed", x.step === 1); $("stepWhole").setAttribute("aria-pressed", x.step === 2);
+        $("roundBtn").setAttribute("aria-pressed", x.round);
+        const ks = keysOf(x), a = noteName(x.start), last = noteName(ks[x.round ? Math.floor(ks.length / 2) : ks.length - 1]);
+        const turns = x.round ? (ks.length + 1) / 2 : ks.length;
+        let hint = x.start === x.end ? t("range.same", { a: a }) : t(x.end > x.start ? "range.up" : "range.down", { a: a, b: last, n: turns });
+        if (x.round && x.start !== x.end) hint += " " + t("range.round", { a: a });
+        if (!p.error) {
+          const lo = Math.min.apply(null, ks) + p.lo, hi = Math.max.apply(null, ks) + p.hi;
+          hint += " " + t("range.notes", { lo: noteName(lo), hi: noteName(hi) });
+        }
+        $("rangeHint").textContent = hint;
+        // Tempo
+        if (document.activeElement !== $("bpmInput")) $("bpmInput").value = x.bpm;
+        $("bpmSlider").value = x.bpm; $("bpmVal").textContent = "♩ = " + x.bpm;
+        // Piano
+        $("cueBtn").setAttribute("aria-pressed", x.cue); $("guideBtn").setAttribute("aria-pressed", x.guide);
+        $("restVal").textContent = x.rest; $("restDown").disabled = x.rest <= 0; $("restUp").disabled = x.rest >= 8;
+        // For all exercises
+        $("throughBtn").setAttribute("aria-pressed", store.through);
+        const so = $("sounds"); so.innerHTML = "";
+        SOUNDS.forEach(function (id) {
+          const b = el("button", "chip", t("snd." + id)); b.type = "button"; b.setAttribute("aria-pressed", store.sound === id);
+          b.onclick = () => { store.sound = id; saveState(); renderSettings(); preview(cur().start); };
+          so.appendChild(b);
+        });
+        $("vol").value = Math.round(store.vol * 100); $("volVal").textContent = Math.round(store.vol * 100) + "%";
+      }
+      function renderPlay() {
+        $("playBtn").innerHTML = (playing
+          ? '<svg viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="1.5" fill="currentColor"></rect></svg>'
+          : '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M5 2.5v13l11-6.5z" fill="currentColor"></path></svg>') +
+          `<span>${t(playing ? "stop" : "start")}</span>`;
+        $("playBtn").setAttribute("aria-pressed", playing);
+      }
+      // parts: which areas to redraw (all when omitted)
+      function render(parts) {
+        const all = !parts;
+        if (all || parts.includes("sets")) renderSets();
+        if (all || parts.includes("list")) { renderList(); renderHead(); }
+        if (all || parts.includes("settings")) renderSettings();
+        if (all || parts.includes("player")) { renderLadder(); renderPattern(); }
+      }
+
+      function select(id) {
+        const s = curSet();
+        if (id === s.current) return;
+        s.current = id; showKi = 0; saveState(); render();
+        if (playing) { if (eventsOf(cur())) playFrom(0); else stop(); }
+      }
+      function move(delta) {
+        const s = curSet(), j = s.items.findIndex((x) => x.id === s.current) + delta;
+        if (j >= 0 && j < s.items.length) select(s.items[j].id);
+      }
+      function selectSet(id) {
+        if (playing) stop();
+        store.current = id; showKi = 0; saveState(); render();
+      }
+      // Result of an export or import, shown in place of the hint below the set buttons
+      function notice(msg) { $("notice").textContent = msg || t("set.hint"); }
+
+      // Pattern
+      $("presetSel").onchange = (e) => {
+        const q = PRESETS.find((x) => x.id === e.target.value);
+        if (q) { edit((x) => { x.pattern = q.text; }, ["list", "settings", "player"], true); $("patInput").value = q.text; }
+        else { $("patInput").focus(); $("patInput").select(); }
+      };
+      $("patInput").oninput = (e) => {
+        const v = e.target.value.slice(0, 200);
+        if (!v.trim()) return;
+        edit((x) => { x.pattern = v; }, ["list", "settings", "player"], true);
+      };
+      $("patInput").onblur = () => { edit((x) => { x.pattern = normPattern(x.pattern); }, ["list", "settings"]); };
+      $("patInput").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
+      // Start and end
+      $("startSel").onchange = (e) => { edit((x) => { x.start = +e.target.value; }, ["list", "settings", "player"], true); preview(cur().start); };
+      $("endSel").onchange = (e) => { edit((x) => { x.end = +e.target.value; }, ["list", "settings", "player"], true); preview(cur().end); };
+      $("stepHalf").onclick = () => edit((x) => { x.step = 1; }, ["settings", "player"], true);
+      $("stepWhole").onclick = () => edit((x) => { x.step = 2; }, ["settings", "player"], true);
+      $("roundBtn").onclick = () => edit((x) => { x.round = !x.round; }, ["list", "settings", "player"], true);
+      // Tempo (read while playing, so no restart is needed)
+      function setBpm(v) { edit((x) => { x.bpm = clamp(Math.round(v), 30, 240); }, ["list", "settings"]); }
+      document.querySelectorAll("[data-bpm]").forEach((b) => { b.onclick = () => setBpm(cur().bpm + +b.dataset.bpm); });
+      $("bpmSlider").oninput = (e) => setBpm(+e.target.value);
+      $("bpmInput").onchange = (e) => { const v = +e.target.value; if (v) setBpm(v); else renderSettings(); };
+      $("bpmInput").onblur = () => renderSettings();
+      $("bpmInput").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
+      // Piano
+      $("cueBtn").onclick = () => edit((x) => { x.cue = !x.cue; }, ["settings"], true);
+      $("guideBtn").onclick = () => edit((x) => { x.guide = !x.guide; }, ["settings"], true);
+      $("restDown").onclick = () => edit((x) => { x.rest = Math.max(0, x.rest - 1); }, ["settings"], true);
+      $("restUp").onclick = () => edit((x) => { x.rest = Math.min(8, x.rest + 1); }, ["settings"], true);
+      // For all exercises
+      $("throughBtn").onclick = () => { store.through = !store.through; saveState(); renderSettings(); };
+      $("vol").oninput = (e) => { store.vol = +e.target.value / 100; saveState(); renderSettings(); if (ctx) master.gain.value = store.vol; };
+      // Name
+      $("nameInput").oninput = (e) => edit((x) => { x.name = e.target.value.slice(0, 60); }, ["list"]);
+      $("nameInput").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
+      // Player
+      $("playBtn").onclick = () => (playing ? stop() : playFrom(showKi));
+      $("keyDown").onclick = () => jumpKey(-1);
+      $("keyUp").onclick = () => jumpKey(1);
+      $("prevBtn").onclick = () => move(-1);
+      $("nextBtn").onclick = () => move(1);
+
+      // Exercises
+      function insertAfterCurrent(x) {
+        const s = curSet(), i = s.items.findIndex((y) => y.id === s.current);
+        s.items.splice(i + 1, 0, x); s.current = x.id; showKi = 0; saveState(); render();
+        if (playing) stop();
+      }
+      // A new exercise starts from the current one's keys and tempo, so a series is quick to build
+      $("addBtn").onclick = () => {
+        const c = cur();
+        insertAfterCurrent(sanitizeItem({ start: c.start, end: c.end, bpm: c.bpm, step: c.step, rest: c.rest, cue: c.cue, guide: c.guide }));
+      };
+      $("dupBtn").onclick = () => {
+        const c = cur();
+        insertAfterCurrent(sanitizeItem(Object.assign({}, c, { id: uid(), name: c.name ? t("copyOf", { name: c.name }).slice(0, 60) : "" })));
+      };
+      function shift(delta) {
+        const s = curSet(), i = s.items.findIndex((x) => x.id === s.current), j = i + delta;
+        if (j < 0 || j >= s.items.length) return;
+        const a = s.items; [a[i], a[j]] = [a[j], a[i]]; saveState(); render(["list"]);
+      }
+      $("upBtn").onclick = () => shift(-1);
+      $("downBtn").onclick = () => shift(1);
+      $("delBtn").onclick = () => {
+        const s = curSet(), i = s.items.findIndex((x) => x.id === s.current);
+        if (playing) stop();
+        s.items.splice(i, 1);
+        if (!s.items.length) s.items.push(sanitizeItem({}));
+        s.current = s.items[Math.min(i, s.items.length - 1)].id; showKi = 0;
+        saveState(); render();
+      };
+
+      // Practice sets
+      $("setSel").onchange = (e) => selectSet(e.target.value);
+      $("setName").oninput = (e) => { curSet().name = e.target.value.slice(0, 60); saveState(); renderSets(); };
+      $("setName").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
+      $("newSetBtn").onclick = () => {
+        const s = sanitizeSet({ name: t("set.newName", { n: store.sets.length + 1 }) });
+        store.sets.push(s); selectSet(s.id); notice("");
+        $("setName").focus(); $("setName").select();
+      };
+      $("delSetBtn").onclick = () => {
+        const s = curSet();
+        if (!confirm(t("set.confirmDel", { name: setName(s), n: s.items.length }))) return;
+        const i = store.sets.indexOf(s);
+        store.sets.splice(i, 1);
+        if (!store.sets.length) store.sets.push(sanitizeSet({ name: t("set.newName", { n: 1 }) }));
+        selectSet(store.sets[Math.min(i, store.sets.length - 1)].id); notice("");
+      };
+
+      // Export: the set as a small JSON file with readable note names, to send to someone else
+      function exportData(s) {
+        return {
+          format: "vocalladder-set", version: 1, app: "https://ktkwmr.com/vocalladder/",
+          name: s.name,
+          exercises: s.items.map((x) => ({
+            name: x.name, pattern: normPattern(x.pattern), start: noteName(x.start), end: noteName(x.end),
+            step: x.step, roundTrip: x.round, bpm: x.bpm, rest: x.rest, chord: x.cue, melody: x.guide,
+          })),
+        };
+      }
+      $("exportBtn").onclick = async () => {
+        const s = curSet();
+        const file = (setName(s).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, "_").trim() || "vocalladder") + ".json";
+        const blob = new Blob([JSON.stringify(exportData(s), null, 2) + "\n"], { type: "application/json" });
+        // iOS (especially as a home screen app) cannot save a download, so use the share sheet there
+        if (isIOS() && navigator.canShare) {
+          try {
+            const f = new File([blob], file, { type: "application/json" });
+            if (navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); notice(t("set.exported", { file: file })); return; }
+          } catch (e) { if (e && e.name === "AbortError") return; }
+        }
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob); a.download = file;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        notice(t("set.exported", { file: file }));
+      };
+      // Import: adds the set(s) in the file as new sets; nothing already saved is replaced
+      // On phones the accept filter can hide files that are fine (e.g. sent by a chat app), so it is removed there
+      if (matchMedia("(pointer: coarse)").matches) $("importFile").removeAttribute("accept");
+      $("importBtn").onclick = () => $("importFile").click();
+      $("importFile").onchange = async (e) => {
+        const f = e.target.files && e.target.files[0];
+        e.target.value = "";
+        if (!f) return;
+        try {
+          if (f.size > 1000000) throw new Error("too large");
+          const data = JSON.parse(await f.text());
+          const list = Array.isArray(data) ? data : Array.isArray(data.sets) ? data.sets : [data];
+          const sets = list.filter((o) => o && (Array.isArray(o.exercises) || Array.isArray(o.items))).slice(0, 50)
+            // New ids, so importing the same file twice gives two separate sets
+            .map((o) => sanitizeSet({ name: o.name, exercises: (o.exercises || o.items).map((x) => Object.assign({}, x, { id: "" })) }));
+          if (!sets.length) throw new Error("no sets");
+          sets.forEach(function (s) {
+            s.name = s.name || f.name.replace(/\.json$/i, "").slice(0, 60);
+            // Keep names unique, so an imported set is easy to find
+            const base = s.name; let n = 2;
+            while (store.sets.some((o) => o.name === s.name)) s.name = `${base} (${n++})`.slice(0, 60);
+            store.sets.push(s);
+          });
+          selectSet(sets[0].id);
+          notice(t("set.imported", { name: setName(sets[0]), n: sets[0].items.length }));
+        } catch (err) {
+          notice(t("set.importFail"));
+        }
+      };
+
+      // Tap feedback: buttons that don't stay on (no aria-pressed) get .is-pressed for at least 150 ms
+      const PRESSABLE = ".chip:not([aria-pressed]), .play, .primary, #settingsBtn, .song, .lk";
+      document.addEventListener("pointerdown", function (e) {
+        const el = e.target.closest && e.target.closest(PRESSABLE);
+        if (!el || el.disabled || e.button > 0) return;
+        const t0 = performance.now();
+        el.classList.add("is-pressed");
+        const release = function () {
+          document.removeEventListener("pointerup", release); document.removeEventListener("pointercancel", release);
+          setTimeout(() => el.classList.remove("is-pressed"), Math.max(0, 150 - (performance.now() - t0)));
+        };
+        document.addEventListener("pointerup", release); document.addEventListener("pointercancel", release);
+      });
+
+      // Keyboard shortcuts (not while typing, or while a menu or dialog is open)
+      document.addEventListener("keydown", function (e) {
+        const el = e.target, tag = el && el.tagName;
+        if (e.ctrlKey || e.metaKey || e.altKey || e.defaultPrevented) return;
+        if (!$("settingsMenu").hidden || document.querySelector("dialog[open]")) return;
+        if ((tag === "INPUT" && el.type !== "range") || tag === "SELECT" || tag === "TEXTAREA") return;
+        if (e.key === " ") { if (tag === "BUTTON") return; e.preventDefault(); if (playing) stop(); else if (!$("playBtn").disabled) playFrom(showKi); }
+        else if (tag === "INPUT") return;
+        else if (e.key === "ArrowLeft") { e.preventDefault(); jumpKey(-1); }
+        else if (e.key === "ArrowRight") { e.preventDefault(); jumpKey(1); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+        else if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      });
+
+      // ---------- Settings (gear) menu: How to use / Privacy / About ----------
+      const settingsBtn = $("settingsBtn");
+      const settingsMenu = $("settingsMenu");
+      const helpDlg = $("helpDlg");
+      const privacyDlg = $("privacyDlg");
+      const aboutDlg = $("aboutDlg");
+
+      function closeMenu(returnFocus) {
+        if (settingsMenu.hidden) return;
+        settingsMenu.hidden = true;
+        settingsBtn.setAttribute("aria-expanded", "false");
+        if (returnFocus) settingsBtn.focus();
+      }
+      function openMenu() {
+        const r = settingsBtn.getBoundingClientRect();
+        settingsMenu.style.top = r.bottom + 6 + "px";
+        settingsMenu.style.right = Math.max(8, document.documentElement.clientWidth - r.right) + "px";
+        settingsMenu.hidden = false;
+        settingsBtn.setAttribute("aria-expanded", "true");
+        $("menuHelp").focus();
+      }
+      settingsBtn.addEventListener("click", function () {
+        if (settingsMenu.hidden) openMenu(); else closeMenu(true);
+      });
+      document.addEventListener("click", function (e) {
+        if (!settingsMenu.hidden && !settingsMenu.contains(e.target) && !settingsBtn.contains(e.target)) closeMenu(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (settingsMenu.hidden) return;
+        if (e.key === "Escape") { closeMenu(true); return; }
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          const items = Array.prototype.slice.call(settingsMenu.querySelectorAll('[role="menuitem"]'));
+          const i = items.indexOf(document.activeElement);
+          const next = e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+          items[next].focus();
+        }
+      }, true);
+      window.addEventListener("resize", function () { closeMenu(false); });
+
+      // About: the license text is read from THIRD_PARTY_LICENSES.md
+      let licenseLoaded = false;
+      async function loadLicenses() {
+        if (licenseLoaded) return;
+        const el = $("licenseText");
+        el.textContent = t("loading");
+        try {
+          const res = await fetch("THIRD_PARTY_LICENSES.md");
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          // Hide the marker (HTML comment) used by the update script
+          el.textContent = (await res.text()).replace(/<!--[\s\S]*?-->\n?/g, "");
+          licenseLoaded = true;
+        } catch (e) {
+          el.textContent = t("err.license");
+        }
+      }
+
+      // Focus the dialog itself, not its first link, so no link looks selected on open
+      function openDlg(dlg) {
+        if (typeof dlg.showModal !== "function") return;
+        dlg.showModal(); dlg.focus();
+      }
+      $("menuHelp").addEventListener("click", function () {
+        closeMenu(false);
+        openDlg(helpDlg);
+      });
+      $("menuPrivacy").addEventListener("click", function () {
+        closeMenu(false);
+        openDlg(privacyDlg);
+      });
+      $("menuAbout").addEventListener("click", function () {
+        closeMenu(false);
+        loadLicenses();
+        openDlg(aboutDlg);
+      });
+
+      // Dialogs: close with the Close button or a click outside
+      [[helpDlg, "helpClose"], [privacyDlg, "privacyClose"], [aboutDlg, "aboutClose"]].forEach(function (pair) {
+        const dlg = pair[0];
+        $(pair[1]).addEventListener("click", function () { dlg.close(); });
+        // The menu item that opened it is hidden, so return focus to the settings button
+        dlg.addEventListener("close", function () { $("settingsBtn").focus(); });
+        dlg.addEventListener("click", function (e) {
+          const r = dlg.getBoundingClientRect();
+          if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+        });
+      });
+
+      applyI18n();
+      render();
+      renderPlay();
+    })();
+  </script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
+  }
+</script>
+<!-- Cloudflare Web Analytics (page views; no cookies) -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5c53079cb9a64d819d1ca53e8533ca63"}'></script>
+</body>
+</html>
