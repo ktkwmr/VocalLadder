@@ -8,13 +8,13 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
 
 ## Features / 機能
 
-- **Exercises**: 11 built-in patterns (3- and 5-note scales, Do-Mi-Sol, arpeggio to the octave, one-octave and 9-note scales, Sol down to Do, octave leap, staccato, long tone, minor) or your own written as numbers
-  パターン 11 種（3音・5音、ドミソ、オクターブのアルペジオ、1オクターブ・9度の音階、下降、オクターブの跳躍、スタッカート、ロングトーン、短調）と、数字で書くオリジナル
+- **Exercises**: 9 built-in patterns (Do-Re-Mi-Fa-Sol, Do-Re-Mi, Do-Mi-Sol, Do-Mi-Sol-Do, one octave, Sol-Fa-Mi-Re-Do, one-octave leap, 1.5-octave leap, staccato Do-Mi-Sol) or your own written as numbers
+  パターン 9 種（ドレミファソ、ドレミ、ドミソ、ドミソド、1オクターブ、ソファミレド、1オクターブ跳躍、1.5オクターブ変則跳躍、スタッカートのドミソ）と、数字で書くオリジナル
 - **Start and end**: any keys from C2 to C6, half or whole steps, up or down, optionally back to the start. Shows the range you will sing
   開始・終了のキー（C2〜C6）、半音・全音、上り・下り、開始まで戻るも可。歌う音域を表示
 - **Piano**: chord before each key, melody on/off, rest between keys, tempo 30–240. Synthesized piano or a soft held tone (Web Audio API)
   キーごとの和音、メロディーの有無、キーの間の休み、テンポ 30〜240。ピアノ／やわらかい音（Web Audio API で合成）
-- **My patterns**: save your own notes with a name; they appear at the top of the pattern list for every set. Rename or delete them (exercises keep their notes)
+- **My patterns**: save your own notes with a name (the same name overwrites); they appear at the top of the pattern list for every set. Rename or delete them (exercises keep their notes)
   マイパターン: オリジナルの音に名前を付けて保存し、パターンの一番上から選べる。名前の変更・削除も可（削除しても練習の音は残る）
 - **Delete all saved data** (⚙ menu): removes all sets, My patterns, and settings in this browser and returns to the first-open state, after a confirmation
   ⚙ →「保存した情報をすべて削除」で、このブラウザのセット・マイパターン・設定をすべて消して、初めて開いたときの状態に戻す（確認あり）
@@ -31,7 +31,7 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
 |---|---|
 | `1`–`7` | Do Re Mi Fa Sol La Ti (major scale from the key) / ド〜シ |
 | `8`–`15` | the next octave (`8` = Do an octave up) / 1オクターブ上 |
-| `b3`, `#4` | flat / sharp / ♭・♯ |
+| `b3`, `#4` | `b` before a number lowers it a half step, `#` raises it (`b3` = Mi lowered a half step) / 数字の前の `b` で半音下がり、`#` で半音上がる |
 | `5,` / `1'` | an octave lower / higher / 1オクターブ下・上 |
 | `-` | one beat longer (`1--` = 3 beats) / 1拍のばす |
 | `/` | half as long (`1/` = half a beat) / 半分の長さ |
