@@ -30,15 +30,15 @@ export default {
 
 <h2 id="app">1. What you do in the app</h2>
 <p>The practice sets and settings you enter are processed, and the piano sound is made, only in your browser. They are never sent to our server or to anyone else. The app does not use the microphone and does not record your voice. This site has no accounts, and we do not ask for your name, email address, or other personal information.</p>
-<p><b>Export and import:</b> Export saves a practice set as a file on your device (or passes it to your device's share menu, which you choose where to send). Import reads a file you choose on your device. Neither sends the file to us. If you send an exported file to someone, it contains the set name and exercise names you typed, so do not put personal information you do not want to share in them.</p>
+<p><b>Export and import:</b> Export saves all your practice sets and saved patterns as one file on your device (or passes it to your device's share menu, which you choose where to send). Import reads a file you choose on your device. Neither sends the file to us. If you send an exported file to someone, it contains every set, with the set names and exercise names you typed, so do not put personal information you do not want to share in them.</p>
 
 <h2 id="storage">2. Data saved in your browser</h2>
 <p>The following data is saved in your browser's storage on your device. It is not sent to us.</p>
 <ul>
-  <li><b>Your practice sets:</b> the name of each set, and the name, notes, start and end keys, step, tempo, and piano settings of each exercise, which set and exercise are selected, the sound, and the volume, so you can continue next time.</li>
+  <li><b>Your practice sets:</b> the name of each set, and the name, notes, start and end keys, step, tempo, and piano settings of each exercise, which set and exercise are selected, your saved patterns (name and notes), the sound, and the volume, so you can continue next time.</li>
   <li><b>App files:</b> the pages and files of this site you have opened, so the app works offline.</li>
 </ul>
-<p>To delete this data, clear this site's data (site data, cookies, and storage for ktkwmr.com) in your browser settings.</p>
+<p>To delete this data, use ⚙ → “Delete all saved data” in the app, or clear this site's data (site data, cookies, and storage for ktkwmr.com) in your browser settings.</p>
 
 <h2 id="external">3. Information sent to external services</h2>
 <p>When you use this site, your browser sends information to the following services. This list also serves as the notice of external transmission required under Japan's Telecommunications Business Act.</p>
@@ -91,15 +91,15 @@ export default {
 
 <h2 id="app">1. アプリで行うこと</h2>
 <p>入力した練習セットや設定の処理とピアノの音の再生は、ブラウザの中だけで行います。運営者のサーバーやほかの誰かに送られることはありません。マイクは使わず、声を録音することもありません。本サイトにはアカウント登録はなく、氏名やメールアドレスなどの個人情報をお聞きすることもありません。</p>
-<p><b>エクスポートとインポート：</b>エクスポートは練習セットを端末にファイルとして保存します（または端末の共有メニューに渡し、送り先はご自身で選びます）。インポートは端末で選んだファイルを読み込みます。どちらも運営者にファイルが送られることはありません。エクスポートしたファイルをほかの人に送ると、入力したセットの名前と練習の名前も相手に渡るので、共有したくない個人情報は書かないでください。</p>
+<p><b>エクスポートとインポート：</b>エクスポートはすべての練習セットとマイパターンを1つのファイルとして端末に保存します（または端末の共有メニューに渡し、送り先はご自身で選びます）。インポートは端末で選んだファイルを読み込みます。どちらも運営者にファイルが送られることはありません。エクスポートしたファイルをほかの人に送ると、すべてのセットと、入力したセットの名前・練習の名前が相手に渡るので、共有したくない個人情報は書かないでください。</p>
 
 <h2 id="storage">2. ブラウザに保存するデータ</h2>
 <p>次のデータを、お使いの端末のブラウザ内に保存します。運営者に送られることはありません。</p>
 <ul>
-  <li><b>練習セット：</b>次に開いたときに続きから使えるよう、各セットの名前と、各練習の名前・音・開始と終了のキー・上げ下げの幅・テンポ・ピアノの設定、選択中のセットと練習、音色、音量を保存します。</li>
+  <li><b>練習セット：</b>次に開いたときに続きから使えるよう、各セットの名前と、各練習の名前・音・開始と終了のキー・上げ下げの幅・テンポ・ピアノの設定、選択中のセットと練習、保存したマイパターン（名前と音）、音色、音量を保存します。</li>
   <li><b>アプリのファイル：</b>オフラインでも使えるよう、開いた本サイトのページやファイルを保存します。</li>
 </ul>
-<p>消したいときは、ブラウザの設定でこのサイト（ktkwmr.com）のデータ（サイトデータ・Cookie・ストレージ）を削除してください。</p>
+<p>消したいときは、アプリの ⚙ →「保存した情報をすべて削除」を使うか、ブラウザの設定でこのサイト（ktkwmr.com）のデータ（サイトデータ・Cookie・ストレージ）を削除してください。</p>
 
 <h2 id="external">3. 外部への情報の送信</h2>
 <p>本サイトを利用すると、お使いのブラウザから次のサービスに情報が送信されます。この一覧は、電気通信事業法の外部送信規律に基づく公表を兼ねています。</p>

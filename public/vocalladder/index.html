@@ -129,6 +129,8 @@
     .field.mono { font-family: var(--mono); font-size: 14px; }
     .field[aria-invalid="true"] { border-color: #b91c1c; }
     select.field { padding-right: 4px; }
+    .pat-name { display: flex; gap: 6px; }
+    .pat-name .field { flex: 1 1 auto; }
     .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
     .row2 label { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
     input[type=range] { width: 100%; accent-color: var(--ink); margin: 0; height: 24px; }
@@ -226,7 +228,9 @@
     dialog.msg:focus { outline: none; }
     dialog.msg::backdrop { background: rgba(0, 0, 0, 0.55); }
     dialog.msg h2 { margin: 0 0 8px; font-size: 16px; font-weight: 700; }
-    dialog.msg .dlg-actions { display: flex; justify-content: flex-end; }
+    dialog.msg .dlg-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    dialog.msg p.dlg-text { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .menu .menu-sep { height: 1px; margin: 4px 6px; background: var(--line); }
     dialog.help { width: min(480px, calc(100vw - 32px)); max-height: calc(100% - 32px); }
     dialog.help[open] { display: flex; flex-direction: column; }
     .help-body { flex: 0 1 auto; min-height: 0; overflow-y: auto; margin-bottom: 16px; -webkit-overflow-scrolling: touch; }
@@ -243,6 +247,8 @@
     .about-license a { color: inherit; }
     .about-body { flex: 1 1 auto; min-height: 0; overflow: auto; margin-bottom: 16px; border: 1px solid var(--line); border-radius: var(--radius); -webkit-overflow-scrolling: touch; }
     .about-body pre { margin: 0; padding: 12px; color: var(--muted); font-family: var(--mono); font-size: 11px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+    /* Short message at the bottom of the screen (results of export / import from the settings menu) */
+    .toast { position: fixed; z-index: 1100; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: max-content; max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: var(--radius); background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 600; line-height: 1.5; box-shadow: var(--shadow); }
     @media (prefers-reduced-motion: reduce) { *, ::before, ::after { transition: none !important; } }
   </style>
 </head>
@@ -274,11 +280,9 @@
             <div class="set-actions">
               <button type="button" class="chip" id="newSetBtn" data-i18n="set.new">+ New set</button>
               <button type="button" class="chip" id="delSetBtn" data-i18n="set.del">Delete set</button>
-              <button type="button" class="chip" id="exportBtn" data-i18n="set.export">Export</button>
-              <button type="button" class="chip" id="importBtn" data-i18n="set.import">Import</button>
             </div>
             <input type="file" id="importFile" accept=".json,application/json" hidden>
-            <p class="hint" id="notice" aria-live="polite" data-i18n="set.hint">Export saves this set as a file to send to someone else. Import adds a set from such a file.</p>
+            <p class="hint" id="notice" aria-live="polite" hidden></p>
           </div>
           <div class="group sep">
             <span class="label"><span data-i18n="list">Exercises</span><span class="val" id="count"></span></span>
@@ -328,6 +332,16 @@
             <label class="label" for="patInput" data-i18n="pattern.edit">Notes (edit to make your own)</label>
             <input id="patInput" class="field mono" type="text" maxlength="200" autocomplete="off" spellcheck="false" autocapitalize="off">
             <p class="err" id="patErr" hidden></p>
+            <div class="chips">
+              <button type="button" class="chip" id="patSave" data-i18n="pattern.save">Save this pattern</button>
+              <button type="button" class="chip" id="patRename" data-i18n="pattern.rename">Rename</button>
+              <button type="button" class="chip" id="patDel" data-i18n="pattern.del">Delete pattern</button>
+            </div>
+            <div class="pat-name" id="patNameRow" hidden>
+              <input id="patName" class="field" type="text" maxlength="40" autocomplete="off" placeholder="Pattern name" aria-label="Pattern name" data-i18n-attr="placeholder:pattern.name;aria-label:pattern.name">
+              <button type="button" class="chip" id="patNameOk" data-i18n="pattern.ok">Save</button>
+              <button type="button" class="chip" id="patNameCancel" data-i18n="cancel">Cancel</button>
+            </div>
             <p class="hint" data-i18n-html="pattern.hint"><code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up, <code>5,</code> = Sol below Do, <code>b3</code> / <code>#4</code> = flat / sharp, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.</p>
           </div>
           <div class="group">
@@ -391,7 +405,7 @@
       <div data-i18n-html="intro.body">
         <p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>
         <p>Built-in exercises include 3-note and 5-note scales, Do-Mi-Sol arpeggios, a one-octave scale, the 9-note scale, octave leaps, staccato, long tones, and a minor scale. You can also write your own with numbers: <code>1 3 5 8 5 3 1---</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>
-        <p>Put several exercises in a <b>practice set</b> and they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> to send a set to someone else as a small file.</p>
+        <p>Put several exercises in a <b>practice set</b> and they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> in the ⚙ settings menu to send your sets to someone else as one small file.</p>
         <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>
       </div>
     </section>
@@ -406,8 +420,9 @@
         <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>
         <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>
         <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>
-        <li><b>Share</b> – “Export” saves the set as a file. Send it to a student, who opens this app and uses “Import”.</li>
+        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Send it to a student, who opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>
         <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>
+        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>
       </ol>
     </div>
     <div class="dlg-actions">
@@ -419,8 +434,8 @@
     <h2 id="privacyTitle" data-i18n="menu.privacy">Privacy</h2>
     <div class="help-body">
       <ul class="help-list" data-i18n-html="privacy.body">
-        <li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing a set only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>
-        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them by clearing this site's data in your browser settings.</li>
+        <li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>
+        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>
         <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>
         <li><b>Contact</b> – Questions and feedback: <a href="https://github.com/ktkwmr/VocalLadder/issues" target="_blank" rel="noopener">GitHub Issues</a>.</li>
         <li><b>Full policy</b> – See the <a href="/vocalladder/privacy/">privacy policy</a> and <a href="/vocalladder/about/">about this site</a>.</li>
@@ -431,11 +446,26 @@
     </div>
   </dialog>
 
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
   <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" data-i18n-attr="aria-label:settings" hidden>
     <button type="button" role="menuitem" id="menuHelp" data-i18n="menu.help">How to use</button>
+    <button type="button" role="menuitem" id="exportBtn" data-i18n="menu.export">Export all sets</button>
+    <button type="button" role="menuitem" id="importBtn" data-i18n="menu.import">Import sets</button>
     <button type="button" role="menuitem" id="menuPrivacy" data-i18n="menu.privacy">Privacy</button>
     <button type="button" role="menuitem" id="menuAbout" data-i18n="menu.about">About</button>
+    <div class="menu-sep" role="separator"></div>
+    <button type="button" role="menuitem" id="menuReset" data-i18n="menu.reset">Delete all saved data</button>
   </div>
+
+  <dialog class="msg" id="resetDlg" tabindex="-1" aria-labelledby="resetTitle">
+    <h2 id="resetTitle" data-i18n="reset.title">Delete all saved data?</h2>
+    <p class="dlg-text" data-i18n="reset.body">This deletes all your practice sets, My patterns, and settings saved in this browser, and returns the app to how it looks when first opened. This cannot be undone. To keep your sets, use “Export all sets” first.</p>
+    <div class="dlg-actions">
+      <button class="chip" id="resetCancel" type="button" data-i18n="cancel">Cancel</button>
+      <button class="primary" id="resetOk" type="button" data-i18n="reset.ok">Delete everything</button>
+    </div>
+  </dialog>
 
   <dialog class="msg about" id="aboutDlg" tabindex="-1" aria-labelledby="aboutTitle">
     <h2 id="aboutTitle" data-i18n="menu.about">About</h2>
@@ -459,17 +489,18 @@
           "set.name.ph": "e.g. a student's name or a voice type",
           "set.new": "+ New set",
           "set.del": "Delete set",
-          "set.export": "Export",
-          "set.import": "Import",
-          "set.hint": "Export saves this set as a file to send to someone else. Import adds a set from such a file.",
           "set.untitled": "Untitled set",
           "set.newName": "Set {n}",
           "set.count": "{n} sets",
           "set.count.one": "1 set",
           "set.confirmDel": "Tap “Delete set” again to delete “{name}” and its {n} exercises. This cannot be undone, so export it first if you may need it again.",
           "set.delAgain": "Tap again to delete",
-          "set.exported": "Saved “{file}”.",
-          "set.imported": "Imported “{name}” ({n} exercises).",
+          "set.exported": "Saved “{file}” ({n} sets).",
+          "set.imported": "Imported {n} sets: {names}.",
+          "set.imported.one": "Imported “{names}”.",
+          "set.skipped": "{n} sets already here were skipped.",
+          "set.skipped.one": "1 set already here was skipped.",
+          "set.allThere": "Everything in this file is already here.",
           "set.exportFail": "The file could not be saved here.",
           "set.importFail": "This file could not be imported. Choose a file exported from Vocal Ladder (.json).",
           "set.default": "Daily warm-up",
@@ -499,6 +530,20 @@
           "stop": "Stop",
           "pattern": "Exercise pattern",
           "pattern.custom": "Your own (edit the notes below)",
+          "pattern.mine": "My patterns",
+          "pattern.builtin": "Built-in patterns",
+          "pattern.save": "Save this pattern",
+          "pattern.rename": "Rename",
+          "pattern.del": "Delete pattern",
+          "pattern.delAgain": "Tap again to delete",
+          "pattern.name": "Pattern name",
+          "pattern.ok": "Save",
+          "cancel": "Cancel",
+          "pattern.saved": "Saved “{name}” at the top of the pattern list.",
+          "pattern.confirmDel": "Tap “Delete pattern” again to delete “{name}”. Exercises that use it keep their notes.",
+          "pattern.deleted": "Deleted “{name}”. Exercises that used it keep their notes.",
+          "pat.imported": "Added {n} patterns to My patterns.",
+          "pat.imported.one": "Added 1 pattern to My patterns.",
           "pattern.edit": "Notes (edit to make your own)",
           "pattern.hint": "<code>1</code>–<code>7</code> = Do–Ti, <code>8</code> = Do an octave up, <code>5,</code> = Sol below Do, <code>b3</code> / <code>#4</code> = flat / sharp, <code>-</code> = one beat longer, <code>/</code> = half as long, <code>r</code> = rest.",
           "pattern.err": "Cannot read “{tok}”. Use numbers 1–15 with b, #, “,”, -, / or r.",
@@ -552,12 +597,19 @@
           "p.long": "Long tone",
           "p.minor": "Minor 5 notes",
           "intro.title": "Vocal warm-up scales that move up a half step at a time",
-          "intro.body": "<p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>\n        <p>Built-in exercises include 3-note and 5-note scales, Do-Mi-Sol arpeggios, a one-octave scale, the 9-note scale, octave leaps, staccato, long tones, and a minor scale. You can also write your own with numbers: <code>1 3 5 8 5 3 1---</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>\n        <p>Put several exercises in a <b>practice set</b> and they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> to send a set to someone else as a small file.</p>\n        <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>",
+          "intro.body": "<p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>\n        <p>Built-in exercises include 3-note and 5-note scales, Do-Mi-Sol arpeggios, a one-octave scale, the 9-note scale, octave leaps, staccato, long tones, and a minor scale. You can also write your own with numbers: <code>1 3 5 8 5 3 1---</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>\n        <p>Put several exercises in a <b>practice set</b> and they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> in the ⚙ settings menu to send your sets to someone else as one small file.</p>\n        <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>",
           "menu.help": "How to use",
+          "menu.export": "Export all sets",
+          "menu.import": "Import sets",
           "menu.privacy": "Privacy",
           "menu.about": "About",
-          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – “Export” saves the set as a file. Send it to a student, who opens this app and uses “Import”.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>",
-          "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing a set only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\">privacy policy</a> and <a href=\"/vocalladder/about/\">about this site</a>.</li>",
+          "menu.reset": "Delete all saved data",
+          "reset.title": "Delete all saved data?",
+          "reset.body": "This deletes all your practice sets, My patterns, and settings saved in this browser, and returns the app to how it looks when first opened. This cannot be undone. To keep your sets, use “Export all sets” first.",
+          "reset.ok": "Delete everything",
+          "reset.done": "Deleted all saved data.",
+          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Send it to a student, who opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b3</code> and <code>#4</code> are flat and sharp, <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
+          "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\">privacy policy</a> and <a href=\"/vocalladder/about/\">about this site</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a> · <a href=\"/vocalladder/about/\">About this site</a>",
           "close": "Close",
           "loading": "Loading…",
@@ -571,17 +623,18 @@
           "set.name.ph": "例：生徒の名前や声種",
           "set.new": "＋ 新しいセット",
           "set.del": "セットを削除",
-          "set.export": "エクスポート",
-          "set.import": "インポート",
-          "set.hint": "エクスポートでこのセットをファイルに保存して、ほかの人に渡せます。インポートで、そのファイルからセットを追加します。",
           "set.untitled": "名前のないセット",
           "set.newName": "セット {n}",
           "set.count": "{n}セット",
           "set.count.one": "1セット",
           "set.confirmDel": "もう一度「セットを削除」を押すと、「{name}」（{n}個の練習）を削除します。元に戻せないので、あとで使うかもしれない場合は先にエクスポートしてください。",
           "set.delAgain": "もう一度押すと削除",
-          "set.exported": "「{file}」を保存しました。",
-          "set.imported": "「{name}」（{n}個の練習）を読み込みました。",
+          "set.exported": "「{file}」（{n}セット）を保存しました。",
+          "set.imported": "{n}セットを読み込みました：{names}。",
+          "set.imported.one": "「{names}」を読み込みました。",
+          "set.skipped": "すでにある{n}セットは読み込みませんでした。",
+          "set.skipped.one": "すでにある1セットは読み込みませんでした。",
+          "set.allThere": "このファイルの内容はすべて読み込み済みです。",
           "set.exportFail": "ここではファイルを保存できませんでした。",
           "set.importFail": "このファイルは読み込めません。Vocal Ladder でエクスポートしたファイル（.json）を選んでください。",
           "set.default": "毎日の発声練習",
@@ -611,6 +664,20 @@
           "stop": "ストップ",
           "pattern": "練習パターン",
           "pattern.custom": "オリジナル（下の音を編集）",
+          "pattern.mine": "マイパターン",
+          "pattern.builtin": "基本のパターン",
+          "pattern.save": "このパターンを保存",
+          "pattern.rename": "名前を変更",
+          "pattern.del": "パターンを削除",
+          "pattern.delAgain": "もう一度押すと削除",
+          "pattern.name": "パターンの名前",
+          "pattern.ok": "保存",
+          "cancel": "キャンセル",
+          "pattern.saved": "「{name}」をパターンの一番上に保存しました。",
+          "pattern.confirmDel": "もう一度「パターンを削除」を押すと「{name}」を削除します。このパターンを使っている練習の音はそのまま残ります。",
+          "pattern.deleted": "「{name}」を削除しました。使っていた練習の音はそのまま残ります。",
+          "pat.imported": "マイパターンを{n}個追加しました。",
+          "pat.imported.one": "マイパターンを1個追加しました。",
           "pattern.edit": "音（書き換えるとオリジナルのパターンに）",
           "pattern.hint": "<code>1</code>〜<code>7</code> = ド〜シ、<code>8</code> = 1オクターブ上のド、<code>5,</code> = ドの下のソ、<code>b3</code>／<code>#4</code> = ♭／♯、<code>-</code> = 1拍のばす、<code>/</code> = 半分の長さ、<code>r</code> = 休み。",
           "pattern.err": "「{tok}」が読めません。1〜15の数字と b・#・,・-・/・r を使ってください。",
@@ -664,12 +731,19 @@
           "p.long": "ロングトーン",
           "p.minor": "短調の5音",
           "intro.title": "半音ずつ上がる発声練習の音階をピアノで",
-          "intro.body": "<p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>\n        <p>パターンは、3音・5音のスケール、ドミソのアルペジオ、1オクターブの音階、9度の音階、オクターブの跳躍、スタッカート、ロングトーン、短調などを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1---</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>\n        <p>複数の練習を<b>練習セット</b>に並べると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、<b>エクスポート</b>と<b>インポート</b>でセットを小さなファイルにして、ほかの人に渡せます。</p>\n        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>",
+          "intro.body": "<p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>\n        <p>パターンは、3音・5音のスケール、ドミソのアルペジオ、1オクターブの音階、9度の音階、オクターブの跳躍、スタッカート、ロングトーン、短調などを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1---</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>\n        <p>複数の練習を<b>練習セット</b>に並べると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、⚙（設定）の<b>エクスポート</b>と<b>インポート</b>で、セットをまとめて1つの小さなファイルにして、ほかの人に渡せます。</p>\n        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>",
           "menu.help": "使い方",
+          "menu.export": "セットをエクスポート",
+          "menu.import": "セットをインポート",
           "menu.privacy": "プライバシー",
           "menu.about": "このアプリについて",
-          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – 「エクスポート」でセットをファイルに保存します。受け取った人は、このアプリの「インポート」で読み込みます。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、<code>b3</code>・<code>#4</code> が♭・♯、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>",
-          "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）と音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\">運営者情報</a>をご覧ください。</li>",
+          "menu.reset": "保存した情報をすべて削除",
+          "reset.title": "保存した情報をすべて削除しますか？",
+          "reset.body": "このブラウザに保存している練習セット・マイパターン・設定をすべて削除して、初めて開いたときの状態に戻します。元に戻せません。残しておきたいセットは、先に「セットをエクスポート」で保存してください。",
+          "reset.ok": "すべて削除",
+          "reset.done": "保存した情報をすべて削除しました。",
+          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、<code>b3</code>・<code>#4</code> が♭・♯、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
+          "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\">運営者情報</a>をご覧ください。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a> · <a href=\"/vocalladder/ja/about/\">運営者情報</a>",
           "close": "閉じる",
           "loading": "読み込み中…",
@@ -836,10 +910,24 @@
         ] });
       }
       const SOUNDS = ["piano", "soft"];
+      // My patterns: the user's own notes saved with a name, shown at the top of the pattern list (newest first)
+      function sanitizePatterns(list) {
+        return (Array.isArray(list) ? list : []).slice(0, 200).map(function (o) {
+          o = o && typeof o === "object" ? o : {};
+          const text = normPattern(typeof o.pattern === "string" ? o.pattern : typeof o.text === "string" ? o.text : "").slice(0, 200);
+          if (!text || parsePattern(text).error) return null;
+          return { id: typeof o.id === "string" && o.id ? o.id : uid(), name: str(o.name, 40) || autoName(text).slice(0, 40), text: text };
+        }).filter(Boolean);
+      }
 
       // ---------- Saved state ----------
       // The practice sets are saved in the browser and restored next time
       const STATE_KEY = "vocalladder-state";
+      // The state of a browser that has never opened the app: the example set, no saved patterns, default settings
+      function freshState() {
+        const d = demoSet();
+        return { v: 2, sets: [d], patterns: [], current: d.id, sound: "piano", vol: .8, through: true };
+      }
       let store = (function () {
         try {
           const s = JSON.parse(localStorage.getItem(STATE_KEY) || "null");
@@ -852,7 +940,7 @@
             }));
             const sets = s.sets.slice(0, 100).map(sanitizeSet);
             return {
-              v: 2, sets: sets,
+              v: 2, sets: sets, patterns: sanitizePatterns(s.patterns),
               current: sets.some((x) => x.id === s.current) ? s.current : sets[0].id,
               sound: SOUNDS.includes(s.sound) ? s.sound : "piano",
               vol: clamp(s.vol == null ? .8 : +s.vol, 0, 1),
@@ -860,8 +948,7 @@
             };
           }
         } catch (e) {}
-        const d = demoSet();
-        return { v: 2, sets: [d], current: d.id, sound: "piano", vol: .8, through: true };
+        return freshState();
       })();
       function saveState() {
         try { localStorage.setItem(STATE_KEY, JSON.stringify(store)); }
@@ -871,7 +958,9 @@
       const cur = () => { const s = curSet(); return s.items.find((x) => x.id === s.current) || s.items[0]; };
       const findItem = (id) => { for (const s of store.sets) { const x = s.items.find((i) => i.id === id); if (x) return x; } return null; };
       const setName = (s) => s.name || t("set.untitled");
-      const itemName = (x) => x.name || autoName(x.pattern);
+      const myPattern = (text) => store.patterns.find((q) => q.text === normPattern(text));
+      const patternLabel = (text) => { const q = myPattern(text); return q ? q.name : autoName(text); };
+      const itemName = (x) => x.name || patternLabel(x.pattern);
 
       // Keys (the note that is Do) the exercise goes through, from start to end, then back if round
       function keysOf(x) {
@@ -1089,7 +1178,7 @@
       function renderHead() {
         const x = cur();
         if (document.activeElement !== $("nameInput")) $("nameInput").value = x.name;
-        $("nameInput").placeholder = autoName(x.pattern);
+        $("nameInput").placeholder = patternLabel(x.pattern);
         $("itemNo").textContent = (curSet().items.indexOf(x) + 1) + ".";
       }
       function renderLadder() {
@@ -1131,9 +1220,21 @@
         const x = cur(), p = parsePattern(x.pattern);
         // Pattern
         const ps = $("presetSel"); ps.innerHTML = "";
-        const match = PRESETS.find((q) => q.text === normPattern(x.pattern));
-        PRESETS.forEach(function (q) { const o = el("option", null, t("p." + q.id)); o.value = q.id; o.selected = q === match; ps.appendChild(o); });
-        const oc = el("option", null, t("pattern.custom")); oc.value = ""; oc.selected = !match; ps.appendChild(oc);
+        const mine = myPattern(x.pattern), match = mine ? null : PRESETS.find((q) => q.text === normPattern(x.pattern));
+        if (store.patterns.length) {
+          const g = el("optgroup"); g.label = t("pattern.mine");
+          store.patterns.forEach(function (q) { const o = el("option", null, q.name); o.value = "my:" + q.id; o.selected = q === mine; g.appendChild(o); });
+          ps.appendChild(g);
+        }
+        const gb = el("optgroup"); gb.label = t("pattern.builtin");
+        PRESETS.forEach(function (q) { const o = el("option", null, t("p." + q.id)); o.value = q.id; o.selected = q === match; gb.appendChild(o); });
+        ps.appendChild(gb);
+        const oc = el("option", null, t("pattern.custom")); oc.value = ""; oc.selected = !mine && !match; ps.appendChild(oc);
+        // Save (own notes not saved yet) / rename and delete (a saved pattern is selected) / the name box
+        $("patNameRow").hidden = !patEdit;
+        $("patSave").hidden = !!(patEdit || mine || match || p.error);
+        $("patRename").hidden = $("patDel").hidden = !!(patEdit || !mine);
+        if (!mine || !patDelArmed || patDelArmed.id !== mine.id) disarmPatDel();
         if (document.activeElement !== $("patInput")) $("patInput").value = x.pattern;
         $("patInput").setAttribute("aria-invalid", !!p.error);
         $("patErr").hidden = !p.error; $("patErr").textContent = p.error || "";
@@ -1203,12 +1304,20 @@
         if (delArmed) disarmDel();
         store.current = id; showKi = 0; saveState(); render();
       }
-      // Result of an export or import, shown in place of the hint below the set buttons
-      function notice(msg) { $("notice").textContent = msg || t("set.hint"); }
+      // Result of an export or import, or the delete warning, shown below the set buttons
+      function notice(msg) { $("notice").textContent = msg || ""; $("notice").hidden = !msg; }
+      // Result of an action from the settings menu: shown at the bottom of the screen, wherever the page is scrolled
+      let toastTimer = null;
+      function toast(msg) {
+        const el = $("toast");
+        el.textContent = msg; el.hidden = false;
+        clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 5000);
+      }
 
       // Pattern
       $("presetSel").onchange = (e) => {
-        const q = PRESETS.find((x) => x.id === e.target.value);
+        const v = e.target.value;
+        const q = v.startsWith("my:") ? store.patterns.find((x) => "my:" + x.id === v) : PRESETS.find((x) => x.id === v);
         if (q) { edit((x) => { x.pattern = q.text; }, ["list", "settings", "player"], true); $("patInput").value = q.text; }
         else { $("patInput").focus(); $("patInput").select(); }
       };
@@ -1219,6 +1328,58 @@
       };
       $("patInput").onblur = () => { edit((x) => { x.pattern = normPattern(x.pattern); }, ["list", "settings"]); };
       $("patInput").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
+      // My patterns: save the current notes with a name, rename, delete (in-page, as prompt() and confirm() are blocked in some views)
+      let patEdit = null, patDelArmed = null;
+      function uniquePatName(name, exceptId) {
+        const base = name; let n = 2;
+        while (store.patterns.some((q) => q.id !== exceptId && q.name === name)) name = `${base} (${n++})`.slice(0, 40);
+        return name;
+      }
+      function openPatName(mode, id, value) {
+        patEdit = { mode: mode, id: id }; renderSettings();
+        $("patName").value = value; $("patName").focus(); $("patName").select();
+      }
+      function closePatName() { patEdit = null; renderSettings(); }
+      function disarmPatDel() {
+        if (!patDelArmed) return;
+        clearTimeout(patDelArmed.timer); patDelArmed = null; $("patDel").textContent = t("pattern.del");
+      }
+      $("patSave").onclick = () => openPatName("save", null, autoName(cur().pattern).slice(0, 40));
+      $("patRename").onclick = () => { const q = myPattern(cur().pattern); if (q) openPatName("rename", q.id, q.name); };
+      $("patNameCancel").onclick = closePatName;
+      $("patNameOk").onclick = () => {
+        const text = normPattern(cur().pattern), typed = $("patName").value.trim().slice(0, 40);
+        if (patEdit && patEdit.mode === "rename") {
+          const q = store.patterns.find((x) => x.id === patEdit.id);
+          if (q) q.name = uniquePatName(typed || q.name, q.id);
+        } else if (!parsePattern(text).error && !myPattern(text)) {
+          // New patterns go to the top of the list
+          const name = uniquePatName(typed || autoName(text).slice(0, 40));
+          store.patterns.unshift({ id: uid(), name: name, text: text });
+          toast(t("pattern.saved", { name: name }));
+        }
+        patEdit = null; saveState(); render(["list", "settings"]);
+      };
+      $("patName").onkeydown = (e) => {
+        if (e.key === "Enter") { e.preventDefault(); $("patNameOk").click(); }
+        else if (e.key === "Escape") { e.preventDefault(); closePatName(); }
+      };
+      // Deleting takes a second tap within 4 seconds. Exercises keep their notes; they just show "Your own" again.
+      $("patDel").onclick = () => {
+        const q = myPattern(cur().pattern);
+        if (!q) return;
+        if (!patDelArmed || patDelArmed.id !== q.id) {
+          disarmPatDel();
+          patDelArmed = { id: q.id, timer: setTimeout(disarmPatDel, 4000) };
+          $("patDel").textContent = t("pattern.delAgain");
+          toast(t("pattern.confirmDel", { name: q.name }));
+          return;
+        }
+        disarmPatDel();
+        store.patterns = store.patterns.filter((x) => x.id !== q.id);
+        saveState(); render(["list", "settings"]);
+        toast(t("pattern.deleted", { name: q.name }));
+      };
       // Start and end
       $("startSel").onchange = (e) => { edit((x) => { x.start = +e.target.value; }, ["list", "settings", "player"], true); preview(cur().start); };
       $("endSel").onchange = (e) => { edit((x) => { x.end = +e.target.value; }, ["list", "settings", "player"], true); preview(cur().end); };
@@ -1308,69 +1469,95 @@
         selectSet(store.sets[Math.min(i, store.sets.length - 1)].id); notice("");
       };
 
-      // Export: the set as a small JSON file with readable note names, to send to someone else
-      function exportData(s) {
-        return {
-          format: "vocalladder-set", version: 1, app: "https://ktkwmr.com/vocalladder/",
-          name: s.name,
-          exercises: s.items.map((x) => ({
-            name: x.name, pattern: normPattern(x.pattern), start: noteName(x.start), end: noteName(x.end),
-            step: x.step, roundTrip: x.round, bpm: x.bpm, rest: x.rest, chord: x.cue, melody: x.guide,
-          })),
-        };
-      }
+      // Export: all sets in one small JSON file with readable note names, to send to someone else.
+      // Format "vocalladder-sets" version 3 (version 2 had no patterns); version 1 files ("vocalladder-set", one set) can still be imported.
+      const setData = (s) => ({
+        name: s.name,
+        exercises: s.items.map((x) => ({
+          name: x.name, pattern: normPattern(x.pattern), start: noteName(x.start), end: noteName(x.end),
+          step: x.step, roundTrip: x.round, bpm: x.bpm, rest: x.rest, chord: x.cue, melody: x.guide,
+        })),
+      });
+      const exportData = () => ({
+        format: "vocalladder-sets", version: 3, app: "https://ktkwmr.com/vocalladder/",
+        patterns: store.patterns.map((q) => ({ name: q.name, pattern: q.text })),
+        sets: store.sets.map(setData),
+      });
       $("exportBtn").onclick = async () => {
-        const s = curSet();
-        const file = (setName(s).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, "_").trim() || "vocalladder") + ".json";
-        const blob = new Blob([JSON.stringify(exportData(s), null, 2) + "\n"], { type: "application/json" });
+        closeMenu(false);
+        const d = new Date(), pad = (n) => String(n).padStart(2, "0");
+        const file = `vocalladder-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
+        const done = () => toast(t("set.exported", { file: file, n: store.sets.length }));
+        const blob = new Blob([JSON.stringify(exportData(), null, 2) + "\n"], { type: "application/json" });
         // Preview published as a claude.ai Artifact (scripts/build-preview.mjs): downloads go through the viewer.
         // On the real site window.claude does not exist, so this is skipped.
         const dl = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
         if (dl) {
-          try { await dl.save({ filename: file, data: blob }); notice(t("set.exported", { file: file })); }
-          catch (e) { if (!e || e.code !== "declined") notice(t("set.exportFail")); }
+          try { await dl.save({ filename: file, data: blob }); done(); }
+          catch (e) { if (!e || e.code !== "declined") toast(t("set.exportFail")); }
           return;
         }
         // iOS (especially as a home screen app) cannot save a download, so use the share sheet there
         if (isIOS() && navigator.canShare) {
           try {
             const f = new File([blob], file, { type: "application/json" });
-            if (navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); notice(t("set.exported", { file: file })); return; }
+            if (navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); done(); return; }
           } catch (e) { if (e && e.name === "AbortError") return; }
         }
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob); a.download = file;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-        notice(t("set.exported", { file: file }));
+        done();
       };
-      // Import: adds the set(s) in the file as new sets; nothing already saved is replaced
+      // Import: adds the sets in the file; nothing already saved is replaced.
+      // A set with the same name and the same exercises as one already here is skipped,
+      // so importing a file again (or your own export) does not make copies.
       // On phones the accept filter can hide files that are fine (e.g. sent by a chat app), so it is removed there
       if (matchMedia("(pointer: coarse)").matches) $("importFile").removeAttribute("accept");
-      $("importBtn").onclick = () => $("importFile").click();
+      $("importBtn").onclick = () => { closeMenu(false); $("importFile").click(); };
       $("importFile").onchange = async (e) => {
         const f = e.target.files && e.target.files[0];
         e.target.value = "";
         if (!f) return;
         try {
-          if (f.size > 1000000) throw new Error("too large");
+          if (f.size > 2000000) throw new Error("too large");
           const data = JSON.parse(await f.text());
-          const list = Array.isArray(data) ? data : Array.isArray(data.sets) ? data.sets : [data];
-          const sets = list.filter((o) => o && (Array.isArray(o.exercises) || Array.isArray(o.items))).slice(0, 50)
-            // New ids, so importing the same file twice gives two separate sets
+          const list = Array.isArray(data) ? data : Array.isArray(data.sets) ? data.sets : data && data.patterns ? [] : [data];
+          const sets = list.filter((o) => o && (Array.isArray(o.exercises) || Array.isArray(o.items))).slice(0, 100)
+            // New ids, so an imported set never shares ids with a set already here
             .map((o) => sanitizeSet({ name: o.name, exercises: (o.exercises || o.items).map((x) => Object.assign({}, x, { id: "" })) }));
-          if (!sets.length) throw new Error("no sets");
+          const pats = sanitizePatterns(data && data.patterns);
+          if (!sets.length && !pats.length) throw new Error("nothing to import");
+          // My patterns from the file go to the top, in the file's order; notes already saved are skipped
+          let patsAdded = 0;
+          pats.reverse().forEach(function (q) {
+            if (myPattern(q.text)) return;
+            store.patterns.unshift({ id: uid(), name: uniquePatName(q.name), text: q.text }); patsAdded++;
+          });
+          // Same set: same exercises, and the same name or that name with the " (2)" added by an earlier import
+          const ex = (x) => JSON.stringify(setData(x).exercises);
+          const sameName = (here, file) => here === file || (here.startsWith(file + " (") && /^ \(\d+\)$/.test(here.slice(file.length)));
+          const same = (here, s) => sameName(here.name, s.name) && ex(here) === ex(s);
+          const added = [];
+          let skipped = 0;
           sets.forEach(function (s) {
             s.name = s.name || f.name.replace(/\.json$/i, "").slice(0, 60);
+            if (store.sets.some((o) => same(o, s))) { skipped++; return; }
             // Keep names unique, so an imported set is easy to find
             const base = s.name; let n = 2;
             while (store.sets.some((o) => o.name === s.name)) s.name = `${base} (${n++})`.slice(0, 60);
-            store.sets.push(s);
+            store.sets.push(s); added.push(s);
           });
-          selectSet(sets[0].id);
-          notice(t("set.imported", { name: setName(sets[0]), n: sets[0].items.length }));
+          if (!added.length && !patsAdded) { toast(t("set.allThere")); return; }
+          if (added.length) selectSet(added[0].id); else { saveState(); render(); }
+          const msg = [];
+          if (added.length) msg.push(t(added.length === 1 ? "set.imported.one" : "set.imported", { n: added.length, names: added.map(setName).join(lang === "ja" ? "、" : ", ") }));
+          if (patsAdded) msg.push(t(patsAdded === 1 ? "pat.imported.one" : "pat.imported", { n: patsAdded }));
+          if (skipped) msg.push(t(skipped === 1 ? "set.skipped.one" : "set.skipped", { n: skipped }));
+          toast(msg.join(" "));
         } catch (err) {
-          notice(t("set.importFail"));
+          toast(t("set.importFail"));
         }
       };
 
@@ -1408,6 +1595,7 @@
       const helpDlg = $("helpDlg");
       const privacyDlg = $("privacyDlg");
       const aboutDlg = $("aboutDlg");
+      const resetDlg = $("resetDlg");
 
       function closeMenu(returnFocus) {
         if (settingsMenu.hidden) return;
@@ -1478,8 +1666,26 @@
         openDlg(aboutDlg);
       });
 
+      // Delete all saved data: back to the state of a browser that has never opened the app.
+      // Only this app's data (vocalladder-state) is removed; the offline copy of the app stays.
+      $("menuReset").addEventListener("click", function () {
+        closeMenu(false);
+        openDlg(resetDlg);
+      });
+      $("resetOk").addEventListener("click", function () {
+        if (playing) stop();
+        try { localStorage.removeItem(STATE_KEY); } catch (e) {}
+        store = freshState(); showKi = 0; patEdit = null;
+        disarmPatDel(); if (delArmed) disarmDel(); notice("");
+        $("saveState").textContent = t("foot");
+        resetDlg.close();
+        render(); renderPlay();
+        if (ctx) master.gain.value = store.vol;
+        toast(t("reset.done"));
+      });
+
       // Dialogs: close with the Close button or a click outside
-      [[helpDlg, "helpClose"], [privacyDlg, "privacyClose"], [aboutDlg, "aboutClose"]].forEach(function (pair) {
+      [[helpDlg, "helpClose"], [privacyDlg, "privacyClose"], [aboutDlg, "aboutClose"], [resetDlg, "resetCancel"]].forEach(function (pair) {
         const dlg = pair[0];
         $(pair[1]).addEventListener("click", function () { dlg.close(); });
         // The menu item that opened it is hidden, so return focus to the settings button

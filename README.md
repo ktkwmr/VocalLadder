@@ -14,10 +14,14 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
   開始・終了のキー（C2〜C6）、半音・全音、上り・下り、開始まで戻るも可。歌う音域を表示
 - **Piano**: chord before each key, melody on/off, rest between keys, tempo 30–240. Synthesized piano or a soft held tone (Web Audio API)
   キーごとの和音、メロディーの有無、キーの間の休み、テンポ 30〜240。ピアノ／やわらかい音（Web Audio API で合成）
+- **My patterns**: save your own notes with a name; they appear at the top of the pattern list for every set. Rename or delete them (exercises keep their notes)
+  マイパターン: オリジナルの音に名前を付けて保存し、パターンの一番上から選べる。名前の変更・削除も可（削除しても練習の音は残る）
+- **Delete all saved data** (⚙ menu): removes all sets, My patterns, and settings in this browser and returns to the first-open state, after a confirmation
+  ⚙ →「保存した情報をすべて削除」で、このブラウザのセット・マイパターン・設定をすべて消して、初めて開いたときの状態に戻す（確認あり）
 - **While playing**: skip or repeat keys (◀ Key / Key ▶ or tap a key)
   再生中にキーを戻す・進める（ボタンかキーの一覧）
-- **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** as a JSON file
-  練習セットを複数持てる（生徒ごとなど）。続けて再生。JSON ファイルで**エクスポート・インポート**
+- **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** all sets as one JSON file
+  練習セットを複数持てる（生徒ごとなど）。続けて再生。すべてのセットを 1 つの JSON ファイルで**エクスポート・インポート**
 - **Installable PWA**, works offline after the first visit; English / Japanese UI (`/vocalladder/ja/`, `?lang=en|ja`)
   ホーム画面に追加でき、オフラインでも動作。英語・日本語
 
@@ -37,18 +41,22 @@ Example: `1 2 3 4 5 4 3 2 1-` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a 2-beat last n
 
 ### Export file / エクスポートのファイル
 
+Export saves **all** sets and **My patterns** in one file. Import adds every set and pattern in the file (patterns whose notes are already saved are skipped); a set with the same name and the same exercises as one already there is skipped, and a different set with a name that already exists gets “(2)”. Nothing saved is replaced. Version 2 files (no patterns) and version 1 files (one set, `"format": "vocalladder-set"`) can still be imported.
+エクスポートは**すべてのセットとマイパターン**を 1 つのファイルに保存します。インポートはファイルのセットとマイパターンをすべて追加します（同じ音のマイパターンはすでにあれば追加しません）。名前も中身も同じセットがすでにあれば読み込まず、名前だけ同じなら「(2)」を付けます。既存のセットは置き換えません。マイパターンのない version 2 と、1 セットだけの version 1 も読み込めます。
+
 ```json
 {
-  "format": "vocalladder-set", "version": 1, "name": "Soprano A",
-  "exercises": [
-    { "name": "", "pattern": "1 2 3 4 5 4 3 2 1-", "start": "C4", "end": "G4", "step": 1,
-      "roundTrip": false, "bpm": 100, "rest": 0, "chord": true, "melody": true }
+  "format": "vocalladder-sets", "version": 3,
+  "patterns": [ { "name": "Do-Mi-Sol twice", "pattern": "1 3 5 3 1 3 5 3 1-" } ],
+  "sets": [
+    { "name": "Soprano A",
+      "exercises": [
+        { "name": "", "pattern": "1 2 3 4 5 4 3 2 1-", "start": "C4", "end": "G4", "step": 1,
+          "roundTrip": false, "bpm": 100, "rest": 0, "chord": true, "melody": true }
+      ] }
   ]
 }
 ```
-
-Import adds the set as a new set (a name that already exists gets “(2)”); nothing saved is replaced.
-インポートは新しいセットとして追加します（同じ名前があれば「(2)」を付けます）。既存のセットは置き換えません。
 
 ## Privacy / プライバシー
 
