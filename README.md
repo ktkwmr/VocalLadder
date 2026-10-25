@@ -14,6 +14,8 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
   開始・終了のキー（C2〜C6）、半音・全音、上り・下り、開始まで戻るも可。歌う音域を表示
 - **Piano**: chord before each key, melody on/off, rest between keys, tempo 30–240. Synthesized piano or a soft held tone (Web Audio API)
   キーごとの和音、メロディーの有無、キーの間の休み、テンポ 30〜240。ピアノ／やわらかい音（Web Audio API で合成）
+- **My patterns**: save your own notes with a name; they appear at the top of the pattern list for every set. Rename or delete them (exercises keep their notes)
+  マイパターン: オリジナルの音に名前を付けて保存し、パターンの一番上から選べる。名前の変更・削除も可（削除しても練習の音は残る）
 - **While playing**: skip or repeat keys (◀ Key / Key ▶ or tap a key)
   再生中にキーを戻す・進める（ボタンかキーの一覧）
 - **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** all sets as one JSON file
@@ -37,12 +39,13 @@ Example: `1 2 3 4 5 4 3 2 1-` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a 2-beat last n
 
 ### Export file / エクスポートのファイル
 
-Export saves **all** sets in one file. Import adds every set in the file; a set with the same name and the same exercises as one already there is skipped, and a different set with a name that already exists gets “(2)”. Nothing saved is replaced. Version 1 files (one set, `"format": "vocalladder-set"`) can still be imported.
-エクスポートは**すべてのセット**を 1 つのファイルに保存します。インポートはファイルのセットをすべて追加します。名前も中身も同じセットがすでにあれば読み込まず、名前だけ同じなら「(2)」を付けます。既存のセットは置き換えません。1 セットだけの古い形式（version 1）も読み込めます。
+Export saves **all** sets and **My patterns** in one file. Import adds every set and pattern in the file (patterns whose notes are already saved are skipped); a set with the same name and the same exercises as one already there is skipped, and a different set with a name that already exists gets “(2)”. Nothing saved is replaced. Version 2 files (no patterns) and version 1 files (one set, `"format": "vocalladder-set"`) can still be imported.
+エクスポートは**すべてのセットとマイパターン**を 1 つのファイルに保存します。インポートはファイルのセットとマイパターンをすべて追加します（同じ音のマイパターンはすでにあれば追加しません）。名前も中身も同じセットがすでにあれば読み込まず、名前だけ同じなら「(2)」を付けます。既存のセットは置き換えません。マイパターンのない version 2 と、1 セットだけの version 1 も読み込めます。
 
 ```json
 {
-  "format": "vocalladder-sets", "version": 2,
+  "format": "vocalladder-sets", "version": 3,
+  "patterns": [ { "name": "Do-Mi-Sol twice", "pattern": "1 3 5 3 1 3 5 3 1-" } ],
   "sets": [
     { "name": "Soprano A",
       "exercises": [
