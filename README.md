@@ -1,6 +1,6 @@
 # Vocal Ladder
 
-A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, arpeggios, scales, or your own), the key to start on, the key to end on, and the tempo. The piano plays it, then moves up or down a half step and plays it again until it reaches the end key. Line exercises up into practice sets that play straight through, and export / import sets to share them with students.
+A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, arpeggios, scales, or your own), the key to start on, the key to end on, and the tempo. The piano plays it, then moves up or down a half step and plays it again until it reaches the end key. Line exercises up into practice sets that play straight through, and export / import them to share as a file.
 
 発声練習のピアノ伴奏ツールです。練習パターン（ドレミファソファミレド・ドミソ・スケール・オリジナル）、開始のキーと終了のキー、テンポを選ぶと、ピアノが半音ずつ上げ下げしながら終了のキーまで繰り返し弾きます。練習を並べた「練習セット」は通しで再生でき、エクスポート・インポートでほかの人と共有できます。
 
@@ -20,8 +20,8 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
   ⚙ →「保存した情報をすべて削除」で、このブラウザのセット・マイパターン・設定をすべて消して、初めて開いたときの状態に戻す（確認あり）
 - **While playing**: skip or repeat keys (◀ Key / Key ▶ or tap a key)
   再生中にキーを戻す・進める（ボタンかキーの一覧）
-- **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** all sets as one JSON file
-  練習セットを複数持てる（生徒ごとなど）。続けて再生。すべてのセットを 1 つの JSON ファイルで**エクスポート・インポート**
+- **Practice sets**: several sets (e.g. by purpose, voice type, or person), exercises play one after another; **Export / Import** all sets as one JSON file
+  練習セットを複数持てる（目的・声種・人ごとなど）。続けて再生。すべてのセットを 1 つの JSON ファイルで**エクスポート・インポート**
 - **Installable PWA**, works offline after the first visit; English / Japanese UI (`/vocalladder/ja/`, `?lang=en|ja`)
   ホーム画面に追加でき、オフラインでも動作。英語・日本語
 
