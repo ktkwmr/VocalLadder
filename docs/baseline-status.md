@@ -42,5 +42,6 @@
 | 11-1〜11-3 | 解析 | ✅ | 同じ token |
 | 11-4 | 本番での送信確認 | 👤 待ち | |
 | 12-1, 12-2 | Actions | ✅ | |
+| 12-12 | 最初に動くものを見せる | ✅ | `scripts/build-preview.mjs` → Artifact https://claude.ai/artifact/Bwsc7DtVBnAsdqfdKcau2o（エクスポートは `downloads` capability） |
 | 13, 14 | 公開・Search Console | 👤 待ち | |
 | 15 | AdSense | — | |

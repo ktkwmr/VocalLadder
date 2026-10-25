@@ -466,9 +466,11 @@
           "set.newName": "Set {n}",
           "set.count": "{n} sets",
           "set.count.one": "1 set",
-          "set.confirmDel": "Delete the set “{name}” and its {n} exercises? This cannot be undone. Export it first if you may need it again.",
+          "set.confirmDel": "Tap “Delete set” again to delete “{name}” and its {n} exercises. This cannot be undone, so export it first if you may need it again.",
+          "set.delAgain": "Tap again to delete",
           "set.exported": "Saved “{file}”.",
           "set.imported": "Imported “{name}” ({n} exercises).",
+          "set.exportFail": "The file could not be saved here.",
           "set.importFail": "This file could not be imported. Choose a file exported from Vocal Ladder (.json).",
           "set.default": "Daily warm-up",
           "list": "Exercises",
@@ -576,9 +578,11 @@
           "set.newName": "セット {n}",
           "set.count": "{n}セット",
           "set.count.one": "1セット",
-          "set.confirmDel": "セット「{name}」（{n}個の練習）を削除しますか？元に戻せません。あとで使うかもしれない場合は、先にエクスポートしてください。",
+          "set.confirmDel": "もう一度「セットを削除」を押すと、「{name}」（{n}個の練習）を削除します。元に戻せないので、あとで使うかもしれない場合は先にエクスポートしてください。",
+          "set.delAgain": "もう一度押すと削除",
           "set.exported": "「{file}」を保存しました。",
           "set.imported": "「{name}」（{n}個の練習）を読み込みました。",
+          "set.exportFail": "ここではファイルを保存できませんでした。",
           "set.importFail": "このファイルは読み込めません。Vocal Ladder でエクスポートしたファイル（.json）を選んでください。",
           "set.default": "毎日の発声練習",
           "list": "練習",
@@ -1182,6 +1186,7 @@
       }
       function selectSet(id) {
         if (playing) stop();
+        if (delArmed) disarmDel();
         store.current = id; showKi = 0; saveState(); render();
       }
       // Result of an export or import, shown in place of the hint below the set buttons
@@ -1271,9 +1276,18 @@
         store.sets.push(s); selectSet(s.id); notice("");
         $("setName").focus(); $("setName").select();
       };
+      // Deleting a set takes a second tap within 4 seconds (in-page, so it also works where confirm() is blocked)
+      let delArmed = null;
+      function disarmDel() { clearTimeout(delArmed); delArmed = null; $("delSetBtn").textContent = t("set.del"); }
       $("delSetBtn").onclick = () => {
         const s = curSet();
-        if (!confirm(t("set.confirmDel", { name: setName(s), n: s.items.length }))) return;
+        if (!delArmed) {
+          $("delSetBtn").textContent = t("set.delAgain");
+          notice(t("set.confirmDel", { name: setName(s), n: s.items.length }));
+          delArmed = setTimeout(() => { disarmDel(); notice(""); }, 4000);
+          return;
+        }
+        disarmDel();
         const i = store.sets.indexOf(s);
         store.sets.splice(i, 1);
         if (!store.sets.length) store.sets.push(sanitizeSet({ name: t("set.newName", { n: 1 }) }));
@@ -1295,6 +1309,14 @@
         const s = curSet();
         const file = (setName(s).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, "_").trim() || "vocalladder") + ".json";
         const blob = new Blob([JSON.stringify(exportData(s), null, 2) + "\n"], { type: "application/json" });
+        // Preview published as a claude.ai Artifact (scripts/build-preview.mjs): downloads go through the viewer.
+        // On the real site window.claude does not exist, so this is skipped.
+        const dl = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
+        if (dl) {
+          try { await dl.save({ filename: file, data: blob }); notice(t("set.exported", { file: file })); }
+          catch (e) { if (!e || e.code !== "declined") notice(t("set.exportFail")); }
+          return;
+        }
         // iOS (especially as a home screen app) cannot save a download, so use the share sheet there
         if (isIOS() && navigator.canShare) {
           try {

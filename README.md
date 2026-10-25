@@ -111,6 +111,10 @@ node scripts/build-ja.mjs --check     # exit 1 if out of date (same for build-pa
 
 編集するのは `index.html`・`timer.js`・`sw.js` と `scripts/` だけです。生成ファイルは手で編集しません。
 
+## Preview as a claude.ai Artifact / Artifact でのプレビュー
+
+`node scripts/build-preview.mjs` writes `.preview/` (not committed): `index.html` without the Service Worker, manifest, and analytics, plus the files it loads (`timer.js`, …). Claude publishes it as an Artifact to show a working version before deploying. Export uses the viewer's `downloads` capability there.
+
 ## Images / 画像
 
 ```sh
