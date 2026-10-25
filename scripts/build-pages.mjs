@@ -24,8 +24,8 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { renderPage, ORIGIN, APP_PATH, PUBLISHED, pagePath } from "./pages/layout.mjs";
 
-// Footer order (no articles yet; add slugs here when articles are written)
-const PAGES = [];
+// Footer order
+const PAGES = ["guide", "patterns", "warmup-scales", "faq"];
 // Site information (operator and privacy policy)
 const INFO_PAGES = ["about", "privacy"];
 
