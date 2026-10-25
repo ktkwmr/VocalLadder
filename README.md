@@ -33,7 +33,7 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
 | `/` | half as long (`1/` = half a beat) / 半分の長さ |
 | `r` | rest / 休み |
 
-Example: `1 2 3 4 5 4 3 2 1--` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a long last note. Patterns with a minor third (`b3`) and no major third get a minor chord.
+Example: `1 2 3 4 5 4 3 2 1-` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a 2-beat last note. The built-in patterns plus the 2-beat chord fill whole bars of 4 beats, so the next key starts right on the beat. Patterns with a minor third (`b3`) and no major third get a minor chord.
 
 ### Export file / エクスポートのファイル
 
@@ -41,8 +41,8 @@ Example: `1 2 3 4 5 4 3 2 1--` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a long last no
 {
   "format": "vocalladder-set", "version": 1, "name": "Soprano A",
   "exercises": [
-    { "name": "", "pattern": "1 2 3 4 5 4 3 2 1--", "start": "C4", "end": "G4", "step": 1,
-      "roundTrip": false, "bpm": 100, "rest": 1, "chord": true, "melody": true }
+    { "name": "", "pattern": "1 2 3 4 5 4 3 2 1-", "start": "C4", "end": "G4", "step": 1,
+      "roundTrip": false, "bpm": 100, "rest": 0, "chord": true, "melody": true }
   ]
 }
 ```
