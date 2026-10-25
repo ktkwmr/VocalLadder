@@ -15,6 +15,54 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/" />
   </url>
   <url>
+    <loc>https://ktkwmr.com/vocalladder/guide/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/guide/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/guide/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/guide/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/ja/guide/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/guide/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/guide/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/guide/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/patterns/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/patterns/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/patterns/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/patterns/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/ja/patterns/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/patterns/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/patterns/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/patterns/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/warmup-scales/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/warmup-scales/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/warmup-scales/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/warmup-scales/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/ja/warmup-scales/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/warmup-scales/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/warmup-scales/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/warmup-scales/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/faq/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/faq/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/faq/" />
+  </url>
+  <url>
+    <loc>https://ktkwmr.com/vocalladder/ja/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/faq/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/faq/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ktkwmr.com/vocalladder/faq/" />
+  </url>
+  <url>
     <loc>https://ktkwmr.com/vocalladder/about/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://ktkwmr.com/vocalladder/about/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://ktkwmr.com/vocalladder/ja/about/" />

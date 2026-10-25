@@ -243,6 +243,8 @@
     .help-list code { font-family: var(--mono); color: var(--ink); }
     ul.help-list { list-style: disc; }
     .help-list a { color: inherit; }
+    dialog.msg p.help-more { margin: 14px 0 0; padding-left: 20px; font-size: 13px; }
+    .help-more a { color: var(--ink); font-weight: 600; }
     dialog.about { width: min(560px, calc(100vw - 32px)); height: min(640px, calc(100% - 32px)); }
     dialog.about[open] { display: flex; flex-direction: column; }
     dialog.msg p.about-license { margin: 0 0 12px; color: var(--subtle); font-size: 12px; }
@@ -407,7 +409,8 @@
       <div data-i18n-html="intro.body"><p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>
         <p>パターンは、ドレミ・ドレミファソ、ドミソのアルペジオ、1オクターブの音階、1オクターブ跳躍、1.5オクターブ変則跳躍、スタッカートなどを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1---</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>
         <p>複数の練習を<b>練習セット</b>に並べて「次の練習へ続けて再生」をオンにすると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、⚙（設定）の<b>エクスポート</b>と<b>インポート</b>で、セットをまとめて1つの小さなファイルにして、ほかの人に渡せます。</p>
-        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p></div>
+        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>
+        <p>ガイド：<a href="/vocalladder/ja/guide/">使い方ガイド</a> · <a href="/vocalladder/ja/patterns/">練習パターンの書き方</a> · <a href="/vocalladder/ja/warmup-scales/">発声練習の音階と音域の決め方</a> · <a href="/vocalladder/ja/faq/">よくある質問</a></p></div>
     </section>
   </main>
 
@@ -422,6 +425,7 @@
         <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>
         <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、数字の前の <code>b</code> で半音下がり <code>#</code> で半音上がり（<code>b3</code> = 半音下げたミ）、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>
         <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li></ol>
+      <p class="help-more"><a href="/vocalladder/ja/guide/" data-i18n="help.more" data-i18n-attr="href:guide.url">詳しい使い方ガイドを読む →</a></p>
     </div>
     <div class="dlg-actions">
       <button class="primary" id="helpClose" type="button" data-i18n="close">閉じる</button>
@@ -446,6 +450,7 @@
 
   <div class="menu" id="settingsMenu" role="menu" aria-label="設定" data-i18n-attr="aria-label:settings" hidden>
     <button type="button" role="menuitem" id="menuHelp" data-i18n="menu.help">使い方</button>
+    <a role="menuitem" id="menuGuide" href="/vocalladder/ja/guide/" data-i18n="menu.guide" data-i18n-attr="href:guide.url">ガイド・記事</a>
     <button type="button" role="menuitem" id="exportBtn" data-i18n="menu.export">セットをエクスポート</button>
     <button type="button" role="menuitem" id="importBtn" data-i18n="menu.import">セットをインポート</button>
     <button type="button" role="menuitem" id="menuPrivacy" data-i18n="menu.privacy">プライバシー</button>
@@ -592,8 +597,11 @@
           "p.leap15": "1.5-octave leap",
           "p.stacc": "Staccato Do-Mi-Sol",
           "intro.title": "Vocal warm-up scales that move up a half step at a time",
-          "intro.body": "<p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>\n        <p>Built-in exercises include Do-Re-Mi and Do-Re-Mi-Fa-Sol, Do-Mi-Sol arpeggios, a one-octave scale, one-octave and 1.5-octave leaps, and staccato. You can also write your own with numbers: <code>1 3 5 8 5 3 1---</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>\n        <p>Put several exercises in a <b>practice set</b> and turn on “Continue to the next exercise”: they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> in the ⚙ settings menu to send your sets to someone else as one small file.</p>\n        <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>",
+          "intro.body": "<p>Vocal Ladder is a free piano accompanist for vocal warm-ups. Choose an exercise such as <b>Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do</b>, the key to start on and the key to end on, and the tempo. The piano plays a chord and the melody, then moves up (or down) a half step and plays it again, until it reaches the ending key. With “Then back to start” it comes back down the same way.</p>\n        <p>Built-in exercises include Do-Re-Mi and Do-Re-Mi-Fa-Sol, Do-Mi-Sol arpeggios, a one-octave scale, one-octave and 1.5-octave leaps, and staccato. You can also write your own with numbers: <code>1 3 5 8 5 3 1---</code> is Do-Mi-Sol-Do-Sol-Mi-Do with a long last note.</p>\n        <p>Put several exercises in a <b>practice set</b> and turn on “Continue to the next exercise”: they play one after another, so a whole warm-up routine runs without touching the screen. Keep a set for each student or voice type, and use <b>Export</b> and <b>Import</b> in the ⚙ settings menu to send your sets to someone else as one small file.</p>\n        <p>No sign-up and no ads. The sound is made in your browser, your sets stay on your device, and it works offline once opened. Add it to your home screen to use it like an app.</p>\n        <p>Guides: <a href=\"/vocalladder/guide/\">how to use</a> · <a href=\"/vocalladder/patterns/\">writing your own patterns</a> · <a href=\"/vocalladder/warmup-scales/\">warm-up scales and your range</a> · <a href=\"/vocalladder/faq/\">FAQ</a></p>",
           "menu.help": "How to use",
+          "menu.guide": "Guides & articles",
+          "guide.url": "/vocalladder/guide/",
+          "help.more": "Read the full guide →",
           "menu.export": "Export all sets",
           "menu.import": "Import sets",
           "menu.privacy": "Privacy",
@@ -725,8 +733,11 @@
           "p.leap15": "1.5オクターブ変則跳躍",
           "p.stacc": "スタッカートのドミソ",
           "intro.title": "半音ずつ上がる発声練習の音階をピアノで",
-          "intro.body": "<p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>\n        <p>パターンは、ドレミ・ドレミファソ、ドミソのアルペジオ、1オクターブの音階、1オクターブ跳躍、1.5オクターブ変則跳躍、スタッカートなどを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1---</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>\n        <p>複数の練習を<b>練習セット</b>に並べて「次の練習へ続けて再生」をオンにすると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、⚙（設定）の<b>エクスポート</b>と<b>インポート</b>で、セットをまとめて1つの小さなファイルにして、ほかの人に渡せます。</p>\n        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>",
+          "intro.body": "<p>Vocal Ladder は、発声練習のピアノ伴奏を自動で弾く無料のツールです。<b>ドレミファソファミレド</b>などの練習パターン、開始のキーと終了のキー、テンポを選ぶと、ピアノが和音とメロディーを弾き、半音ずつ上げて（または下げて）終了のキーまで繰り返します。「開始まで戻る」をオンにすると、同じように開始のキーまで戻ってきます。</p>\n        <p>パターンは、ドレミ・ドレミファソ、ドミソのアルペジオ、1オクターブの音階、1オクターブ跳躍、1.5オクターブ変則跳躍、スタッカートなどを用意しています。数字で自分のパターンも作れます。たとえば <code>1 3 5 8 5 3 1---</code> は「ドミソドソミド」で、最後の音を長くのばします。</p>\n        <p>複数の練習を<b>練習セット</b>に並べて「次の練習へ続けて再生」をオンにすると、順番に続けて再生するので、画面に触れずに発声練習を最後まで通せます。生徒ごと・声種ごとにセットを作り、⚙（設定）の<b>エクスポート</b>と<b>インポート</b>で、セットをまとめて1つの小さなファイルにして、ほかの人に渡せます。</p>\n        <p>登録不要・広告なし。音はブラウザの中で作り、セットは端末の中だけに保存します。一度開けばオフラインでも使え、ホーム画面に追加すればアプリのように使えます。</p>\n        <p>ガイド：<a href=\"/vocalladder/ja/guide/\">使い方ガイド</a> · <a href=\"/vocalladder/ja/patterns/\">練習パターンの書き方</a> · <a href=\"/vocalladder/ja/warmup-scales/\">発声練習の音階と音域の決め方</a> · <a href=\"/vocalladder/ja/faq/\">よくある質問</a></p>",
           "menu.help": "使い方",
+          "menu.guide": "ガイド・記事",
+          "guide.url": "/vocalladder/ja/guide/",
+          "help.more": "詳しい使い方ガイドを読む →",
           "menu.export": "セットをエクスポート",
           "menu.import": "セットをインポート",
           "menu.privacy": "プライバシー",
@@ -965,12 +976,14 @@
       }
       // Root position chord of a key: bass note an octave below, then Do-Mi-Sol (Do-Me-Sol for minor patterns)
       const chordOf = (root, minor) => [root - 12, root, root + (minor ? 3 : 4), root + 7];
+      // Length of the chord played before each key, in beats (also used by the articles: scripts/pages/vocal.mjs)
+      const CUE_BEATS = 2;
       // Everything the piano plays for one exercise, in order. Each event lasts `beats` beats.
       function eventsOf(x) {
         const p = parsePattern(x.pattern), ev = [];
         if (p.error) return null;
         keysOf(x).forEach(function (root, ki) {
-          if (x.cue) ev.push({ kind: "cue", ki: ki, beats: 2, midis: chordOf(root, p.minor) });
+          if (x.cue) ev.push({ kind: "cue", ki: ki, beats: CUE_BEATS, midis: chordOf(root, p.minor) });
           p.notes.forEach((n, ni) => ev.push({ kind: "note", ki: ki, ni: ni, beats: n.beats, midis: n.rest || !x.guide ? [] : [root + n.semis] }));
           if (x.rest) ev.push({ kind: "rest", ki: ki, beats: x.rest, midis: [] });
         });
