@@ -16,6 +16,8 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
   キーごとの和音、メロディーの有無、キーの間の休み、テンポ 30〜240。ピアノ／やわらかい音（Web Audio API で合成）
 - **My patterns**: save your own notes with a name; they appear at the top of the pattern list for every set. Rename or delete them (exercises keep their notes)
   マイパターン: オリジナルの音に名前を付けて保存し、パターンの一番上から選べる。名前の変更・削除も可（削除しても練習の音は残る）
+- **Delete all saved data** (⚙ menu): removes all sets, My patterns, and settings in this browser and returns to the first-open state, after a confirmation
+  ⚙ →「保存した情報をすべて削除」で、このブラウザのセット・マイパターン・設定をすべて消して、初めて開いたときの状態に戻す（確認あり）
 - **While playing**: skip or repeat keys (◀ Key / Key ▶ or tap a key)
   再生中にキーを戻す・進める（ボタンかキーの一覧）
 - **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** all sets as one JSON file

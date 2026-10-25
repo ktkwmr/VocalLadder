@@ -38,7 +38,7 @@ export default {
   <li><b>Your practice sets:</b> the name of each set, and the name, notes, start and end keys, step, tempo, and piano settings of each exercise, which set and exercise are selected, your saved patterns (name and notes), the sound, and the volume, so you can continue next time.</li>
   <li><b>App files:</b> the pages and files of this site you have opened, so the app works offline.</li>
 </ul>
-<p>To delete this data, clear this site's data (site data, cookies, and storage for ktkwmr.com) in your browser settings.</p>
+<p>To delete this data, use ⚙ → “Delete all saved data” in the app, or clear this site's data (site data, cookies, and storage for ktkwmr.com) in your browser settings.</p>
 
 <h2 id="external">3. Information sent to external services</h2>
 <p>When you use this site, your browser sends information to the following services. This list also serves as the notice of external transmission required under Japan's Telecommunications Business Act.</p>
@@ -99,7 +99,7 @@ export default {
   <li><b>練習セット：</b>次に開いたときに続きから使えるよう、各セットの名前と、各練習の名前・音・開始と終了のキー・上げ下げの幅・テンポ・ピアノの設定、選択中のセットと練習、保存したマイパターン（名前と音）、音色、音量を保存します。</li>
   <li><b>アプリのファイル：</b>オフラインでも使えるよう、開いた本サイトのページやファイルを保存します。</li>
 </ul>
-<p>消したいときは、ブラウザの設定でこのサイト（ktkwmr.com）のデータ（サイトデータ・Cookie・ストレージ）を削除してください。</p>
+<p>消したいときは、アプリの ⚙ →「保存した情報をすべて削除」を使うか、ブラウザの設定でこのサイト（ktkwmr.com）のデータ（サイトデータ・Cookie・ストレージ）を削除してください。</p>
 
 <h2 id="external">3. 外部への情報の送信</h2>
 <p>本サイトを利用すると、お使いのブラウザから次のサービスに情報が送信されます。この一覧は、電気通信事業法の外部送信規律に基づく公表を兼ねています。</p>
