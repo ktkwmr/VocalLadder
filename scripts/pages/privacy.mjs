@@ -30,7 +30,7 @@ export default {
 
 <h2 id="app">1. What you do in the app</h2>
 <p>The practice sets and settings you enter are processed, and the piano sound is made, only in your browser. They are never sent to our server or to anyone else. The app does not use the microphone and does not record your voice. This site has no accounts, and we do not ask for your name, email address, or other personal information.</p>
-<p><b>Export and import:</b> Export saves a practice set as a file on your device (or passes it to your device's share menu, which you choose where to send). Import reads a file you choose on your device. Neither sends the file to us. If you send an exported file to someone, it contains the set name and exercise names you typed, so do not put personal information you do not want to share in them.</p>
+<p><b>Export and import:</b> Export saves all your practice sets as one file on your device (or passes it to your device's share menu, which you choose where to send). Import reads a file you choose on your device. Neither sends the file to us. If you send an exported file to someone, it contains every set, with the set names and exercise names you typed, so do not put personal information you do not want to share in them.</p>
 
 <h2 id="storage">2. Data saved in your browser</h2>
 <p>The following data is saved in your browser's storage on your device. It is not sent to us.</p>
@@ -91,7 +91,7 @@ export default {
 
 <h2 id="app">1. アプリで行うこと</h2>
 <p>入力した練習セットや設定の処理とピアノの音の再生は、ブラウザの中だけで行います。運営者のサーバーやほかの誰かに送られることはありません。マイクは使わず、声を録音することもありません。本サイトにはアカウント登録はなく、氏名やメールアドレスなどの個人情報をお聞きすることもありません。</p>
-<p><b>エクスポートとインポート：</b>エクスポートは練習セットを端末にファイルとして保存します（または端末の共有メニューに渡し、送り先はご自身で選びます）。インポートは端末で選んだファイルを読み込みます。どちらも運営者にファイルが送られることはありません。エクスポートしたファイルをほかの人に送ると、入力したセットの名前と練習の名前も相手に渡るので、共有したくない個人情報は書かないでください。</p>
+<p><b>エクスポートとインポート：</b>エクスポートはすべての練習セットを1つのファイルとして端末に保存します（または端末の共有メニューに渡し、送り先はご自身で選びます）。インポートは端末で選んだファイルを読み込みます。どちらも運営者にファイルが送られることはありません。エクスポートしたファイルをほかの人に送ると、すべてのセットと、入力したセットの名前・練習の名前が相手に渡るので、共有したくない個人情報は書かないでください。</p>
 
 <h2 id="storage">2. ブラウザに保存するデータ</h2>
 <p>次のデータを、お使いの端末のブラウザ内に保存します。運営者に送られることはありません。</p>

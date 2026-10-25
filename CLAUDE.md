@@ -22,7 +22,7 @@
 - 手で編集するのはアプリ本体 `public/vocalladder/index.html`（と `timer.js`・`sw.js`）と `scripts/`。生成ファイル（`public/vocalladder/ja/index.html`、情報ページ `about/`・`privacy/` とその `ja/`、`public/vocalladder/sitemap.xml`）は編集せず、`node scripts/build-ja.mjs` と `node scripts/build-pages.mjs` で作り直す（`--check` で確認）。
 - 画面の文言は `index.html` の `I18N`（en / ja）に書き、要素には `data-i18n` / `data-i18n-html` / `data-i18n-attr` を付ける。JS で作る文言は `t()` を使う。子要素を持つ要素に `data-i18n` は付けない（`build-ja.mjs` が止まる）。
 - 練習セットは `localStorage` の `vocalladder-state` に保存する。読み込んだ値・インポートしたファイルは `sanitizeSet()` / `sanitizeItem()` で検証してから使う。
-- エクスポートの形式（`format: "vocalladder-set"`, `version: 1`）は、ほかの人に渡したファイルが読めなくならないよう互換性を保つ。項目を変えるときは `version` を上げ、古い形式も `sanitizeItem()` で読めるようにする。
+- エクスポートはすべてのセットを 1 ファイルにする（`format: "vocalladder-sets"`, `version: 2`, `sets: [...]`）。ほかの人に渡したファイルが読めなくならないよう互換性を保ち、1 セットだけの旧形式（`"vocalladder-set"`, `version: 1`）も読めるようにしておく。項目を変えるときは `version` を上げ、古い形式も `sanitizeItem()` で読めるようにする。インポートは追加のみで、名前と中身が同じセットは読み込まない。
 - 記事（ガイド）は未作成。作るときは `scripts/pages/<slug>.mjs` と `build-pages.mjs` の `PAGES`、設定メニューと使い方からのリンクを足し、PR のプレビューで人間が内容を確認してからマージする（ベースライン §10）。
 - 外部ホストを足したら `public/_headers` の CSP と、プライバシーの説明（`scripts/pages/privacy.mjs`、アプリ内の `privacy.body`、README）を同じ PR で直す。
 - トップページ（https://ktkwmr.com/）のアプリ一覧に載せたら、アプリ名・説明・アイコン・記事を変えたときに `ktkwmr/ktkwmr.com` の `scripts/pages/home.mjs` を直す PR を別に出す（ベースライン §2-16）。

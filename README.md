@@ -16,8 +16,8 @@ A piano accompanist for vocal warm-ups. Choose an exercise (Do-Re-Mi-Fa-Sol-Fa-M
   キーごとの和音、メロディーの有無、キーの間の休み、テンポ 30〜240。ピアノ／やわらかい音（Web Audio API で合成）
 - **While playing**: skip or repeat keys (◀ Key / Key ▶ or tap a key)
   再生中にキーを戻す・進める（ボタンかキーの一覧）
-- **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** as a JSON file
-  練習セットを複数持てる（生徒ごとなど）。続けて再生。JSON ファイルで**エクスポート・インポート**
+- **Practice sets**: several sets (e.g. one per student), exercises play one after another; **Export / Import** all sets as one JSON file
+  練習セットを複数持てる（生徒ごとなど）。続けて再生。すべてのセットを 1 つの JSON ファイルで**エクスポート・インポート**
 - **Installable PWA**, works offline after the first visit; English / Japanese UI (`/vocalladder/ja/`, `?lang=en|ja`)
   ホーム画面に追加でき、オフラインでも動作。英語・日本語
 
@@ -37,18 +37,21 @@ Example: `1 2 3 4 5 4 3 2 1-` = Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do with a 2-beat last n
 
 ### Export file / エクスポートのファイル
 
+Export saves **all** sets in one file. Import adds every set in the file; a set with the same name and the same exercises as one already there is skipped, and a different set with a name that already exists gets “(2)”. Nothing saved is replaced. Version 1 files (one set, `"format": "vocalladder-set"`) can still be imported.
+エクスポートは**すべてのセット**を 1 つのファイルに保存します。インポートはファイルのセットをすべて追加します。名前も中身も同じセットがすでにあれば読み込まず、名前だけ同じなら「(2)」を付けます。既存のセットは置き換えません。1 セットだけの古い形式（version 1）も読み込めます。
+
 ```json
 {
-  "format": "vocalladder-set", "version": 1, "name": "Soprano A",
-  "exercises": [
-    { "name": "", "pattern": "1 2 3 4 5 4 3 2 1-", "start": "C4", "end": "G4", "step": 1,
-      "roundTrip": false, "bpm": 100, "rest": 0, "chord": true, "melody": true }
+  "format": "vocalladder-sets", "version": 2,
+  "sets": [
+    { "name": "Soprano A",
+      "exercises": [
+        { "name": "", "pattern": "1 2 3 4 5 4 3 2 1-", "start": "C4", "end": "G4", "step": 1,
+          "roundTrip": false, "bpm": 100, "rest": 0, "chord": true, "melody": true }
+      ] }
   ]
 }
 ```
-
-Import adds the set as a new set (a name that already exists gets “(2)”); nothing saved is replaced.
-インポートは新しいセットとして追加します（同じ名前があれば「(2)」を付けます）。既存のセットは置き換えません。
 
 ## Privacy / プライバシー
 
