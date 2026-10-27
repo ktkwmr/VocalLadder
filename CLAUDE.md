@@ -23,7 +23,7 @@
 - 画面の文言は `index.html` の `I18N`（en / ja）に書き、要素には `data-i18n` / `data-i18n-html` / `data-i18n-attr` を付ける。JS で作る文言は `t()` を使う。子要素を持つ要素に `data-i18n` は付けない（`build-ja.mjs` が止まる）。
 - 練習セットは `localStorage` の `vocalladder-state` に保存する。読み込んだ値・インポートしたファイルは `sanitizeSet()` / `sanitizeItem()` で検証してから使う。
 - マイパターン（`store.patterns`、名前と音）はパターンのメニューの一番上に出し、新しいものほど上。練習は音そのもの（`pattern`）を持つので、マイパターンを削除・変更しても練習の音は変わらない。読み込んだ値は `sanitizePatterns()` で検証する。
-- エクスポートはすべてのセットとマイパターンを 1 ファイルにする（`format: "vocalladder-sets"`, `version: 3`, `patterns: [...]`, `sets: [...]`）。ほかの人に渡したファイルが読めなくならないよう互換性を保ち、マイパターンのない `version: 2` と 1 セットだけの旧形式（`"vocalladder-set"`, `version: 1`）も読めるようにしておく。項目を変えるときは `version` を上げ、古い形式も `sanitizeItem()` で読めるようにする。インポートは追加のみで、名前と中身が同じセット（前のインポートで付いた「(2)」の違いは同じとみなす）と、同じ音のマイパターンは読み込まない。
+- エクスポートはすべてのセットとマイパターンを 1 ファイルにする（`format: "vocalladder-sets"`, `version: 4`, `patterns: [...]`, `sets: [...]`）。ほかの人に渡したファイルが読めなくならないよう互換性を保ち、`listenFirst`（最初のキーを 2 回）のない `version: 3`、マイパターンのない `version: 2` と 1 セットだけの旧形式（`"vocalladder-set"`, `version: 1`）も読めるようにしておく。項目を変えるときは `version` を上げ、古い形式も `sanitizeItem()` で読めるようにする。インポートは追加のみで、名前と中身が同じセット（前のインポートで付いた「(2)」の違いは同じとみなす）と、同じ音のマイパターンは読み込まない。
 - 記事は `scripts/pages/<slug>.mjs`（guide・patterns・warmup-scales・faq、`build-pages.mjs` の `PAGES`）。記事の表と例は手で書かず、`scripts/pages/vocal.mjs` がアプリの `index.html` から読み込む値（`PRESETS`・`noteName`・`parsePattern`・`CUE_BEATS`）で計算する。アプリのパターンや音の読み方を変えたら記事の本文も見直す（読めなくなるとビルドが止まる）。
 - 記事を追加・変更したら、PR のプレビューで人間が内容を確認してからマージする（ベースライン §10-7）。確認してほしい点と Claude の校閲（§10-9）を `docs/article-review.md` に書き、PR 本文にも載せる。見た目を変えたら `node scripts/render-guide-images.mjs` で画面写真を撮り直す。
 - 外部ホストを足したら `public/_headers` の CSP と、プライバシーの説明（`scripts/pages/privacy.mjs`、アプリ内の `privacy.body`、README）を同じ PR で直す。
