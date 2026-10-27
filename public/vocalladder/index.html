@@ -149,7 +149,6 @@
     .song[aria-current="true"] .mt { color: var(--line-strong); }
     @media (hover: hover) { .song:hover { border-color: var(--ink); } .song:not([aria-current="true"]):hover { background: var(--hover-fill); } }
     .list-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
-    .list-actions .grow { flex: 1 1 100%; }
     .set-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
     .count { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--subtle); padding-right: 10px; }
     .sep { border-top: 1px solid var(--line); padding-top: 16px; }
@@ -290,7 +289,6 @@
             <span class="label"><span data-i18n="list">Exercises</span><span class="val" id="count"></span></span>
             <ol class="songs" id="items"></ol>
             <div class="list-actions">
-              <button type="button" class="chip grow" id="addBtn" data-i18n="add">+ Add exercise</button>
               <button type="button" class="chip" id="dupBtn" data-i18n="dup">Duplicate</button>
               <button type="button" class="chip sq mono" id="upBtn" aria-label="Move the exercise up" data-i18n-attr="aria-label:up">↑</button>
               <button type="button" class="chip sq mono" id="downBtn" aria-label="Move the exercise down" data-i18n-attr="aria-label:down">↓</button>
@@ -320,6 +318,7 @@
           <div class="nav">
             <button type="button" class="chip" id="prevBtn" aria-label="Previous exercise" data-i18n="prev" data-i18n-attr="aria-label:prev.aria">← Prev</button>
             <button type="button" class="chip" id="nextBtn" aria-label="Next exercise" data-i18n="next" data-i18n-attr="aria-label:next.aria">Next →</button>
+            <button type="button" class="chip" id="addBtn" data-i18n="add">+ Add exercise</button>
           </div>
         </div>
 

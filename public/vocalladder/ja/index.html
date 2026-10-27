@@ -151,7 +151,6 @@
     .song[aria-current="true"] .mt { color: var(--line-strong); }
     @media (hover: hover) { .song:hover { border-color: var(--ink); } .song:not([aria-current="true"]):hover { background: var(--hover-fill); } }
     .list-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
-    .list-actions .grow { flex: 1 1 100%; }
     .set-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
     .count { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--subtle); padding-right: 10px; }
     .sep { border-top: 1px solid var(--line); padding-top: 16px; }
@@ -292,7 +291,6 @@
             <span class="label"><span data-i18n="list">練習</span><span class="val" id="count"></span></span>
             <ol class="songs" id="items"></ol>
             <div class="list-actions">
-              <button type="button" class="chip grow" id="addBtn" data-i18n="add">＋ 練習の追加</button>
               <button type="button" class="chip" id="dupBtn" data-i18n="dup">複製</button>
               <button type="button" class="chip sq mono" id="upBtn" aria-label="選択中の練習を上へ" data-i18n-attr="aria-label:up">↑</button>
               <button type="button" class="chip sq mono" id="downBtn" aria-label="選択中の練習を下へ" data-i18n-attr="aria-label:down">↓</button>
@@ -322,6 +320,7 @@
           <div class="nav">
             <button type="button" class="chip" id="prevBtn" aria-label="前の練習" data-i18n="prev" data-i18n-attr="aria-label:prev.aria">← 前</button>
             <button type="button" class="chip" id="nextBtn" aria-label="次の練習" data-i18n="next" data-i18n-attr="aria-label:next.aria">次 →</button>
+            <button type="button" class="chip" id="addBtn" data-i18n="add">＋ 練習の追加</button>
           </div>
         </div>
 

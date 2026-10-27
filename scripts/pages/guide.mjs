@@ -56,8 +56,8 @@ export default {
 <ol>
   <li><b>Choose a set</b> – Switch between practice sets, for example by purpose or voice type. The set name is in the box below it.</li>
   <li><b>Exercises</b> – The exercises of the set, in the order they play. Each shows its keys and tempo. Tap one to select it.</li>
-  <li><b>Exercise buttons</b> – Add an exercise after the selected one, duplicate it, move it up or down, or delete it.</li>
-  <li><b>Title</b> – The exercise's name. If you leave it empty, the name of its pattern is shown.</li>
+  <li><b>Exercise buttons</b> – Duplicate the selected exercise, move it up or down, or delete it.</li>
+  <li><b>Title</b> – The exercise's name. If you leave it empty, the name of its pattern is shown. On its right, <b>← Prev</b> and <b>Next →</b> select the previous or next exercise, and <b>+ Add exercise</b> adds one after the selected exercise.</li>
   <li><b>Current key</b> – The key being played (the note that is Do), which key it is out of how many, and the notes you sing in it.</li>
   <li><b>Notes</b> – The notes of the exercise, drawn at their height. Wider boxes are longer notes. The note being played turns black.</li>
   <li><b>Row of keys</b> – Every key the exercise goes through. Tap one to play from that key.</li>
@@ -102,7 +102,7 @@ export default {
 <h2 id="sets">Practice sets</h2>
 <ul>
   <li>A practice set is a list of exercises. Make as many as you like, by purpose, voice type, or day, with <b>+ New set</b>, and type its name in the set name box.</li>
-  <li><b>+ Add exercise</b> adds one after the selected exercise, with the same keys and tempo, so a series is quick to build.</li>
+  <li><b>+ Add exercise</b> (right of <b>Next →</b>) adds one after the selected exercise, with the same keys and tempo, so a series is quick to build.</li>
   <li>To delete a set, tap <b>Delete set</b> twice within 4 seconds.</li>
 </ul>
 
@@ -172,8 +172,8 @@ export default {
 <ol>
   <li><b>セットを選ぶ</b> – 練習セットを切り替えます（目的ごと・声種ごとなど）。下の欄がセットの名前です。</li>
   <li><b>練習</b> – セットの練習を、再生する順に並べています。それぞれのキーとテンポも表示します。押すと選択します。</li>
-  <li><b>練習のボタン</b> – 選択中の練習の後ろに追加、複製、上下に移動、削除します。</li>
-  <li><b>タイトル</b> – 練習の名前です。空欄なら、パターンの名前を表示します。</li>
+  <li><b>練習のボタン</b> – 選択中の練習を複製、上下に移動、削除します。</li>
+  <li><b>タイトル</b> – 練習の名前です。空欄なら、パターンの名前を表示します。右側の <b>← 前</b>・<b>次 →</b> で前後の練習を選び、<b>＋ 練習の追加</b> で選択中の練習の後ろに練習を足します。</li>
   <li><b>現在のキー</b> – 弾いているキー（ドになる音）、全部で何キー中の何番目か、そのキーで歌う音域です。</li>
   <li><b>音</b> – 練習の音を高さの位置に並べています。横に長いほど長い音です。弾いている音が黒くなります。</li>
   <li><b>キーの一覧</b> – 練習が通るすべてのキーです。押すと、そのキーから再生します。</li>
@@ -218,7 +218,7 @@ export default {
 <h2 id="sets">練習セット</h2>
 <ul>
   <li>練習セットは、練習を並べたものです。目的ごと・声種ごと・日ごとなど、<b>＋ 新しいセット</b> でいくつでも作れます。セットの名前の欄に名前を入れます。</li>
-  <li><b>＋ 練習の追加</b> は、選択中の練習の後ろに、同じキーとテンポで練習を足します。続けて作るときに便利です。</li>
+  <li><b>＋ 練習の追加</b>（<b>次 →</b> の右）は、選択中の練習の後ろに、同じキーとテンポで練習を足します。続けて作るときに便利です。</li>
   <li>セットを削除するときは、<b>セットを削除</b> を 4 秒以内に 2 回押します。</li>
 </ul>
 
