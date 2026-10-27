@@ -388,7 +388,7 @@
             <span class="label" data-i18n="piano">ピアノ</span>
             <div class="chips">
               <button type="button" class="chip" id="cueBtn" data-i18n="cue">キーごとに最初に和音</button>
-              <button type="button" class="chip" id="guideBtn" data-i18n="guide">メロディーも弾く</button>
+              <button type="button" class="chip" id="listenBtn" data-i18n="listen">最初のキーを 2 回（聴いてから歌う）</button>
             </div>
             <span class="label"><span data-i18n="rest">キーの間の休み</span></span>
             <div class="stepper">
@@ -419,7 +419,7 @@
     <div class="help-body">
       <ol class="help-list" data-i18n-html="help.body"><li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>
         <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>
-        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>
+        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、最初のキーを 2 回弾くか（1 回目を聴いてから歌う）、キーの間の休みを設定します。</li>
         <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>
         <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>
         <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>
@@ -527,6 +527,7 @@
           "key.of": "Key {i} of {n}",
           "key.sing": "you sing",
           "cue.on": "♪ Chord",
+          "listen.on": "♪ Listen",
           "start": "Start",
           "stop": "Stop",
           "pattern": "Exercise pattern",
@@ -572,7 +573,7 @@
           "bpm.p5": "Tempo +5",
           "piano": "Piano",
           "cue": "Chord before each key",
-          "guide": "Play the melody",
+          "listen": "First key twice (listen, then sing)",
           "rest": "Rest between keys",
           "rest.down": "Shorter rest",
           "rest.up": "Longer rest",
@@ -611,7 +612,7 @@
           "reset.body": "This deletes all your practice sets, My patterns, and settings saved in this browser, and returns the app to how it looks when first opened. This cannot be undone. To keep your sets, use “Export all sets” first.",
           "reset.ok": "Delete everything",
           "reset.done": "Deleted all saved data.",
-          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether it plays the melody with you, and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Whoever receives the file (or you, on another device) opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b</code> before a number lowers it a half step and <code>#</code> raises it (<code>b3</code> = Mi lowered a half step), <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
+          "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether the first key is played twice (once to listen, then to sing), and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Whoever receives the file (or you, on another device) opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b</code> before a number lowers it a half step and <code>#</code> raises it (<code>b3</code> = Mi lowered a half step), <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
           "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\">privacy policy</a> and <a href=\"/vocalladder/about/\">about this site</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a> · <a href=\"/vocalladder/about/\">About this site</a>",
           "close": "Close",
@@ -663,6 +664,7 @@
           "key.of": "{n}キー中 {i}番目",
           "key.sing": "歌う音域",
           "cue.on": "♪ 和音",
+          "listen.on": "♪ 聴く",
           "start": "スタート",
           "stop": "ストップ",
           "pattern": "練習パターン",
@@ -708,7 +710,7 @@
           "bpm.p5": "テンポを5上げる",
           "piano": "ピアノ",
           "cue": "キーごとに最初に和音",
-          "guide": "メロディーも弾く",
+          "listen": "最初のキーを 2 回（聴いてから歌う）",
           "rest": "キーの間の休み",
           "rest.down": "休みを短く",
           "rest.up": "休みを長く",
@@ -747,7 +749,7 @@
           "reset.body": "このブラウザに保存している練習セット・マイパターン・設定をすべて削除して、初めて開いたときの状態に戻します。元に戻せません。残しておきたいセットは、先に「セットをエクスポート」で保存してください。",
           "reset.ok": "すべて削除",
           "reset.done": "保存した情報をすべて削除しました。",
-          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、数字の前の <code>b</code> で半音下がり <code>#</code> で半音上がり（<code>b3</code> = 半音下げたミ）、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
+          "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、最初のキーを 2 回弾くか（1 回目を聴いてから歌う）、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、数字の前の <code>b</code> で半音下がり <code>#</code> で半音上がり（<code>b3</code> = 半音下げたミ）、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
           "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\">運営者情報</a>をご覧ください。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a> · <a href=\"/vocalladder/ja/about/\">運営者情報</a>",
           "close": "閉じる",
@@ -875,7 +877,8 @@
       const str = (v, n) => (typeof v === "string" ? v.slice(0, n) : "");
       const bool = (v, d) => (v == null ? d : !!v);
       // Every value read from storage or an imported file is checked, so a broken or old file cannot break the app.
-      // Exported files use readable names (note names, roundTrip, chord, melody); both forms are accepted.
+      // Exported files use readable names (note names, roundTrip, chord, listenFirst); both forms are accepted.
+      // The melody is always played: "melody" / "guide" in older data and files is ignored.
       function sanitizeItem(o) {
         o = o && typeof o === "object" ? o : {};
         const note = (v, d) => { const n = parseNote(v); return n == null ? d : clamp(n, LOW, HIGH); };
@@ -890,7 +893,7 @@
           bpm: clamp(Math.round(+o.bpm || 120), 30, 240),
           rest: clamp(Math.round(+o.rest || 0), 0, 8),
           cue: bool(o.chord != null ? o.chord : o.cue, true),
-          guide: bool(o.melody != null ? o.melody : o.guide, true),
+          listen: bool(o.listenFirst != null ? o.listenFirst : o.listen, false),
         };
       }
       function sanitizeSet(o) {
@@ -979,13 +982,18 @@
       // Length of the chord played before each key, in beats (also used by the articles: scripts/pages/vocal.mjs)
       const CUE_BEATS = 2;
       // Everything the piano plays for one exercise, in order. Each event lasts `beats` beats.
+      // With "listen", the first key is played twice: first to listen to, then to sing.
       function eventsOf(x) {
         const p = parsePattern(x.pattern), ev = [];
         if (p.error) return null;
+        const key = function (root, ki, listen) {
+          if (x.cue) ev.push({ kind: "cue", ki: ki, listen: listen, beats: CUE_BEATS, midis: chordOf(root, p.minor) });
+          p.notes.forEach((n, ni) => ev.push({ kind: "note", ki: ki, ni: ni, listen: listen, beats: n.beats, midis: n.rest ? [] : [root + n.semis] }));
+          if (x.rest) ev.push({ kind: "rest", ki: ki, listen: listen, beats: x.rest, midis: [] });
+        };
         keysOf(x).forEach(function (root, ki) {
-          if (x.cue) ev.push({ kind: "cue", ki: ki, beats: CUE_BEATS, midis: chordOf(root, p.minor) });
-          p.notes.forEach((n, ni) => ev.push({ kind: "note", ki: ki, ni: ni, beats: n.beats, midis: n.rest || !x.guide ? [] : [root + n.semis] }));
-          if (x.rest) ev.push({ kind: "rest", ki: ki, beats: x.rest, midis: [] });
+          if (ki === 0 && x.listen) key(root, ki, true);
+          key(root, ki, false);
         });
         return ev;
       }
@@ -1054,7 +1062,7 @@
       // plan: { itemId, evs, i } – the exercise being played and the next event to schedule
       let playing = false, plan = null, nextTime = 0, visQ = [], wake = null, worker = null, intervalId = null;
       // The key shown (and where Start begins), the note and the chord being played
-      let showKi = 0, showNi = -1, showCue = false;
+      let showKi = 0, showNi = -1, showCue = false, showListen = false;
       try { worker = new Worker("timer.js"); worker.onmessage = tick; } catch (e) { worker = null; }
       function makePlan(itemId, ki) {
         const x = findItem(itemId), evs = x && eventsOf(x);
@@ -1083,7 +1091,7 @@
           }
           const e = plan.evs[plan.i++], dur = e.beats * 60 / x.bpm;
           e.midis.forEach((m) => playNote(m, nextTime, dur * (e.kind === "cue" ? 0.92 : 0.96), e.kind === "cue" ? 0.22 : 0.5));
-          visQ.push({ t: nextTime, item: plan.itemId, ki: e.ki, ni: e.kind === "note" ? e.ni : -1, cue: e.kind === "cue" });
+          visQ.push({ t: nextTime, item: plan.itemId, ki: e.ki, ni: e.kind === "note" ? e.ni : -1, cue: e.kind === "cue", listen: !!e.listen });
           nextTime += dur;
         }
       }
@@ -1097,7 +1105,7 @@
         if (!p) return;
         newBus();
         plan = p; visQ = []; nextTime = ctx.currentTime + 0.08;
-        showKi = plan.evs[plan.i].ki; showNi = -1; showCue = false;
+        showKi = plan.evs[plan.i].ki; showNi = -1; showCue = false; showListen = false;
         if (!playing) {
           playing = true;
           if (worker) worker.postMessage("start");
@@ -1117,7 +1125,7 @@
         try { if (wake) wake.release(); } catch (e) {}
         wake = null;
         if (finished) showKi = 0;
-        showNi = -1; showCue = false;
+        showNi = -1; showCue = false; showListen = false;
         renderPlay(); renderLadder(); renderPattern();
       }
       function drawLoop() {
@@ -1128,7 +1136,7 @@
           if (e.end) { stop(true); return; }
           // Moved on to the next exercise in the set
           if (e.item && e.item !== cur().id) { curSet().current = e.item; showKi = 0; saveState(); render(); }
-          if (e.ki != null) { showKi = e.ki; showNi = e.ni; showCue = e.cue; changed = true; }
+          if (e.ki != null) { showKi = e.ki; showNi = e.ni; showCue = e.cue; showListen = e.listen; changed = true; }
         }
         if (changed) { renderLadder(); renderPattern(); }
         requestAnimationFrame(drawLoop);
@@ -1210,8 +1218,9 @@
       function renderPattern() {
         const p = parsePattern(cur().pattern), box = $("patView");
         box.innerHTML = ""; box.classList.toggle("cue", showCue);
-        $("cueTag").textContent = playing && showCue ? t("cue.on") : "";
-        $("cueTag").classList.toggle("on", playing && showCue);
+        // While the first key is played to listen to, the tag says so (also during its chord)
+        $("cueTag").textContent = playing && showListen ? t("listen.on") : playing && showCue ? t("cue.on") : "";
+        $("cueTag").classList.toggle("on", playing && (showCue || showListen));
         if (p.error) return;
         const span = Math.max(1, p.hi - p.lo);
         p.notes.forEach(function (n, i) {
@@ -1268,7 +1277,8 @@
         if (document.activeElement !== $("bpmInput")) $("bpmInput").value = x.bpm;
         $("bpmSlider").value = x.bpm; $("bpmVal").textContent = "♩ = " + x.bpm;
         // Piano
-        $("cueBtn").setAttribute("aria-pressed", x.cue); $("guideBtn").setAttribute("aria-pressed", x.guide);
+        $("cueBtn").setAttribute("aria-pressed", x.cue);
+        $("listenBtn").setAttribute("aria-pressed", x.listen);
         $("restVal").textContent = x.rest; $("restDown").disabled = x.rest <= 0; $("restUp").disabled = x.rest >= 8;
         // For all exercises
         $("throughBtn").setAttribute("aria-pressed", store.through);
@@ -1402,7 +1412,7 @@
       $("bpmInput").onkeydown = (e) => { if (e.key === "Enter") e.target.blur(); };
       // Piano
       $("cueBtn").onclick = () => edit((x) => { x.cue = !x.cue; }, ["settings"], true);
-      $("guideBtn").onclick = () => edit((x) => { x.guide = !x.guide; }, ["settings"], true);
+      $("listenBtn").onclick = () => edit((x) => { x.listen = !x.listen; }, ["settings"], true);
       $("restDown").onclick = () => edit((x) => { x.rest = Math.max(0, x.rest - 1); }, ["settings"], true);
       $("restUp").onclick = () => edit((x) => { x.rest = Math.min(8, x.rest + 1); }, ["settings"], true);
       // For all exercises
@@ -1427,7 +1437,7 @@
       // A new exercise starts from the current one's keys and tempo, so a series is quick to build
       $("addBtn").onclick = () => {
         const c = cur();
-        insertAfterCurrent(sanitizeItem({ start: c.start, end: c.end, bpm: c.bpm, step: c.step, rest: c.rest, cue: c.cue, guide: c.guide }));
+        insertAfterCurrent(sanitizeItem({ start: c.start, end: c.end, bpm: c.bpm, step: c.step, rest: c.rest, cue: c.cue, listen: c.listen }));
       };
       $("dupBtn").onclick = () => {
         const c = cur();
@@ -1477,16 +1487,16 @@
       };
 
       // Export: all sets in one small JSON file with readable note names, to send to someone else.
-      // Format "vocalladder-sets" version 3 (version 2 had no patterns); version 1 files ("vocalladder-set", one set) can still be imported.
+      // Format "vocalladder-sets" version 4 (version 3 had no listenFirst and had melody, version 2 had no patterns); version 1 files ("vocalladder-set", one set) can still be imported.
       const setData = (s) => ({
         name: s.name,
         exercises: s.items.map((x) => ({
           name: x.name, pattern: normPattern(x.pattern), start: noteName(x.start), end: noteName(x.end),
-          step: x.step, roundTrip: x.round, bpm: x.bpm, rest: x.rest, chord: x.cue, melody: x.guide,
+          step: x.step, roundTrip: x.round, bpm: x.bpm, rest: x.rest, chord: x.cue, listenFirst: x.listen,
         })),
       });
       const exportData = () => ({
-        format: "vocalladder-sets", version: 3, app: "https://ktkwmr.com/vocalladder/",
+        format: "vocalladder-sets", version: 4, app: "https://ktkwmr.com/vocalladder/",
         patterns: store.patterns.map((q) => ({ name: q.name, pattern: q.text })),
         sets: store.sets.map(setData),
       });

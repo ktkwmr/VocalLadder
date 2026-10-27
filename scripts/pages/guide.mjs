@@ -67,7 +67,7 @@ export default {
   <li><b>Start key and end key</b> – From C2 to C6. The text below shows how many keys it goes through and the range you sing.</li>
   <li><b>Half step / Whole step / Then back to start</b> – How far to move each time, and whether to come back the same way.</li>
   <li><b>Tempo</b> – Beats per minute, from 30 to 240. One number in the pattern is one beat.</li>
-  <li><b>Piano</b> – Whether to play a chord before each key and the melody with you, and the rest between keys.</li>
+  <li><b>Piano</b> – Whether to play a chord before each key, whether to play the first key twice, and the rest between keys. The piano always plays the melody with you.</li>
   <li><b>For all exercises</b> – Whether to continue to the next exercise, the sound (piano, or a soft held tone), and the volume.</li>
   <li><b>⚙ Settings</b> – How to use, these guides, export and import, privacy, about, and deleting all saved data.</li>
 </ol>
@@ -95,7 +95,7 @@ export default {
 <ul>
   <li><b>Tempo</b> counts beats per minute. The default is 120. Slow it down for wide leaps or when you are just starting.</li>
   <li><b>Chord before each key</b> plays the key's chord (Do-Mi-Sol with a bass note) for 2 beats, so you hear the new key before you sing.</li>
-  <li><b>Play the melody</b> plays the notes with you. Turn it off to sing alone over the chord.</li>
+  <li><b>First key twice (listen, then sing)</b> plays the first key one extra time before you sing, as in a lesson where the teacher plays the exercise first. “♪ Listen” shows while it plays. Then the same key comes again for you to sing, and the exercise goes on as usual.</li>
   <li><b>Rest between keys</b> adds silent beats before the next key, for a breath.</li>
 </ul>
 
@@ -183,7 +183,7 @@ export default {
   <li><b>開始キーと終了キー</b> – C2〜C6 から選びます。下に、通るキーの数と歌う音域を表示します。</li>
   <li><b>半音ずつ／全音ずつ／開始まで戻る</b> – 1 回に動く幅と、同じ道を戻ってくるかどうか。</li>
   <li><b>テンポ</b> – 1 分あたりの拍数（30〜240）。パターンの数字 1 つが 1 拍です。</li>
-  <li><b>ピアノ</b> – キーごとに最初に和音を弾くか、メロディーも弾くか、キーの間の休み。</li>
+  <li><b>ピアノ</b> – キーごとに最初に和音を弾くか、最初のキーを 2 回弾くか、キーの間の休み。メロディーはいつも一緒に弾きます。</li>
   <li><b>すべての練習に共通</b> – 次の練習へ続けて再生するか、音色（ピアノ／やわらかい音）、音量。</li>
   <li><b>⚙ 設定</b> – 使い方、このガイド、エクスポートとインポート、プライバシー、このアプリについて、保存した情報の削除。</li>
 </ol>
@@ -211,7 +211,7 @@ export default {
 <ul>
   <li><b>テンポ</b> は 1 分あたりの拍数です。初期値は 120 です。跳躍の大きい練習や、慣れないうちは遅くします。</li>
   <li><b>キーごとに最初に和音</b> は、そのキーの和音（ドミソと低い音）を 2 拍弾きます。歌う前に新しいキーが分かります。</li>
-  <li><b>メロディーも弾く</b> は、歌う音も一緒に弾きます。オフにすると、和音だけを聞いて自分で歌います。</li>
+  <li><b>最初のキーを 2 回（聴いてから歌う）</b> は、歌い始める前に最初のキーをもう 1 回弾きます。レッスンで先生がまず弾いてみせるのと同じ形です。この 1 回目のあいだは「♪ 聴く」と表示します。続けて同じキーをもう一度弾くので、そこから歌い、あとはいつもどおり進みます。</li>
   <li><b>キーの間の休み</b> は、次のキーの前に休みの拍を入れます。息継ぎに使います。</li>
 </ul>
 

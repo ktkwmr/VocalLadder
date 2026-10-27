@@ -103,7 +103,7 @@ for (const lang of ["en", "ja"]) {
       ["#startSel", "11", "inside"],
       ["#roundBtn", "12", "right"],
       ["label[for=bpmSlider] > span", "13", "right"],
-      ["#guideBtn", "14", "right"],
+      ["#listenBtn", "14", "right"],
       ["#throughBtn", "15", "right"],
       ["#settingsBtn", "16", "left"],
     ]);
