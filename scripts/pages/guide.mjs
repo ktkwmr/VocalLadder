@@ -69,7 +69,7 @@ export default {
   <li><b>Tempo</b> – Beats per minute, from 30 to 240. One number in the pattern is one beat.</li>
   <li><b>Piano</b> – Whether to play a chord before each key, whether to play the first key twice, and the rest between keys. The piano always plays the melody with you.</li>
   <li><b>For all exercises</b> – Whether to continue to the next exercise, the sound (piano, or a soft held tone), and the volume.</li>
-  <li><b>⚙ Settings</b> – How to use, these guides, export and import, privacy, about, and deleting all saved data.</li>
+  <li><b>⚙ Settings</b> – How to use, these guides, export and import, privacy, about, More apps (other free tools by the same author), and deleting all saved data (the guides and More apps open in a new tab, so your work stays as it is).</li>
 </ol>
 
 <h2 id="playing">While it plays</h2>
@@ -185,7 +185,7 @@ export default {
   <li><b>テンポ</b> – 1 分あたりの拍数（30〜240）。パターンの数字 1 つが 1 拍です。</li>
   <li><b>ピアノ</b> – キーごとに最初に和音を弾くか、最初のキーを 2 回弾くか、キーの間の休み。メロディーはいつも一緒に弾きます。</li>
   <li><b>すべての練習に共通</b> – 次の練習へ続けて再生するか、音色（ピアノ／やわらかい音）、音量。</li>
-  <li><b>⚙ 設定</b> – 使い方、このガイド、エクスポートとインポート、プライバシー、このアプリについて、保存した情報の削除。</li>
+  <li><b>⚙ 設定</b> – 使い方、このガイド、エクスポートとインポート、プライバシー、このアプリについて、ほかのアプリ（同じ作者の無料ツール）、保存した情報の削除（ガイドとほかのアプリは新しいタブで開くので、作業中の内容はそのまま残ります）。</li>
 </ol>
 
 <h2 id="playing">再生中の操作</h2>
