@@ -58,6 +58,7 @@
 | 10-8 | 再生成できる値 | ✅ | `scripts/pages/vocal.mjs`、`scripts/render-guide-images.mjs` |
 | 10-9 | 専門家の視点の校閲 | ✅ | `docs/article-review.md` の校閲の表 |
 | 11-1〜11-4 | 解析 | ✅ | 本番での送信を人間が確認済み |
+| 17 | Zaraz + GA4（同意したときだけ） | ⚠️ | 2026-11-28 に実装（`docs/analytics.md`）。本番での確認・Configuration Rule の削除（17-13）・GA4 のカスタム定義の登録は 👤 待ち |
 | 12-1, 12-2 | Actions | ✅ | |
 | 12-3 | ブランチ → PR → squash | ✅ | 最初の 3 コミットだけ main を作るときに直接 push |
 | 12-12 | 最初に動くものを見せる | ✅ | `scripts/build-preview.mjs` → Artifact |

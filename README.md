@@ -62,8 +62,10 @@ Export saves **all** sets and **My patterns** in one file. Import adds every set
 
 - The sound is made only in your browser, and your practice sets are saved only in your browser. Export and import only save and read a file on your device. Nothing you enter is sent to a server. No accounts, cookies, ads, microphone, or third-party libraries.
 - The site is hosted on Cloudflare (standard access logs). Page views are counted with Cloudflare Web Analytics, which uses no cookies.
+- Only if you choose “Accept all” in the cookie banner, Google Analytics (through Cloudflare Zaraz, sent from Cloudflare's servers with a shortened IP address) records how the app is used: pages viewed and for how long, buttons tapped and settings changed, the kind of pattern played and for how long, and the number of sets exported or imported. The names and notes of your sets and patterns are never sent. Change your choice from “Cookie settings” at the bottom of the page. See [docs/analytics.md](docs/analytics.md).
 - 音はブラウザ内で作り、練習セットもブラウザ内だけに保存します。エクスポート・インポートは端末のファイルを保存・読み込みするだけです。入力した内容はサーバーに送信されません。アカウント・Cookie・広告・マイク・外部ライブラリはありません。
 - サイトは Cloudflare で配信しています（標準的なアクセスログ）。閲覧数は Cookie を使わない Cloudflare Web Analytics で集計しています。
+- Cookie のバナーで「すべて同意」を選んだ場合に限り、Google アナリティクス（Cloudflare Zaraz 経由。Cloudflare のサーバーから IP アドレスの末尾を削って送信）でアプリの使われ方（見たページと時間、押したボタンと変えた設定、再生したパターンの種類と時間、エクスポート・インポートしたセットの数）を記録します。セットやパターンの名前と音は送りません。選択はページ下の「Cookie の設定」から変えられます。
 
 Full policy: `/vocalladder/privacy/` (`/vocalladder/ja/privacy/`). Operator: `/vocalladder/about/`.
 

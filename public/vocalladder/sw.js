@@ -2,7 +2,7 @@
 // Older caches of this app (e.g. "vocalladder-<build>") are removed on activate.
 const PREFIX = "vocalladder-";
 const CACHE = PREFIX + "cache";
-const CORE = ["./", "index.html", "timer.js", "ja/", "manifest.json", "THIRD_PARTY_LICENSES.md", "icons/icon.svg"];
+const CORE = ["./", "index.html", "timer.js", "ja/", "manifest.json", "THIRD_PARTY_LICENSES.md", "icons/icon.svg", "usage-events.js"];
 // Libraries loaded from a CDN with a pinned version (WEBAPP_BASELINE.md §3-10): the content of such a URL
 // never changes, so it is cached on first use and served from the cache, which makes it work offline.
 // Also add the host to connect-src in public/_headers. Leave empty when no CDN library is used.
@@ -55,6 +55,9 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   if (new URL(req.url).origin !== self.location.origin) return;
+  // Cloudflare Zaraz (/cdn-cgi/zaraz/…, analytics): always from the network, never cached. Its script is made
+  // for each request, and it is not needed offline
+  if (new URL(req.url).pathname.startsWith("/cdn-cgi/")) return;
   event.respondWith(
     fetch(new Request(req.url, { cache: "no-cache" }))
       .then((res) => {

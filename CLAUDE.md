@@ -26,6 +26,7 @@
 - エクスポートはすべてのセットとマイパターンを 1 ファイルにする（`format: "vocalladder-sets"`, `version: 4`, `patterns: [...]`, `sets: [...]`）。ほかの人に渡したファイルが読めなくならないよう互換性を保ち、`listenFirst`（最初のキーを 2 回）のない `version: 3`、マイパターンのない `version: 2` と 1 セットだけの旧形式（`"vocalladder-set"`, `version: 1`）も読めるようにしておく。項目を変えるときは `version` を上げ、古い形式も `sanitizeItem()` で読めるようにする。インポートは追加のみで、名前と中身が同じセット（前のインポートで付いた「(2)」の違いは同じとみなす）と、同じ音のマイパターンは読み込まない。
 - 記事は `scripts/pages/<slug>.mjs`（guide・patterns・warmup-scales・faq、`build-pages.mjs` の `PAGES`）。記事の表と例は手で書かず、`scripts/pages/vocal.mjs` がアプリの `index.html` から読み込む値（`PRESETS`・`noteName`・`parsePattern`・`CUE_BEATS`）で計算する。アプリのパターンや音の読み方を変えたら記事の本文も見直す（読めなくなるとビルドが止まる）。
 - 記事を追加・変更したら、PR のプレビューで人間が内容を確認してからマージする（ベースライン §10-7）。確認してほしい点と Claude の校閲（§10-9）を `docs/article-review.md` に書き、PR 本文にも載せる。見た目を変えたら `node scripts/render-guide-images.mjs` で画面写真を撮り直す。
+- 利用状況の計測（Cloudflare Zaraz → GA4、同意バナーで同意した人だけ。ベースライン §17）: `usage-events.js`（ベースラインの雛形のコピー。タップ `vl_tap`・設定の変更 `vl_change`・滞在時間 `vl_engaged`）と、主な機能の `track()`（`index.html` の `playFrom()`・`stop()`・エクスポート・インポート）。セット・練習・マイパターンの名前とパターンの音（`setName`・`nameInput`・`patInput`・`patName`）、エクスポートしたファイルの中身は送らない。イベントを足したら `docs/analytics.md` の表と GA4 のカスタム定義、送る内容を変えたらプライバシーの説明も直す。
 - 外部ホストを足したら `public/_headers` の CSP と、プライバシーの説明（`scripts/pages/privacy.mjs`、アプリ内の `privacy.body`、README）を同じ PR で直す。
 - トップページ（https://ktkwmr.com/）のアプリ一覧に載せたら、アプリ名・説明・アイコン・記事を変えたときに `ktkwmr/ktkwmr.com` の `scripts/pages/home.mjs` を直す PR を別に出す（ベースライン §2-16）。
 - 作業はブランチ → PR → Cloudflare のプレビュービルド確認 → squash マージ。

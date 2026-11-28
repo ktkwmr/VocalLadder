@@ -27,6 +27,7 @@ const UI = {
     ctaBody: "Choose an exercise, the start and end keys, and the tempo. The piano moves it up or down a half step at a time. Free, no sign-up, and it works offline.",
     footer: "Vocal Ladder · © 2026 ktkwmr",
     source: "Source code on GitHub",
+    cookies: "Cookie settings",
     feedback: "Feedback",
     home: "More apps by ktkwmr",
     homeUrl: "https://ktkwmr.com/",
@@ -40,6 +41,7 @@ const UI = {
     ctaBody: "練習パターン・開始と終了のキー・テンポを選ぶと、ピアノが半音ずつ上げ下げして伴奏します。無料・登録不要・オフライン対応。",
     footer: "Vocal Ladder · © 2026 ktkwmr",
     source: "GitHub のソースコード",
+    cookies: "Cookie の設定",
     feedback: "ご意見・ご質問",
     home: "ktkwmr のほかのアプリ",
     homeUrl: "https://ktkwmr.com/ja/",
@@ -213,6 +215,9 @@ ${JSON.stringify(jsonLd, null, 2).replace(/</g, "\\u003c").replace(/^/gm, "  ")}
   </script>
   <style>${CSS}
   </style>
+  <!-- Usage analytics: Cloudflare Zaraz → Google Analytics 4, only after consent (see usage-events.js) -->
+  <script src="/cdn-cgi/zaraz/i.js" referrerpolicy="origin"></script>
+  <script src="/vocalladder/usage-events.js"></script>
 </head>
 <body>
   <header class="site-head">
@@ -246,6 +251,7 @@ ${nav}
 ` : ""}      <p class="meta">
         <span>${ui.footer}</span>
 ${infoPages.map((p) => `        <a href="${pagePath(lang, p.slug)}"${p.slug === page.slug ? ' aria-current="page"' : ""}>${escapeHtml(p[lang].nav)}</a>`).join("\n")}
+        <a href="#" class="cookie-settings">${ui.cookies}</a>
         <a href="https://github.com/ktkwmr/VocalLadder" rel="noopener">${ui.source}</a>
         <a href="https://github.com/ktkwmr/VocalLadder/issues" rel="noopener">${ui.feedback}</a>
         <a href="${ui.homeUrl}">${ui.home}</a>

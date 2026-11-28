@@ -277,6 +277,9 @@
     @media (hover: hover) { .related a:hover { border-color: var(--ink); background: var(--hover-fill); } }
     @media (prefers-reduced-motion: reduce) { .related a { transition: none; } .related a:active { transform: none; } }
 </style>
+  <!-- Usage analytics: Cloudflare Zaraz → Google Analytics 4, only after consent (see usage-events.js) -->
+  <script src="/cdn-cgi/zaraz/i.js" referrerpolicy="origin"></script>
+  <script src="/vocalladder/usage-events.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -447,6 +450,7 @@
       <p class="meta" data-i18n-html="foot.meta"><span>Vocal Ladder · © 2026 ktkwmr</span>
 <a href="/vocalladder/ja/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>
 <a href="/vocalladder/ja/about/" target="_blank" rel="noopener">運営者情報</a>
+<a href="#" class="cookie-settings">Cookie の設定</a>
 <a href="https://github.com/ktkwmr/VocalLadder" target="_blank" rel="noopener">GitHub のソースコード</a>
 <a href="https://github.com/ktkwmr/VocalLadder/issues" target="_blank" rel="noopener">ご意見・ご質問</a>
 <a href="https://ktkwmr.com/ja/" target="_blank" rel="noopener">ktkwmr のほかのアプリ</a></p>
@@ -474,9 +478,10 @@
   <dialog class="msg help" id="privacyDlg" tabindex="-1" aria-labelledby="privacyTitle">
     <h2 id="privacyTitle" data-i18n="menu.privacy">プライバシー</h2>
     <div class="help-body">
-      <ul class="help-list" data-i18n-html="privacy.body"><li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>
+      <ul class="help-list" data-i18n-html="privacy.body"><li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・広告はなく、マイクも使いません。</li>
         <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>
         <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>
+        <li><b>同意した場合のみ Google アナリティクス</b> – Cookie のバナーで「すべて同意」を選んだ場合に限り、Google アナリティクス（Cloudflare Zaraz 経由。Cloudflare のサーバーから IP アドレスの末尾を削って送信）でアプリの使われ方（見たページと時間、押したボタンと変えた設定、再生したパターンの種類と時間、エクスポート・インポートしたセットの数）を記録します。セットやパターンの名前と音は送りません。選択はページ下の「Cookie の設定」から変えられます。</li>
         <li><b>お問い合わせ</b> – ご質問・ご意見は <a href="https://github.com/ktkwmr/VocalLadder/issues" target="_blank" rel="noopener">GitHub の Issues</a> へ。</li>
         <li><b>詳しくは</b> – <a href="/vocalladder/ja/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>と<a href="/vocalladder/ja/about/" target="_blank" rel="noopener">運営者情報</a>をご覧ください。</li></ul>
     </div>
@@ -654,14 +659,14 @@
           "rel.2.text": "Practice songs in a key that fits your range",
           "rel.2.href": "/looptrainer/",
           "home.url": "https://ktkwmr.com/",
-          "foot.meta": "<span>Vocal Ladder · © 2026 ktkwmr</span>\n<a href=\"/vocalladder/privacy/\" target=\"_blank\" rel=\"noopener\">Privacy policy</a>\n<a href=\"/vocalladder/about/\" target=\"_blank\" rel=\"noopener\">About this site</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder\" target=\"_blank\" rel=\"noopener\">Source code on GitHub</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">Feedback</a>\n<a href=\"https://ktkwmr.com/\" target=\"_blank\" rel=\"noopener\">More apps by ktkwmr</a>",
+          "foot.meta": "<span>Vocal Ladder · © 2026 ktkwmr</span>\n<a href=\"/vocalladder/privacy/\" target=\"_blank\" rel=\"noopener\">Privacy policy</a>\n<a href=\"/vocalladder/about/\" target=\"_blank\" rel=\"noopener\">About this site</a>\n<a href=\"#\" class=\"cookie-settings\">Cookie settings</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder\" target=\"_blank\" rel=\"noopener\">Source code on GitHub</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">Feedback</a>\n<a href=\"https://ktkwmr.com/\" target=\"_blank\" rel=\"noopener\">More apps by ktkwmr</a>",
           "menu.reset": "Delete all saved data",
           "reset.title": "Delete all saved data?",
           "reset.body": "This deletes all your practice sets, My patterns, and settings saved in this browser, and returns the app to how it looks when first opened. This cannot be undone. To keep your sets, use “Export all sets” first.",
           "reset.ok": "Delete everything",
           "reset.done": "Deleted all saved data.",
           "help.body": "<li><b>Choose an exercise</b> – Pick a pattern such as Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do, or type your own notes in the box below it.</li>\n        <li><b>Start and end</b> – Choose the key to start on and the key to end on (the note that is Do). If the end is higher, the exercise goes up; if it is lower, it goes down. “Then back to start” comes back the same way.</li>\n        <li><b>Tempo and piano</b> – Set the tempo, whether the piano plays a chord before each key, whether the first key is played twice (once to listen, then to sing), and the rest between keys.</li>\n        <li><b>Practice set</b> – Add exercises with “+ Add exercise”. With “Continue to the next exercise” on, the whole set plays in order.</li>\n        <li><b>While playing</b> – Use “◀ Key” and “Key ▶”, or tap a key in the row of keys, to repeat or skip a key.</li>\n        <li><b>Share</b> – In the ⚙ settings menu, “Export all sets” saves all your sets in one file. Whoever receives the file (or you, on another device) opens this app and uses ⚙ → “Import sets”. Sets that are already there are skipped.</li>\n        <li><b>Your own notes</b> – <code>1</code>–<code>7</code> are Do to Ti, <code>8</code> is Do an octave up, <code>5,</code> is Sol below Do, <code>b</code> before a number lowers it a half step and <code>#</code> raises it (<code>b3</code> = Mi lowered a half step), <code>-</code> makes a note one beat longer, <code>/</code> makes it half as long, and <code>r</code> is a rest.</li>\n        <li><b>My patterns</b> – “Save this pattern” keeps your own notes with a name at the top of the pattern list, for any set and exercise. Rename or delete them there; exercises that use a deleted pattern keep their notes.</li>",
-          "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts, cookies, or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\" target=\"_blank\" rel=\"noopener\">privacy policy</a> and <a href=\"/vocalladder/about/\" target=\"_blank\" rel=\"noopener\">about this site</a>.</li>",
+          "privacy.body": "<li><b>Everything stays on your device</b> – The piano sound is made only in your browser. Your practice sets are never sent to a server. Exporting and importing sets only saves and reads a file on your device. This app has no accounts or ads, and does not use the microphone.</li>\n        <li><b>Data saved in your browser</b> – Your practice sets (set names and each exercise's name, notes, start and end keys, tempo, and piano settings), your saved patterns, the sound, and the volume are saved in your browser's storage so they are there next time. To work offline, the app is saved there too. You can delete them with ⚙ → “Delete all saved data”, or by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs and page views</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security. Cloudflare Web Analytics counts page views without cookies (the page URL, referrer, browser information, and page load time).</li>\n        <li><b>Google Analytics, only if you agree</b> – Only if you choose “Accept all” in the cookie banner, Google Analytics (through Cloudflare Zaraz, sent from Cloudflare's servers with a shortened IP address) records how the app is used: pages viewed and for how long, buttons tapped and settings changed, the kind of pattern played and for how long, and the number of sets exported or imported. The names and notes of your sets and patterns are never sent. Change your choice from “Cookie settings” at the bottom of the page.</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>\n        <li><b>Full policy</b> – See the <a href=\"/vocalladder/privacy/\" target=\"_blank\" rel=\"noopener\">privacy policy</a> and <a href=\"/vocalladder/about/\" target=\"_blank\" rel=\"noopener\">about this site</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a> · <a href=\"/vocalladder/about/\" target=\"_blank\" rel=\"noopener\">About this site</a>",
           "close": "Close",
           "loading": "Loading…",
@@ -799,14 +804,14 @@
           "rel.2.text": "曲を自分の音域のキーで練習",
           "rel.2.href": "/looptrainer/ja/",
           "home.url": "https://ktkwmr.com/ja/",
-          "foot.meta": "<span>Vocal Ladder · © 2026 ktkwmr</span>\n<a href=\"/vocalladder/ja/privacy/\" target=\"_blank\" rel=\"noopener\">プライバシーポリシー</a>\n<a href=\"/vocalladder/ja/about/\" target=\"_blank\" rel=\"noopener\">運営者情報</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder\" target=\"_blank\" rel=\"noopener\">GitHub のソースコード</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">ご意見・ご質問</a>\n<a href=\"https://ktkwmr.com/ja/\" target=\"_blank\" rel=\"noopener\">ktkwmr のほかのアプリ</a>",
+          "foot.meta": "<span>Vocal Ladder · © 2026 ktkwmr</span>\n<a href=\"/vocalladder/ja/privacy/\" target=\"_blank\" rel=\"noopener\">プライバシーポリシー</a>\n<a href=\"/vocalladder/ja/about/\" target=\"_blank\" rel=\"noopener\">運営者情報</a>\n<a href=\"#\" class=\"cookie-settings\">Cookie の設定</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder\" target=\"_blank\" rel=\"noopener\">GitHub のソースコード</a>\n<a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">ご意見・ご質問</a>\n<a href=\"https://ktkwmr.com/ja/\" target=\"_blank\" rel=\"noopener\">ktkwmr のほかのアプリ</a>",
           "menu.reset": "保存した情報をすべて削除",
           "reset.title": "保存した情報をすべて削除しますか？",
           "reset.body": "このブラウザに保存している練習セット・マイパターン・設定をすべて削除して、初めて開いたときの状態に戻します。元に戻せません。残しておきたいセットは、先に「セットをエクスポート」で保存してください。",
           "reset.ok": "すべて削除",
           "reset.done": "保存した情報をすべて削除しました。",
           "help.body": "<li><b>練習を選ぶ</b> – 「ドレミファソ」などのパターンを選びます。下の欄に音を入力すると、オリジナルのパターンになります。</li>\n        <li><b>開始と終了</b> – 開始のキーと終了のキー（ドになる音）を選びます。終了が高ければ上がり、低ければ下がります。「開始まで戻る」で同じ道を戻ってきます。</li>\n        <li><b>テンポとピアノ</b> – テンポ、キーごとに最初に和音を弾くか、最初のキーを 2 回弾くか（1 回目を聴いてから歌う）、キーの間の休みを設定します。</li>\n        <li><b>練習セット</b> – 「＋ 練習の追加」で練習を並べます。「次の練習へ続けて再生」がオンなら、セット全体を順番に再生します。</li>\n        <li><b>再生中</b> – 「◀ キー」「キー ▶」やキーの一覧で、同じキーをもう一度練習したり、先へ進んだりできます。</li>\n        <li><b>共有</b> – ⚙（設定）の「セットをエクスポート」で、すべてのセットを1つのファイルに保存します。受け取った人は、このアプリの ⚙ →「セットをインポート」で読み込みます。すでにあるセットは読み込みません。</li>\n        <li><b>オリジナルのパターン</b> – <code>1</code>〜<code>7</code> がド〜シ、<code>8</code> が1オクターブ上のド、<code>5,</code> がドの下のソ、数字の前の <code>b</code> で半音下がり <code>#</code> で半音上がり（<code>b3</code> = 半音下げたミ）、<code>-</code> で1拍のばし、<code>/</code> で半分の長さ、<code>r</code> は休みです。</li>\n        <li><b>マイパターン</b> – 「このパターンを保存」で、オリジナルの音に名前を付けてパターンの一番上に保存し、どのセット・練習でも選べます。名前の変更と削除もここでできます。削除しても、使っていた練習の音は残ります。</li>",
-          "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・Cookie・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\" target=\"_blank\" rel=\"noopener\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\" target=\"_blank\" rel=\"noopener\">運営者情報</a>をご覧ください。</li>",
+          "privacy.body": "<li><b>すべて端末の中で動きます</b> – ピアノの音はブラウザの中だけで作ります。練習セットがサーバーに送られることはありません。エクスポートとインポートも、端末のファイルを保存・読み込みするだけです。アカウント登録・広告はなく、マイクも使いません。</li>\n        <li><b>ブラウザに保存するデータ</b> – 次に開いたときにも使えるよう、練習セット（セットの名前と、各練習の名前・音・開始と終了のキー・テンポ・ピアノの設定）、保存したマイパターン、音色・音量をブラウザ内に保存します。オフラインで使えるよう、アプリ本体も保存します。⚙ →「保存した情報をすべて削除」か、ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n        <li><b>サーバーのログと閲覧数</b> – 本サイトは Cloudflare で配信しています。運用とセキュリティのため、一般的なアクセスログ（IP アドレス・日時・アクセスしたページなど）が記録されます。Cloudflare Web Analytics で、Cookie を使わずにページの閲覧数（ページの URL・参照元・ブラウザの情報・表示速度）を集計しています。</li>\n        <li><b>同意した場合のみ Google アナリティクス</b> – Cookie のバナーで「すべて同意」を選んだ場合に限り、Google アナリティクス（Cloudflare Zaraz 経由。Cloudflare のサーバーから IP アドレスの末尾を削って送信）でアプリの使われ方（見たページと時間、押したボタンと変えた設定、再生したパターンの種類と時間、エクスポート・インポートしたセットの数）を記録します。セットやパターンの名前と音は送りません。選択はページ下の「Cookie の設定」から変えられます。</li>\n        <li><b>お問い合わせ</b> – ご質問・ご意見は <a href=\"https://github.com/ktkwmr/VocalLadder/issues\" target=\"_blank\" rel=\"noopener\">GitHub の Issues</a> へ。</li>\n        <li><b>詳しくは</b> – <a href=\"/vocalladder/ja/privacy/\" target=\"_blank\" rel=\"noopener\">プライバシーポリシー</a>と<a href=\"/vocalladder/ja/about/\" target=\"_blank\" rel=\"noopener\">運営者情報</a>をご覧ください。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/VocalLadder/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a> · <a href=\"/vocalladder/ja/about/\" target=\"_blank\" rel=\"noopener\">運営者情報</a>",
           "close": "閉じる",
           "loading": "読み込み中…",
@@ -1162,6 +1167,12 @@
         try { if (navigator.wakeLock) navigator.wakeLock.request("screen").then((w) => { wake = w; }).catch(() => {}); } catch (e) {}
       }
       // Start (or jump while playing) at key ki of the current exercise
+      // 利用状況の計測（usage-events.js、同意した人だけ GA4 へ）。セット・練習・パターンの名前と音は送らない
+      function track(name, params) { try { if (window.usage) window.usage.track(name, params); } catch (e) {} }
+      function soundOn(on) { try { if (window.usage) window.usage.playing(on); } catch (e) {} }
+      // パターンは組み込みの id、マイパターンは "mine"、それ以外は "custom"（音は送らない）
+      const patternKind = (x) => { const q = PRESETS.find((p) => p.text === normPattern(x.pattern)); return q ? q.id : myPattern(x.pattern) ? "mine" : "custom"; };
+      let playStarted = 0;
       function playFrom(ki) {
         ensureCtx(); master.gain.value = store.vol;
         const p = makePlan(cur().id, ki);
@@ -1170,6 +1181,9 @@
         plan = p; visQ = []; nextTime = ctx.currentTime + 0.08;
         showKi = plan.evs[plan.i].ki; showNi = -1; showCue = false; showListen = false;
         if (!playing) {
+          const x = cur();
+          track("play", { pattern: patternKind(x), keys: keysOf(x).length, from_key: ki, bpm: x.bpm, round: x.round ? "on" : "off", exercises: curSet().items.length });
+          playStarted = performance.now(); soundOn(true);
           playing = true;
           if (worker) worker.postMessage("start");
           // Also tick from the page, in case the worker cannot start
@@ -1181,6 +1195,7 @@
         renderPlay(); renderLadder(); renderPattern();
       }
       function stop(finished) {
+        if (playing) { track("stop", { seconds: Math.round((performance.now() - playStarted) / 1000), finished: finished ? "end" : "stopped" }); soundOn(false); }
         playing = false; plan = null; visQ = [];
         if (worker) worker.postMessage("stop");
         clearInterval(intervalId);
@@ -1567,28 +1582,28 @@
         closeMenu(false);
         const d = new Date(), pad = (n) => String(n).padStart(2, "0");
         const file = `vocalladder-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}.json`;
-        const done = () => toast(t("set.exported", { file: file, n: store.sets.length }));
+        const done = (via) => { toast(t("set.exported", { file: file, n: store.sets.length })); track("export", { result: via, sets: store.sets.length, patterns: store.patterns.length }); };
         const blob = new Blob([JSON.stringify(exportData(), null, 2) + "\n"], { type: "application/json" });
         // Preview published as a claude.ai Artifact (scripts/build-preview.mjs): downloads go through the viewer.
         // On the real site window.claude does not exist, so this is skipped.
         const dl = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
         if (dl) {
-          try { await dl.save({ filename: file, data: blob }); done(); }
-          catch (e) { if (!e || e.code !== "declined") toast(t("set.exportFail")); }
+          try { await dl.save({ filename: file, data: blob }); done("download"); }
+          catch (e) { if (!e || e.code !== "declined") { toast(t("set.exportFail")); track("export", { result: "error" }); } }
           return;
         }
         // iOS (especially as a home screen app) cannot save a download, so use the share sheet there
         if (isIOS() && navigator.canShare) {
           try {
             const f = new File([blob], file, { type: "application/json" });
-            if (navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); done(); return; }
-          } catch (e) { if (e && e.name === "AbortError") return; }
+            if (navigator.canShare({ files: [f] })) { await navigator.share({ files: [f] }); done("share"); return; }
+          } catch (e) { if (e && e.name === "AbortError") { track("export", { result: "cancel" }); return; } }
         }
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob); a.download = file;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-        done();
+        done("download");
       };
       // Import: adds the sets in the file; nothing already saved is replaced.
       // A set with the same name and the same exercises as one already here is skipped,
@@ -1629,6 +1644,7 @@
             while (store.sets.some((o) => o.name === s.name)) s.name = `${base} (${n++})`.slice(0, 60);
             store.sets.push(s); added.push(s);
           });
+          track("import", { result: added.length || patsAdded ? "ok" : "all-there", sets: added.length, patterns: patsAdded, skipped: skipped });
           if (!added.length && !patsAdded) { toast(t("set.allThere")); return; }
           if (added.length) selectSet(added[0].id); else { saveState(); render(); }
           const msg = [];
@@ -1637,6 +1653,7 @@
           if (skipped) msg.push(t(skipped === 1 ? "set.skipped.one" : "set.skipped", { n: skipped }));
           toast(msg.join(" "));
         } catch (err) {
+          track("import", { result: "error" });
           toast(t("set.importFail"));
         }
       };
